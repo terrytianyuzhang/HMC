@@ -9,7 +9,8 @@ estimate_nuisance_parameter_lasso(
   nuisance_sample_2,
   pca_method = "sparse_pca",
   mean_method = "lasso",
-  num_latent_factor = 1
+  num_latent_factor = 1,
+  local_environment = local_environment
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ estimate_nuisance_parameter_lasso(
 \item{mean_method}{Methods used to estimate the discriminant direction. Default is logistic Lasso "lasso".}
 
 \item{num_latent_factor}{The principle component that lasso coefficient anchors at. The default is PC1 = 1.}
+
+\item{local_environment}{A environment for hyperparameters shared between folds.}
 }
 \description{
 The function for nuisance parameter estimation in anchored_lasso_testing().

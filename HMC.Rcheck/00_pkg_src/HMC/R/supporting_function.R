@@ -130,7 +130,7 @@ generate_zero_inflated_normal <- function(sample_size, true_mean, normal_covaria
                                Sigma = normal_covariance))
   num_feature <- length(true_mean)
   
-  mask_vector <- rbinom(number_feature * sample_size, 1, zero_prob)
+  mask_vector <- stats::rbinom(num_feature * sample_size, 1, zero_prob)
   mask_matrix <- matrix(mask_vector, nrow = sample_size)
   
   sample <- sample * mask_matrix
@@ -222,8 +222,8 @@ funny_lasso <- function(sample_1, sample_2,
                                                                                split_data[[split_index]]$nuisance_collection)
     
     split_data[[split_index]]$test_statistic <- mean(split_data[[split_index]]$influence_function_value$influence_each_subject_1) - mean(split_data[[split_index]]$influence_function_value$influence_each_subject_2)
-    split_data[[split_index]]$variance_sample_1 <- var(split_data[[split_index]]$influence_function_value$influence_each_subject_1)
-    split_data[[split_index]]$variance_sample_2 <- var(split_data[[split_index]]$influence_function_value$influence_each_subject_2)
+    split_data[[split_index]]$variance_sample_1 <- stats::var(split_data[[split_index]]$influence_function_value$influence_each_subject_1)
+    split_data[[split_index]]$variance_sample_2 <- stats::var(split_data[[split_index]]$influence_function_value$influence_each_subject_2)
   }
   
   ####now combine the folds
@@ -261,40 +261,40 @@ funny_lasso <- function(sample_1, sample_2,
               split_data = split_data))
 }
 
-combine_data_frame_of_diff_column <- function(df1, df2){
-  
-  # df1 <- data.frame(B = 4:6, A = 1:3)
-  # df2 <- data.frame(A = 7:8, C = 9:10, D = 11:12)
-  
-  # Determine the full set of column names
-  if(nrow(df1) > 0){
-  all_columns <- union(colnames(df1), colnames(df2))
-  
-  # Create a function to add missing columns with NA
-  add_missing_columns <- function(df, all_columns) {
-    missing_columns <- setdiff(all_columns, colnames(df))
-    new_columns <- as.data.frame(matrix(NA, ncol = length(missing_columns), nrow = nrow(df)))
-    colnames(new_columns) <- missing_columns
-    bind_cols(df, new_columns)
-  }
-  
-  # Add missing columns with NA to both data frames
-  df1_filled <- add_missing_columns(df1, all_columns)
-  df2_filled <- add_missing_columns(df2, all_columns)
-  
-  # Combine data frames and fill missing columns with NA
-  combined_df <- bind_rows(df1_filled, df2_filled)
-  
-  # Print the combined data frame
-  return(combined_df)
-  }else{
-    combined_df <- bind_rows(df1, df2)
-    
-    # Print the combined data frame
-    return(combined_df)
-  }
-  
-}
+# combine_data_frame_of_diff_column <- function(df1, df2){
+#   
+#   # df1 <- data.frame(B = 4:6, A = 1:3)
+#   # df2 <- data.frame(A = 7:8, C = 9:10, D = 11:12)
+#   
+#   # Determine the full set of column names
+#   if(nrow(df1) > 0){
+#   all_columns <- union(colnames(df1), colnames(df2))
+#   
+#   # Create a function to add missing columns with NA
+#   add_missing_columns <- function(df, all_columns) {
+#     missing_columns <- setdiff(all_columns, colnames(df))
+#     new_columns <- as.data.frame(matrix(NA, ncol = length(missing_columns), nrow = nrow(df)))
+#     colnames(new_columns) <- missing_columns
+#     bind_cols(df, new_columns)
+#   }
+#   
+#   # Add missing columns with NA to both data frames
+#   df1_filled <- add_missing_columns(df1, all_columns)
+#   df2_filled <- add_missing_columns(df2, all_columns)
+#   
+#   # Combine data frames and fill missing columns with NA
+#   combined_df <- bind_rows(df1_filled, df2_filled)
+#   
+#   # Print the combined data frame
+#   return(combined_df)
+#   }else{
+#     combined_df <- bind_rows(df1, df2)
+#     
+#     # Print the combined data frame
+#     return(combined_df)
+#   }
+#   
+# }
 # gene_symbols <- summarize_feature_name(simple_lasso_test_result)
 # gene_ontology_analysis_pc <- function(pc_each_split, dim_to_analysis = 20,
 #                                       keyType = "SYMBOL", ont = "BP"){

@@ -15,11 +15,6 @@ Maintainer: ‘Tianyu Zhang <tianyuz3@andrew.cmu.edu>’
 
 New submission
 
-The Title field should be in title case. Current version is:
-‘High dimensional mean comparison with projection and cross-fitting’
-In title case that is:
-‘High Dimensional Mean Comparison with Projection and Cross-Fitting’
-
 The Description field should not start with the package name,
   'This package' or similar.
 * checking package namespace information ... OK
@@ -52,42 +47,7 @@ The Description field should not start with the package name,
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... NOTE
-anchored_lasso_testing: no visible binding for '<<-' assignment to
-  ‘hyperparameter_shared_between_folds’
-anchored_lasso_testing: no visible global function definition for ‘var’
-combine_data_frame_of_diff_column : add_missing_columns: no visible
-  global function definition for ‘bind_cols’
-combine_data_frame_of_diff_column: no visible global function
-  definition for ‘bind_rows’
-debiased_pc_testing: no visible binding for '<<-' assignment to
-  ‘hyperparameter_shared_between_folds’
-debiased_pc_testing: no visible binding for global variable ‘var’
-estimate_nuisance_parameter_lasso: no visible binding for global
-  variable ‘hyperparameter_shared_between_folds’
-estimate_nuisance_parameter_lasso: no visible binding for '<<-'
-  assignment to ‘hyperparameter_shared_between_folds’
-estimate_nuisance_parameter_lasso: no visible binding for global
-  variable ‘var’
-estimate_nuisance_pc: no visible binding for global variable ‘var’
-estimate_nuisance_pc: no visible binding for global variable
-  ‘hyperparameter_shared_between_folds’
-estimate_nuisance_pc: no visible binding for '<<-' assignment to
-  ‘hyperparameter_shared_between_folds’
-funny_lasso: no visible global function definition for ‘var’
-generate_zero_inflated_normal: no visible global function definition
-  for ‘rbinom’
-generate_zero_inflated_normal: no visible binding for global variable
-  ‘number_feature’
-simple_pc_testing: no visible binding for '<<-' assignment to
-  ‘hyperparameter_shared_between_folds’
-simple_pc_testing: no visible binding for global variable ‘var’
-Undefined global functions or variables:
-  bind_cols bind_rows hyperparameter_shared_between_folds
-  number_feature rbinom var
-Consider adding
-  importFrom("stats", "rbinom", "var")
-to your NAMESPACE file.
+* checking R code for possible problems ... OK
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
@@ -115,12 +75,12 @@ estimate_nuisance_parameter_lasso.html:4:1 (estimate_nuisance_parameter_lasso.Rd
 estimate_nuisance_parameter_lasso.html:12:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <script> proprietary attribute "onload"
 estimate_nuisance_parameter_lasso.html:12:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <script> inserting "type" attribute
 estimate_nuisance_parameter_lasso.html:17:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <table> lacks "summary" attribute
-estimate_nuisance_parameter_lasso.html:41:1 (estimate_nuisance_parameter_lasso.Rd:16): Warning: <table> lacks "summary" attribute
+estimate_nuisance_parameter_lasso.html:42:1 (estimate_nuisance_parameter_lasso.Rd:17): Warning: <table> lacks "summary" attribute
 estimate_nuisance_pc.html:4:1 (estimate_nuisance_pc.Rd:5): Warning: <link> inserting "type" attribute
 estimate_nuisance_pc.html:12:1 (estimate_nuisance_pc.Rd:5): Warning: <script> proprietary attribute "onload"
 estimate_nuisance_pc.html:12:1 (estimate_nuisance_pc.Rd:5): Warning: <script> inserting "type" attribute
 estimate_nuisance_pc.html:17:1 (estimate_nuisance_pc.Rd:5): Warning: <table> lacks "summary" attribute
-estimate_nuisance_pc.html:41:1 (estimate_nuisance_pc.Rd:16): Warning: <table> lacks "summary" attribute
+estimate_nuisance_pc.html:42:1 (estimate_nuisance_pc.Rd:17): Warning: <table> lacks "summary" attribute
 evaluate_influence_function_multi_factor.html:4:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <link> inserting "type" attribute
 evaluate_influence_function_multi_factor.html:12:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <script> proprietary attribute "onload"
 evaluate_influence_function_multi_factor.html:12:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <script> inserting "type" attribute
@@ -169,4 +129,4 @@ summarize_pc_name.html:39:1 (summarize_pc_name.Rd:14): Warning: <table> lacks "s
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 3 NOTEs
+Status: 2 NOTEs

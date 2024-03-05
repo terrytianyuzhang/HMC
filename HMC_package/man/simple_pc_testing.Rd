@@ -29,27 +29,3 @@ simple_pc_testing(
 \description{
 Simple plug-in test for two-sample mean comparison.
 }
-\examples{
-sample_size_1 <- sample_size_2 <- 300
-
-true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
-true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
-pc1 <- c(rep(1, 10), rep(0, 90))
-pc1 <- pc1/norm(pc1, type = '2')
-
-simulation_covariance <- 10 * pc1 \%*\% t(pc1)
-simulation_covariance <- simulation_covariance + diag(1, 100)
-
-sample_1 <- data.frame(MASS::mvrnorm(sample_size_1,
-                               mu = true_mean_1,
-                               Sigma = simulation_covariance))
- sample_2 <- data.frame(MASS::mvrnorm(sample_size_2,
-                               mu = true_mean_2,
-                               Sigma = simulation_covariance))
- result <- simple_pc_testing(sample_1, sample_2)
- result$test_statistics 
- ##these are test statistics. Each one of them corresponds to one PC.
- summarize_pc_name(result, latent_fator_index = 1) #shows which features contribute to PC1
- extract_pc(result) # extract the estimated leading PCs.
- 
-}

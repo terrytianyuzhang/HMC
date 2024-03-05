@@ -9,7 +9,8 @@ estimate_nuisance_pc(
   nuisance_sample_2 = NULL,
   pca_method = "sparse_pca",
   mean_method = "naive",
-  num_latent_factor = 1
+  num_latent_factor = 1,
+  local_environment = NA
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ estimate_nuisance_pc(
 \item{mean_method}{Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".}
 
 \item{num_latent_factor}{Number of principle to be estimated/tested. Default is 1.}
+
+\item{local_environment}{A environment for hyperparameters shared between folds.}
 }
 \description{
 The function for nuisance parameter estimation in simple_pc_testing() and debiased_pc_testing().

@@ -45,6 +45,7 @@ index_spliter <- function(array, n_folds = 5){
 #' @param pca_method Methods used to estimate principle component The default is "sparse_pca", using sparse PCA from package PMA. Other choices are "dense_pca"---the regular PCA; and "hard"--- hard-thresholding PCA, which also induces sparsity.
 #' @param mean_method Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".
 #' @param num_latent_factor Number of principle to be estimated/tested. Default is 1.
+#' @param local_environment A environment for hyperparameters shared between folds.
 #' 
 #' @export
 #' 
@@ -52,10 +53,11 @@ estimate_nuisance_pc <- function(nuisance_sample_1,
                                  nuisance_sample_2 = NULL,
                                  pca_method = "sparse_pca",
                                  mean_method = "naive",
-                                 num_latent_factor = 1){
-  
-  nuisance_sample_1 <<- nuisance_sample_1
-  nuisance_sample_2 <<- nuisance_sample_2
+                                 num_latent_factor = 1,
+                                 local_environment = NA){
+  # 
+  # nuisance_sample_1 <<- nuisance_sample_1
+  # nuisance_sample_2 <<- nuisance_sample_2
   
   feature_number <- ncol(nuisance_sample_1)
   
@@ -66,7 +68,7 @@ estimate_nuisance_pc <- function(nuisance_sample_1,
   estimate_mean_1 <- colMeans(nuisance_sample_1)
   # estimate_mean_1[abs(estimate_mean_1) < mean_threshold_1] <- 0
   if(mean_method == 'hard'){
-    variance_feature_wise_centered <- apply(nuisance_sample_1, 2, var)
+    variance_feature_wise_centered <- apply(nuisance_sample_1, 2, stats::var)
     mean_threshold <- 2*sqrt(variance_feature_wise_centered)*sqrt(2*log(2*feature_number*nuisance_sample_size_1)/nuisance_sample_size_1)
     estimate_mean_1[abs(estimate_mean_1) < mean_threshold] <- 0
   }
@@ -85,7 +87,7 @@ estimate_nuisance_pc <- function(nuisance_sample_1,
     # estimate_mean_2[abs(estimate_mean_2) < mean_threshold_2] <- 0
     
     if(mean_method == 'hard'){
-      variance_feature_wise_centered <- apply(nuisance_sample_2, 2, var)
+      variance_feature_wise_centered <- apply(nuisance_sample_2, 2, stats::var)
       mean_threshold <- 2*sqrt(variance_feature_wise_centered)*sqrt(2*log(2*feature_number*nuisance_sample_size_2)/nuisance_sample_size_2)
       estimate_mean_2[abs(estimate_mean_2) < mean_threshold] <- 0
     }
@@ -105,18 +107,18 @@ estimate_nuisance_pc <- function(nuisance_sample_1,
   if(pca_method == "sparse_pca"){
     ###estimate sparse principle component
 
-    if(hyperparameter_shared_between_folds < 0){
+    if(local_environment$hyperparameter_shared_between_folds < 0){
       # cv_result <- SPC.cv(sample_centered,
       #                     sumabsvs = seq(1, sqrt(floor(feature_number)), length = 10))
       # hyperparameter_shared_between_folds <<- cv_result$bestsumabsv
       cv_result <- PMA::SPC.cv(sample_centered)
-      hyperparameter_shared_between_folds <<- max(1, 0.7*cv_result$bestsumabsv) ##I USED THIS FOR LUPAS REAL-DATA ANALYSIS
-      hyperparameter_shared_between_folds <<- cv_result$bestsumabsv
+      # hyperparameter_shared_between_folds <<- max(1, 0.7*cv_result$bestsumabsv) ##I USED THIS FOR LUPAS REAL-DATA ANALYSIS
+      assign("hyperparameter_shared_between_folds", cv_result$bestsumabsv, envir = local_environment)
     }
-    print(hyperparameter_shared_between_folds)
+    print(local_environment$hyperparameter_shared_between_folds)
     estimate_leading_pc <- PMA::SPC(sample_centered,
                                K = num_latent_factor,
-                               sumabsv = hyperparameter_shared_between_folds)$v
+                               sumabsv = local_environment$hyperparameter_shared_between_folds)$v
     # plot(estimate_leading_pc[,1])
     # plot(estimate_leading_pc[,2])
     estimate_leading_pc <- estimate_leading_pc/apply(X = estimate_leading_pc, MARGIN = 2, FUN = norm, type = '2')
@@ -403,28 +405,28 @@ evaluate_influence_function_multi_factor <- function(cross_fitting_sample_1,
 #' @param n_folds Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.
 #' @export
 #' @examples 
-#' sample_size_1 <- sample_size_2 <- 300
+# sample_size_1 <- sample_size_2 <- 300
+# 
+# true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
+# true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
+# pc1 <- c(rep(1, 10), rep(0, 90))
+# pc1 <- pc1/norm(pc1, type = '2')
+# 
+# simulation_covariance <- 10 * pc1 %*% t(pc1)
+# simulation_covariance <- simulation_covariance + diag(1, 100)
+# 
+# sample_1 <- data.frame(MASS::mvrnorm(sample_size_1,
+#                                mu = true_mean_1,
+#                                Sigma = simulation_covariance))
+#  sample_2 <- data.frame(MASS::mvrnorm(sample_size_2,
+#                                mu = true_mean_2,
+#                                Sigma = simulation_covariance))
+#  result <- simple_pc_testing(sample_1, sample_2)
+#  result$test_statistics
+#  ##these are test statistics. Each one of them corresponds to one PC.
+#  summarize_pc_name(result, latent_fator_index = 1) #shows which features contribute to PC1
+#  extract_pc(result) # extract the estimated leading PCs.
 #' 
-#' true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
-#' true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
-#' pc1 <- c(rep(1, 10), rep(0, 90))
-#' pc1 <- pc1/norm(pc1, type = '2')
-#' 
-#' simulation_covariance <- 10 * pc1 %*% t(pc1)
-#' simulation_covariance <- simulation_covariance + diag(1, 100)
-#' 
-#' sample_1 <- data.frame(MASS::mvrnorm(sample_size_1,
-#'                                mu = true_mean_1,
-#'                                Sigma = simulation_covariance))
-#'  sample_2 <- data.frame(MASS::mvrnorm(sample_size_2,
-#'                                mu = true_mean_2,
-#'                                Sigma = simulation_covariance))
-#'  result <- simple_pc_testing(sample_1, sample_2)
-#'  result$test_statistics 
-#'  ##these are test statistics. Each one of them corresponds to one PC.
-#'  summarize_pc_name(result, latent_fator_index = 1) #shows which features contribute to PC1
-#'  extract_pc(result) # extract the estimated leading PCs.
-#'  
 simple_pc_testing <- function(sample_1,
                               sample_2 = NULL,
                               pca_method = "sparse_pca",
@@ -445,7 +447,10 @@ simple_pc_testing <- function(sample_1,
                                           n_folds = n_folds)
   }
   
-  hyperparameter_shared_between_folds <<- -1
+  local_environment <- new.env(parent = emptyenv())  
+  assign("hyperparameter_shared_between_folds", -1, envir = local_environment)
+
+  # hyperparameter_shared_between_folds <<- -1
   ###process each split
   for(split_index in 1:n_folds){
     
@@ -468,7 +473,8 @@ simple_pc_testing <- function(sample_1,
                                                                           sample_2_nuisance,
                                                                           pca_method = pca_method,
                                                                           mean_method = mean_method,
-                                                                          num_latent_factor = num_latent_factor)
+                                                                          num_latent_factor = num_latent_factor,
+                                                                          local_environment = local_environment)
     split_data[[split_index]]$influence_function_value <- evaluate_pca_plug_in(sample_1_cross,
                                                                                sample_2_cross,
                                                                                split_data[[split_index]]$nuisance_collection)
@@ -476,11 +482,11 @@ simple_pc_testing <- function(sample_1,
     ##############
     
     sample_1_individual <- split_data[[split_index]]$influence_function_value$influence_each_subject_1
-    split_data[[split_index]]$variance_sample_1 <- apply(X = sample_1_individual, MARGIN = 2, FUN = var)
+    split_data[[split_index]]$variance_sample_1 <- apply(X = sample_1_individual, MARGIN = 2, FUN = stats::var)
     
     if(!is.null(sample_2)){
       sample_2_individual <- split_data[[split_index]]$influence_function_value$influence_each_subject_2
-      split_data[[split_index]]$variance_sample_2 <- apply(X = sample_2_individual, MARGIN = 2, FUN = var)
+      split_data[[split_index]]$variance_sample_2 <- apply(X = sample_2_individual, MARGIN = 2, FUN = stats::var)
       
       split_data[[split_index]]$test_statistic <- apply(X = sample_1_individual, MARGIN = 2, FUN = mean) - apply(X = sample_2_individual, MARGIN = 2, FUN = mean)
     }else{
@@ -600,7 +606,8 @@ debiased_pc_testing <- function(sample_1,
                                           n_folds = n_folds)
   }
   
-  hyperparameter_shared_between_folds <<- -1
+  local_environment <- new.env(parent = emptyenv())  
+  assign("hyperparameter_shared_between_folds", -1, envir = local_environment)
   ###process each split
   for(split_index in 1:n_folds){
     print(paste0("processiong fold ", split_index))
@@ -622,7 +629,8 @@ debiased_pc_testing <- function(sample_1,
                                                                           sample_2_nuisance,
                                                                           pca_method = pca_method,
                                                                           mean_method = mean_method,
-                                                                          num_latent_factor = num_latent_factor)
+                                                                          num_latent_factor = num_latent_factor,
+                                                                          local_environment = local_environment)
     split_data[[split_index]]$influence_function_value <- evaluate_influence_function_multi_factor(sample_1_cross,
                                                                                                    sample_2_cross,
                                                                                                    nuisance_collection = split_data[[split_index]]$nuisance_collection,
@@ -649,12 +657,12 @@ debiased_pc_testing <- function(sample_1,
       split_data[[split_index]]$test_statistic <- split_data[[split_index]]$test_statistic + apply(X = sample_1_correction, MARGIN = 2, FUN = mean) + apply(X = sample_2_correction, MARGIN = 2, FUN = mean)
       
       ##variance
-      split_data[[split_index]]$variance_sample_1 <- apply(X = split_data[[split_index]]$influence_function_value$for_variance_subject_1, MARGIN = 2, FUN = var)
-      split_data[[split_index]]$variance_sample_2 <- apply(X = split_data[[split_index]]$influence_function_value$for_variance_subject_2, MARGIN = 2, FUN = var)
+      split_data[[split_index]]$variance_sample_1 <- apply(X = split_data[[split_index]]$influence_function_value$for_variance_subject_1, MARGIN = 2, FUN = stats::var)
+      split_data[[split_index]]$variance_sample_2 <- apply(X = split_data[[split_index]]$influence_function_value$for_variance_subject_2, MARGIN = 2, FUN = stats::var)
       
     }else{
       sample_1_individual <- split_data[[split_index]]$influence_function_value$influence_each_subject_1
-      split_data[[split_index]]$variance_sample_1 <- apply(X = sample_1_individual, MARGIN = 2, FUN = var)
+      split_data[[split_index]]$variance_sample_1 <- apply(X = sample_1_individual, MARGIN = 2, FUN = stats::var)
       split_data[[split_index]]$test_statistic <- apply(X = sample_1_individual, MARGIN = 2, FUN = mean)
     }
     
@@ -727,13 +735,15 @@ debiased_pc_testing <- function(sample_1,
 #' @param pca_method Methods used to estimate principle component The default is "sparse_pca", using sparse PCA from package PMA. Other choices are "dense_pca"---the regular PCA; and "hard"--- hard-thresholding PCA, which also induces sparsity.
 #' @param mean_method Methods used to estimate the discriminant direction. Default is logistic Lasso "lasso". 
 #' @param num_latent_factor The principle component that lasso coefficient anchors at. The default is PC1 = 1.
+#' @param local_environment A environment for hyperparameters shared between folds.
 #' @export
 #' 
 estimate_nuisance_parameter_lasso <- function(nuisance_sample_1,
                                               nuisance_sample_2,
                                               pca_method = "sparse_pca",
                                               mean_method = "lasso",
-                                              num_latent_factor = 1){
+                                              num_latent_factor = 1,
+                                              local_environment = local_environment){
   ###nuisance_sample_1 is required to be a data.frame
   nuisance_sample_1 <<- nuisance_sample_1
   nuisance_sample_2 <<- nuisance_sample_2
@@ -769,14 +779,15 @@ estimate_nuisance_parameter_lasso <- function(nuisance_sample_1,
   
   if(pca_method == "sparse_pca"){
     ###estimate sparse principle component
-    if(hyperparameter_shared_between_folds < 0){
+    if(local_environment$hyperparameter_shared_between_folds < 0){
       cv_result <- PMA::SPC.cv(sample_centered)
-      hyperparameter_shared_between_folds <<- max(1, 0.7*cv_result$bestsumabsv)
+      # hyperparameter_shared_between_folds <<- max(1, 0.7*cv_result$bestsumabsv)
+      assign("hyperparameter_shared_between_folds", cv_result$bestsumabsv, envir = local_environment)
     }
-    print(hyperparameter_shared_between_folds)
+    print(local_environment$hyperparameter_shared_between_folds)
     estimate_leading_pc <- PMA::SPC(sample_centered,
                                K = num_latent_factor,
-                               sumabsv = hyperparameter_shared_between_folds)$v
+                               sumabsv = local_environment$hyperparameter_shared_between_folds)$v
     estimate_leading_pc <- estimate_leading_pc[, num_latent_factor]
     # cv_result <- SPC.cv(sample_centered,
     #                     sumabsvs = seq(1, sqrt(floor(feature_number)), length = 5))
@@ -814,7 +825,7 @@ estimate_nuisance_parameter_lasso <- function(nuisance_sample_1,
     nuisance_sample_2$class <- 0
     nuisance_sample <- rbind(nuisance_sample_1, nuisance_sample_2)
     
-    non_zero_variance_feature <- (apply(nuisance_sample, 2 ,var) != 0)
+    non_zero_variance_feature <- (apply(nuisance_sample, 2 ,stats::var) != 0)
     nuisance_sample[,non_zero_variance_feature] <- scale(nuisance_sample[,non_zero_variance_feature])
     
     lasso_cv_result <- glmnet::cv.glmnet(y = nuisance_sample$class,
@@ -954,7 +965,10 @@ anchored_lasso_testing <- function(sample_1, sample_2,
   sample_2_split_index <- index_spliter(1:nrow(sample_2),
                                         n_folds = n_folds)
   
-  hyperparameter_shared_between_folds <<- -1
+  local_environment <- new.env(parent = emptyenv())  
+  assign("hyperparameter_shared_between_folds", -1, envir = local_environment)
+  # local_environment$hyperparameter_shared_between_folds <- -1
+  
   for(split_index in 1:n_folds){
     print(paste0("processiong fold ", split_index))
     sample_1_cross <- sample_1[sample_1_split_index[[split_index]], ]
@@ -970,15 +984,16 @@ anchored_lasso_testing <- function(sample_1, sample_2,
                                                                                        sample_2_nuisance,
                                                                                        pca_method = pca_method,
                                                                                        mean_method = mean_method,
-                                                                                       num_latent_factor = num_latent_factor)
+                                                                                       num_latent_factor = num_latent_factor,
+                                                                                       local_environment = local_environment)
     split_data[[split_index]]$influence_function_value <- evaluate_pca_lasso_plug_in(sample_1_cross,
                                                                                      sample_2_cross,
                                                                                      split_data[[split_index]]$nuisance_collection,
                                                                                      mean_method = mean_method)
     
     split_data[[split_index]]$test_statistic <- mean(split_data[[split_index]]$influence_function_value$influence_each_subject_1) - mean(split_data[[split_index]]$influence_function_value$influence_each_subject_2)
-    split_data[[split_index]]$variance_sample_1 <- var(split_data[[split_index]]$influence_function_value$for_variance_each_subject_1)
-    split_data[[split_index]]$variance_sample_2 <- var(split_data[[split_index]]$influence_function_value$for_variance_each_subject_2)
+    split_data[[split_index]]$variance_sample_1 <- stats::var(split_data[[split_index]]$influence_function_value$for_variance_each_subject_1)
+    split_data[[split_index]]$variance_sample_2 <- stats::var(split_data[[split_index]]$influence_function_value$for_variance_each_subject_2)
   }
   
   ####now combine the folds
