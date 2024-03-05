@@ -5,8 +5,10 @@ library(roxygen2)
 setwd("/Users/tianyuzhang/Documents/HMC/")
 document()
 setwd("..")
+build("HMC")
 install("HMC")
 
 library(HMC)
 ?index_spliter
-?HMC
+?anchored_lasso_testing
+

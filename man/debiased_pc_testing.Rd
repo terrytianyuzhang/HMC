@@ -29,3 +29,24 @@ debiased_pc_testing(
 \description{
 Debiased one-step test for two-sample mean comparison. A small p-value tells us not only there is difference in the mean vectors, but can also indicates which principle component the difference aligns with.
 }
+\examples{
+sample_size_1 <- sample_size_2 <- 300
+
+true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
+true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
+pc1 <- c(rep(1, 10), rep(0, 90))
+pc1 <- pc1/norm(pc1, type = '2')
+
+simulation_covariance <- 10 * pc1 \%*\% t(pc1)
+simulation_covariance <- simulation_covariance + diag(1, 100)
+
+sample_1 <- data.frame(mvrnorm(sample_size_1,
+                               mu = true_mean_1,
+                               Sigma = simulation_covariance))
+ sample_2 <- data.frame(mvrnorm(sample_size_2,
+                               mu = true_mean_2,
+                               Sigma = dsimulation_covariance))
+ result <- debiased_pc_testing(sample_1, sample_2)
+ result$test_statistics
+ 
+}

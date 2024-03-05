@@ -400,6 +400,27 @@ evaluate_influence_function_multi_factor <- function(cross_fitting_sample_1,
 #' @param mean_method Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".
 #' @param num_latent_factor Number of principle to be estimated/tested. Default is 1.
 #' @param n_folds Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.
+#' @export
+#' @examples 
+#' sample_size_1 <- sample_size_2 <- 300
+#' 
+#' true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
+#' true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
+#' pc1 <- c(rep(1, 10), rep(0, 90))
+#' pc1 <- pc1/norm(pc1, type = '2')
+#' 
+#' simulation_covariance <- 10 * pc1 %*% t(pc1)
+#' simulation_covariance <- simulation_covariance + diag(1, 100)
+#' 
+#' sample_1 <- data.frame(mvrnorm(sample_size_1,
+#'                                mu = true_mean_1,
+#'                                Sigma = simulation_covariance))
+#'  sample_2 <- data.frame(mvrnorm(sample_size_2,
+#'                                mu = true_mean_2,
+#'                                Sigma = simulation_covariance))
+#'  result <- simple_pc_testing(sample_1, sample_2)
+#'  result$test_statistics
+#'  
 simple_pc_testing <- function(sample_1,
                               sample_2 = NULL,
                               pca_method = "sparse_pca",
@@ -530,7 +551,27 @@ simple_pc_testing <- function(sample_1,
 #' @param mean_method Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".
 #' @param num_latent_factor Number of principle to be estimated/tested. Default is 1.
 #' @param n_folds Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.
-
+#' @export
+#' @examples 
+#' sample_size_1 <- sample_size_2 <- 300
+#' 
+#' true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
+#' true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
+#' pc1 <- c(rep(1, 10), rep(0, 90))
+#' pc1 <- pc1/norm(pc1, type = '2')
+#' 
+#' simulation_covariance <- 10 * pc1 %*% t(pc1)
+#' simulation_covariance <- simulation_covariance + diag(1, 100)
+#' 
+#' sample_1 <- data.frame(mvrnorm(sample_size_1,
+#'                                mu = true_mean_1,
+#'                                Sigma = simulation_covariance))
+#'  sample_2 <- data.frame(mvrnorm(sample_size_2,
+#'                                mu = true_mean_2,
+#'                                Sigma = dsimulation_covariance))
+#'  result <- debiased_pc_testing(sample_1, sample_2)
+#'  result$test_statistics
+#'  
 debiased_pc_testing <- function(sample_1,
                                 sample_2 = NULL,
                                 pca_method = "sparse_pca",

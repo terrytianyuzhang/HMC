@@ -29,3 +29,17 @@ simple_pc_testing(
 \description{
 Simple plug-in test for two-sample mean comparison.
 }
+\examples{
+sample_size_1 <- sample_size_2 <- 300
+true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
+true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
+
+sample_1 <- data.frame(mvrnorm(sample_size_1,
+                               mu = true_mean_1,
+                               Sigma = diag(1, 100)))
+ sample_2 <- data.frame(mvrnorm(sample_size_2,
+                               mu = true_mean_2,
+                               Sigma = diag(1, 100)))
+ result <- simple_pc_testing(sample_1, sample_2)
+ result$test_statistics
+}
