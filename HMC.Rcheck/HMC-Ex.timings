@@ -1,0 +1,4 @@
+name	user	system	elapsed
+anchored_lasso_testing	2.295	0.053	2.351	
+debiased_pc_testing	1.196	0.017	1.213	
+simple_pc_testing	1.191	0.018	1.209	

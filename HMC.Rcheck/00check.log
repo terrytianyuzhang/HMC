@@ -1,0 +1,172 @@
+* using log directory ‘/Users/tianyuzhang/Documents/HMC/HMC.Rcheck’
+* using R version 4.3.1 (2023-06-16)
+* using platform: aarch64-apple-darwin20 (64-bit)
+* R was compiled by
+    Apple clang version 14.0.0 (clang-1400.0.29.202)
+    GNU Fortran (GCC) 12.2.0
+* running under: macOS Ventura 13.4
+* using session charset: UTF-8
+* using option ‘--as-cran’
+* checking for file ‘HMC/DESCRIPTION’ ... OK
+* this is package ‘HMC’ version ‘1.0’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Tianyu Zhang <tianyuz3@andrew.cmu.edu>’
+
+New submission
+
+The Title field should be in title case. Current version is:
+‘High dimensional mean comparison with projection and cross-fitting’
+In title case that is:
+‘High Dimensional Mean Comparison with Projection and Cross-Fitting’
+
+The Description field should not start with the package name,
+  'This package' or similar.
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘HMC’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+anchored_lasso_testing: no visible binding for '<<-' assignment to
+  ‘hyperparameter_shared_between_folds’
+anchored_lasso_testing: no visible global function definition for ‘var’
+combine_data_frame_of_diff_column : add_missing_columns: no visible
+  global function definition for ‘bind_cols’
+combine_data_frame_of_diff_column: no visible global function
+  definition for ‘bind_rows’
+debiased_pc_testing: no visible binding for '<<-' assignment to
+  ‘hyperparameter_shared_between_folds’
+debiased_pc_testing: no visible binding for global variable ‘var’
+estimate_nuisance_parameter_lasso: no visible binding for global
+  variable ‘hyperparameter_shared_between_folds’
+estimate_nuisance_parameter_lasso: no visible binding for '<<-'
+  assignment to ‘hyperparameter_shared_between_folds’
+estimate_nuisance_parameter_lasso: no visible binding for global
+  variable ‘var’
+estimate_nuisance_pc: no visible binding for global variable ‘var’
+estimate_nuisance_pc: no visible binding for global variable
+  ‘hyperparameter_shared_between_folds’
+estimate_nuisance_pc: no visible binding for '<<-' assignment to
+  ‘hyperparameter_shared_between_folds’
+funny_lasso: no visible global function definition for ‘var’
+generate_zero_inflated_normal: no visible global function definition
+  for ‘rbinom’
+generate_zero_inflated_normal: no visible binding for global variable
+  ‘number_feature’
+simple_pc_testing: no visible binding for '<<-' assignment to
+  ‘hyperparameter_shared_between_folds’
+simple_pc_testing: no visible binding for global variable ‘var’
+Undefined global functions or variables:
+  bind_cols bind_rows hyperparameter_shared_between_folds
+  number_feature rbinom var
+Consider adding
+  importFrom("stats", "rbinom", "var")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... OK
+* checking PDF version of manual ... OK
+* checking HTML version of manual ... NOTE
+Found the following HTML validation problems:
+anchored_lasso_testing.html:4:1 (anchored_lasso_testing.Rd:5): Warning: <link> inserting "type" attribute
+anchored_lasso_testing.html:12:1 (anchored_lasso_testing.Rd:5): Warning: <script> proprietary attribute "onload"
+anchored_lasso_testing.html:12:1 (anchored_lasso_testing.Rd:5): Warning: <script> inserting "type" attribute
+anchored_lasso_testing.html:17:1 (anchored_lasso_testing.Rd:5): Warning: <table> lacks "summary" attribute
+anchored_lasso_testing.html:42:1 (anchored_lasso_testing.Rd:17): Warning: <table> lacks "summary" attribute
+debiased_pc_testing.html:4:1 (debiased_pc_testing.Rd:5): Warning: <link> inserting "type" attribute
+debiased_pc_testing.html:12:1 (debiased_pc_testing.Rd:5): Warning: <script> proprietary attribute "onload"
+debiased_pc_testing.html:12:1 (debiased_pc_testing.Rd:5): Warning: <script> inserting "type" attribute
+debiased_pc_testing.html:17:1 (debiased_pc_testing.Rd:5): Warning: <table> lacks "summary" attribute
+debiased_pc_testing.html:42:1 (debiased_pc_testing.Rd:17): Warning: <table> lacks "summary" attribute
+estimate_nuisance_parameter_lasso.html:4:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <link> inserting "type" attribute
+estimate_nuisance_parameter_lasso.html:12:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <script> proprietary attribute "onload"
+estimate_nuisance_parameter_lasso.html:12:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <script> inserting "type" attribute
+estimate_nuisance_parameter_lasso.html:17:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <table> lacks "summary" attribute
+estimate_nuisance_parameter_lasso.html:41:1 (estimate_nuisance_parameter_lasso.Rd:16): Warning: <table> lacks "summary" attribute
+estimate_nuisance_pc.html:4:1 (estimate_nuisance_pc.Rd:5): Warning: <link> inserting "type" attribute
+estimate_nuisance_pc.html:12:1 (estimate_nuisance_pc.Rd:5): Warning: <script> proprietary attribute "onload"
+estimate_nuisance_pc.html:12:1 (estimate_nuisance_pc.Rd:5): Warning: <script> inserting "type" attribute
+estimate_nuisance_pc.html:17:1 (estimate_nuisance_pc.Rd:5): Warning: <table> lacks "summary" attribute
+estimate_nuisance_pc.html:41:1 (estimate_nuisance_pc.Rd:16): Warning: <table> lacks "summary" attribute
+evaluate_influence_function_multi_factor.html:4:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <link> inserting "type" attribute
+evaluate_influence_function_multi_factor.html:12:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <script> proprietary attribute "onload"
+evaluate_influence_function_multi_factor.html:12:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <script> inserting "type" attribute
+evaluate_influence_function_multi_factor.html:17:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <table> lacks "summary" attribute
+evaluate_influence_function_multi_factor.html:40:1 (evaluate_influence_function_multi_factor.Rd:15): Warning: <table> lacks "summary" attribute
+evaluate_pca_lasso_plug_in.html:4:1 (evaluate_pca_lasso_plug_in.Rd:5): Warning: <link> inserting "type" attribute
+evaluate_pca_lasso_plug_in.html:12:1 (evaluate_pca_lasso_plug_in.Rd:5): Warning: <script> proprietary attribute "onload"
+evaluate_pca_lasso_plug_in.html:12:1 (evaluate_pca_lasso_plug_in.Rd:5): Warning: <script> inserting "type" attribute
+evaluate_pca_lasso_plug_in.html:17:1 (evaluate_pca_lasso_plug_in.Rd:5): Warning: <table> lacks "summary" attribute
+evaluate_pca_lasso_plug_in.html:40:1 (evaluate_pca_lasso_plug_in.Rd:15): Warning: <table> lacks "summary" attribute
+evaluate_pca_plug_in.html:4:1 (evaluate_pca_plug_in.Rd:5): Warning: <link> inserting "type" attribute
+evaluate_pca_plug_in.html:12:1 (evaluate_pca_plug_in.Rd:5): Warning: <script> proprietary attribute "onload"
+evaluate_pca_plug_in.html:12:1 (evaluate_pca_plug_in.Rd:5): Warning: <script> inserting "type" attribute
+evaluate_pca_plug_in.html:17:1 (evaluate_pca_plug_in.Rd:5): Warning: <table> lacks "summary" attribute
+evaluate_pca_plug_in.html:39:1 (evaluate_pca_plug_in.Rd:14): Warning: <table> lacks "summary" attribute
+extract_lasso_coef.html:4:1 (extract_lasso_coef.Rd:5): Warning: <link> inserting "type" attribute
+extract_lasso_coef.html:12:1 (extract_lasso_coef.Rd:5): Warning: <script> proprietary attribute "onload"
+extract_lasso_coef.html:12:1 (extract_lasso_coef.Rd:5): Warning: <script> inserting "type" attribute
+extract_lasso_coef.html:17:1 (extract_lasso_coef.Rd:5): Warning: <table> lacks "summary" attribute
+extract_lasso_coef.html:35:1 (extract_lasso_coef.Rd:10): Warning: <table> lacks "summary" attribute
+extract_pc.html:4:1 (extract_pc.Rd:5): Warning: <link> inserting "type" attribute
+extract_pc.html:12:1 (extract_pc.Rd:5): Warning: <script> proprietary attribute "onload"
+extract_pc.html:12:1 (extract_pc.Rd:5): Warning: <script> inserting "type" attribute
+extract_pc.html:17:1 (extract_pc.Rd:5): Warning: <table> lacks "summary" attribute
+extract_pc.html:35:1 (extract_pc.Rd:10): Warning: <table> lacks "summary" attribute
+index_spliter.html:4:1 (index_spliter.Rd:5): Warning: <link> inserting "type" attribute
+index_spliter.html:12:1 (index_spliter.Rd:5): Warning: <script> proprietary attribute "onload"
+index_spliter.html:12:1 (index_spliter.Rd:5): Warning: <script> inserting "type" attribute
+index_spliter.html:17:1 (index_spliter.Rd:5): Warning: <table> lacks "summary" attribute
+index_spliter.html:35:1 (index_spliter.Rd:10): Warning: <table> lacks "summary" attribute
+simple_pc_testing.html:4:1 (simple_pc_testing.Rd:5): Warning: <link> inserting "type" attribute
+simple_pc_testing.html:12:1 (simple_pc_testing.Rd:5): Warning: <script> proprietary attribute "onload"
+simple_pc_testing.html:12:1 (simple_pc_testing.Rd:5): Warning: <script> inserting "type" attribute
+simple_pc_testing.html:17:1 (simple_pc_testing.Rd:5): Warning: <table> lacks "summary" attribute
+simple_pc_testing.html:42:1 (simple_pc_testing.Rd:17): Warning: <table> lacks "summary" attribute
+summarize_feature_name.html:4:1 (summarize_feature_name.Rd:5): Warning: <link> inserting "type" attribute
+summarize_feature_name.html:12:1 (summarize_feature_name.Rd:5): Warning: <script> proprietary attribute "onload"
+summarize_feature_name.html:12:1 (summarize_feature_name.Rd:5): Warning: <script> inserting "type" attribute
+summarize_feature_name.html:17:1 (summarize_feature_name.Rd:5): Warning: <table> lacks "summary" attribute
+summarize_feature_name.html:35:1 (summarize_feature_name.Rd:10): Warning: <table> lacks "summary" attribute
+summarize_pc_name.html:4:1 (summarize_pc_name.Rd:5): Warning: <link> inserting "type" attribute
+summarize_pc_name.html:12:1 (summarize_pc_name.Rd:5): Warning: <script> proprietary attribute "onload"
+summarize_pc_name.html:12:1 (summarize_pc_name.Rd:5): Warning: <script> inserting "type" attribute
+summarize_pc_name.html:17:1 (summarize_pc_name.Rd:5): Warning: <table> lacks "summary" attribute
+summarize_pc_name.html:39:1 (summarize_pc_name.Rd:14): Warning: <table> lacks "summary" attribute
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 3 NOTEs
