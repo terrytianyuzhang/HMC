@@ -9,3 +9,4 @@ install("HMC")
 
 library(HMC)
 ?index_spliter
+?HMC

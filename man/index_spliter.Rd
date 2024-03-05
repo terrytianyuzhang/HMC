@@ -2,14 +2,13 @@
 % Please edit documentation in R/high_dimensional_mean_comparison.R
 \name{index_spliter}
 \alias{index_spliter}
-\title{A Cat Function}
+\title{Split the sample index into n_folds many groups so that we can perform cross-fitting}
 \usage{
 index_spliter(array, n_folds = 2)
 }
 \arguments{
-\item{array}{Do you love cats? Defaults to TRUE.}
+\item{array}{Sample index. Usually just an array from 1 to the number of samples in one group.}
 }
 \description{
-This function allows you to express your love of cats.
+Split the sample index into n_folds many groups so that we can perform cross-fitting
 }
-\keyword{cats}
