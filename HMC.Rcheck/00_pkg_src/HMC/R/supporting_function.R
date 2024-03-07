@@ -5,6 +5,7 @@
 #' @param testing_result The output/test result list from simple_pc_testing() or debiased_pc_testing().
 #' @return A list, whose elements are the estimated PC for each split---the length of the output list is the same as n_folds.
 #' @export
+#' @return The PC vectors for each split.
 #' 
 extract_pc <- function(testing_result){
   n_folds <- length(testing_result$split_data)
@@ -22,6 +23,7 @@ extract_pc <- function(testing_result){
 #' @param testing_result The output/test result list from anchored_lasso_testing().
 #' @return A list, whose elements are the estimated discriminant directions for each split---the length of the output list is the same as n_folds.
 #' @export
+#' @return The discriminant vectors for each split.
 #' 
 extract_lasso_coef <- function(testing_result){
   n_folds <- length(testing_result$split_data)
@@ -40,6 +42,7 @@ extract_lasso_coef <- function(testing_result){
 #' @param method How to combine the feature list across different splits. Default is 'majority voting'---features that show up more than 50% of the splits are considered active/useful. It can be 'union'---all the features pooled together; or 'intersection'---only include features showing up in all splits.
 #' @return A list of names of features (your very original input data need to have column names!) that contribute to the test result. An empty list means there is barely any difference between the two groups. 
 #' @export
+#' @return Feature names that consistently showing up in the discriminant vectors.
 #' 
 summarize_feature_name <- function(testing_result, method = 'majority voting'){
   lasso_coef_each_split <- extract_lasso_coef(testing_result)
@@ -80,6 +83,7 @@ summarize_feature_name <- function(testing_result, method = 'majority voting'){
 #' @param method How to combine the feature list across different splits. Default is 'majority voting'---features that show up more than 50% of the splits are considered active/useful. It can be 'union'---all the features pooled together; or 'intersection'---only include features showing up in all splits.
 #' @return A list of names of features (your very original input data need to have column names!) that contribute to the test result. 
 #' @export
+#' @return Feature names that consistently showing up in the estimated PC vectors.
 #' 
 summarize_pc_name <- function(testing_result, latent_fator_index = 1, method = 'majority voting'){
   pc_each_split <- extract_pc(testing_result)

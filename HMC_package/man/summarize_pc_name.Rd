@@ -19,6 +19,8 @@ summarize_pc_name(
 }
 \value{
 A list of names of features (your very original input data need to have column names!) that contribute to the test result.
+
+Feature names that consistently showing up in the estimated PC vectors.
 }
 \description{
 Summarize the features (e.g. genes) that contribute to the test result, i.e. those features consistently show up in the sparse principle components.

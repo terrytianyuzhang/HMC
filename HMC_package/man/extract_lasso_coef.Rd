@@ -11,6 +11,8 @@ extract_lasso_coef(testing_result)
 }
 \value{
 A list, whose elements are the estimated discriminant directions for each split---the length of the output list is the same as n_folds.
+
+The discriminant vectors for each split.
 }
 \description{
 Extract the lasso estimate from the output of anchored_lasso_testing().

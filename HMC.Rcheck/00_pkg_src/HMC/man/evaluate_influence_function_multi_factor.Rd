@@ -20,6 +20,15 @@ evaluate_influence_function_multi_factor(
 
 \item{num_latent_factor}{Number of principle components to be considered.}
 }
+\value{
+A list of test statistics.
+\item{inner_product_1}{Simple inner products for sample 1.}
+\item{inner_product_2}{Simple inner products for sample 2.}
+\item{influence_eigenvector_each_subject_1}{Debiased test statistics, sample 1.}
+\item{influence_eigenvector_each_subject_2}{Debiased test statistics, sample 1.}
+\item{for_variance_subject_1}{Statistics for variance calculation, sample 1.}
+\item{for_variance_subject_2}{Statistics for variance calculation, sample 2.}
+}
 \description{
 Calculate the test statistics on the left-out samples. Called in debiased_pc_testing().
 }

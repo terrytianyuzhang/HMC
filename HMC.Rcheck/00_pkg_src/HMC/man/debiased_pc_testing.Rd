@@ -10,7 +10,8 @@ debiased_pc_testing(
   pca_method = "sparse_pca",
   mean_method = "naive",
   num_latent_factor = 1,
-  n_folds = 5
+  n_folds = 5,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,15 @@ debiased_pc_testing(
 \item{num_latent_factor}{Number of principle to be estimated/tested. Default is 1.}
 
 \item{n_folds}{Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.}
+
+\item{verbose}{Print information to the console. Default is TRUE.}
+}
+\value{
+A list of test statistics.
+\item{test_statistics}{Test statistics. Each entry corresponds to the test result of one principle component.}
+\item{standard_error}{Estimated standard error of test_statistics_before_studentization.}
+\item{test_statistics_before_studentization}{Similar to test_statistics but does not have variance = 1.}
+\item{split_data}{Intermediate quantities needed for further assessment and interpretation of the test results.}
 }
 \description{
 Debiased one-step test for two-sample mean comparison. A small p-value tells us not only there is difference in the mean vectors, but can also indicates which principle component the difference aligns with.

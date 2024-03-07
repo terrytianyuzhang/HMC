@@ -6,7 +6,7 @@ setwd("/Users/tianyuzhang/Documents/HMC/HMC_package/")
 document()
 setwd("..")
 build("HMC_package")
-install("HMC")
+install("HMC_package")
 
 library(HMC)
 ?index_spliter

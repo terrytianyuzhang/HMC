@@ -1,6 +1,5 @@
 anchored_lasso_testing
-                        Simple plug-in test for two-sample mean
-                        comparison.
+                        Anchored test for two-sample mean comparison.
 debiased_pc_testing     Debiased one-step test for two-sample mean
                         comparison. A small p-value tells us not only
                         there is difference in the mean vectors, but

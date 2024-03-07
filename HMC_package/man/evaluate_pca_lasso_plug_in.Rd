@@ -20,6 +20,13 @@ evaluate_pca_lasso_plug_in(
 
 \item{mean_method}{Methods used to estimate the discriminant direction. Default is logistic Lasso "lasso".}
 }
+\value{
+A list of test statistics.
+\item{influence_each_subject_1}{Test statistics for sample 1.}
+\item{influence_each_subject_1}{Test statistics for sample 2.}
+\item{for_variance_each_subject_1}{Statistics for variance calculation, sample 1.}
+\item{for_variance_each_subject_2}{Statistics for variance calculation, sample 2.}
+}
 \description{
 Calculate the test statistics on the left-out samples. Called in anchored_lasso_testing().
 }

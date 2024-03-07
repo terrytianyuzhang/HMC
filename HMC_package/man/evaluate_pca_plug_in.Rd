@@ -17,6 +17,11 @@ evaluate_pca_plug_in(
 
 \item{nuisance_collection}{A collection of nuisance quantities estimated using "nuisance" samples. It is the output of estimate_nuisance_pc().}
 }
+\value{
+A list of test statistics.
+\item{influence_each_subject_1}{Statistics for sample 1.}
+\item{influence_each_subject_2}{Statistics for sample 2.}
+}
 \description{
 Calculate the test statistics on the left-out samples. Called in simple_pc_testing().
 }

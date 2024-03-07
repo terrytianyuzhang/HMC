@@ -7,6 +7,8 @@
 #'
 #' @param array Sample index. Usually just an array from 1 to the number of samples in one group.
 #' @param n_folds Number of splits
+#' 
+#' @return A list indicates the sample indices in each split.
 #' @export
 #' 
 index_spliter <- function(array, n_folds = 5){
@@ -47,8 +49,14 @@ index_spliter <- function(array, n_folds = 5){
 #' @param num_latent_factor Number of principle to be estimated/tested. Default is 1.
 #' @param local_environment A environment for hyperparameters shared between folds.
 #' 
-#' @export
+#' @return A list of estimated nuisance quantities.
+#' \item{estimate_leading_pc}{Leading principle components}
+#' \item{estimate_mean_1}{Sample mean for group 1} 
+#' \item{estimate_mean_2}{Sample mean for group 1}
+#' \item{estimate_eigenvalue}{Eigenvalue for each principle compoenent.}
+#' \item{estimate_noise_variance}{Noise variance, I need this to construct block-diagonal estimates of the covariance matrix.}
 #' 
+#' @export
 estimate_nuisance_pc <- function(nuisance_sample_1,
                                  nuisance_sample_2 = NULL,
                                  pca_method = "sparse_pca",
@@ -115,7 +123,7 @@ estimate_nuisance_pc <- function(nuisance_sample_1,
       # hyperparameter_shared_between_folds <<- max(1, 0.7*cv_result$bestsumabsv) ##I USED THIS FOR LUPAS REAL-DATA ANALYSIS
       assign("hyperparameter_shared_between_folds", cv_result$bestsumabsv, envir = local_environment)
     }
-    print(local_environment$hyperparameter_shared_between_folds)
+    # print(local_environment$hyperparameter_shared_between_folds)
     estimate_leading_pc <- PMA::SPC(sample_centered,
                                K = num_latent_factor,
                                sumabsv = local_environment$hyperparameter_shared_between_folds)$v
@@ -183,14 +191,15 @@ estimate_nuisance_pc <- function(nuisance_sample_1,
 #' @param nuisance_collection A collection of nuisance quantities estimated using "nuisance" samples. It is the output of estimate_nuisance_pc().
 #' 
 #' @export
+#' @return A list of test statistics.
+#' \item{influence_each_subject_1}{Statistics for sample 1.}
+#' \item{influence_each_subject_2}{Statistics for sample 2.} 
+
 #' 
 #' 
 evaluate_pca_plug_in <- function(cross_fitting_sample_1,
                                  cross_fitting_sample_2 = NULL,
                                  nuisance_collection){
-  cross_fitting_sample_1 <<- cross_fitting_sample_1
-  cross_fitting_sample_2 <<- cross_fitting_sample_2
-  nuisance_collection <<- nuisance_collection
   
   cross_fitting_sample_1 <- as.data.frame(cross_fitting_sample_1)
   
@@ -228,14 +237,19 @@ evaluate_pca_plug_in <- function(cross_fitting_sample_1,
 #' @param nuisance_collection A collection of nuisance quantities estimated using "nuisance" samples. It is the output of estimate_nuisance_pc().
 #' @param num_latent_factor Number of principle components to be considered.
 #' @export
+#' 
+#' @return A list of test statistics.
+#' \item{inner_product_1}{Simple inner products for sample 1.}
+#' \item{inner_product_2}{Simple inner products for sample 2.} 
+#' \item{influence_eigenvector_each_subject_1}{Debiased test statistics, sample 1.}
+#' \item{influence_eigenvector_each_subject_2}{Debiased test statistics, sample 1.} 
+#' \item{for_variance_subject_1}{Statistics for variance calculation, sample 1.}
+#' \item{for_variance_subject_2}{Statistics for variance calculation, sample 2.} 
+#' 
 evaluate_influence_function_multi_factor <- function(cross_fitting_sample_1,
                                                      cross_fitting_sample_2 = NULL,
                                                      nuisance_collection,
                                                      num_latent_factor = 1){
-  
-  cross_fitting_sample_1 <<- cross_fitting_sample_1
-  cross_fitting_sample_2 <<- cross_fitting_sample_2
-  nuisance_collection <<- nuisance_collection
   
   estimate_leading_pc <- nuisance_collection$estimate_leading_pc
   estimate_eigenvalue <- nuisance_collection$estimate_eigenvalue
@@ -403,39 +417,45 @@ evaluate_influence_function_multi_factor <- function(cross_fitting_sample_1,
 #' @param mean_method Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".
 #' @param num_latent_factor Number of principle to be estimated/tested. Default is 1.
 #' @param n_folds Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.
+#' @param verbose Print information to the console. Default is TRUE.
 #' @export
+#' @return A list of test statistics.
+#' \item{test_statistics}{Test statistics. Each entry corresponds to the test result of one principle component.}
+#' \item{standard_error}{Estimated standard error of test_statistics_before_studentization.} 
+#' \item{test_statistics_before_studentization}{Similar to test_statistics but does not have variance = 1.}
+#' \item{split_data}{Intermediate quantities needed for further assessment and interpretation of the test results.}
 #' @examples 
-# sample_size_1 <- sample_size_2 <- 300
-# 
-# true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
-# true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
-# pc1 <- c(rep(1, 10), rep(0, 90))
-# pc1 <- pc1/norm(pc1, type = '2')
-# 
-# simulation_covariance <- 10 * pc1 %*% t(pc1)
-# simulation_covariance <- simulation_covariance + diag(1, 100)
-# 
-# sample_1 <- data.frame(MASS::mvrnorm(sample_size_1,
-#                                mu = true_mean_1,
-#                                Sigma = simulation_covariance))
-#  sample_2 <- data.frame(MASS::mvrnorm(sample_size_2,
-#                                mu = true_mean_2,
-#                                Sigma = simulation_covariance))
-#  result <- simple_pc_testing(sample_1, sample_2)
-#  result$test_statistics
-#  ##these are test statistics. Each one of them corresponds to one PC.
-#  summarize_pc_name(result, latent_fator_index = 1) #shows which features contribute to PC1
-#  extract_pc(result) # extract the estimated leading PCs.
+#' sample_size_1 <- sample_size_2 <- 300
+#' true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
+#' true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
+#' pc1 <- c(rep(1, 10), rep(0, 90))
+#' pc1 <- pc1/norm(pc1, type = '2')
 #' 
+#' simulation_covariance <- 10 * pc1 %*% t(pc1)
+#' simulation_covariance <- simulation_covariance + diag(1, 100)
+#' 
+#' sample_1 <- data.frame(MASS::mvrnorm(sample_size_1,
+#'                                      mu = true_mean_1,
+#'                                      Sigma = simulation_covariance))
+#' sample_2 <- data.frame(MASS::mvrnorm(sample_size_2,
+#'                                      mu = true_mean_2,
+#'                                      Sigma = simulation_covariance))
+#' result <- simple_pc_testing(sample_1, sample_2)
+#' result$test_statistics
+#' ##these are test statistics. Each one of them corresponds to one PC.
+#' summarize_pc_name(result, latent_fator_index = 1) #shows which features contribute to PC1
+#' extract_pc(result) # extract the estimated leading PCs.
+#' 
+
 simple_pc_testing <- function(sample_1,
                               sample_2 = NULL,
                               pca_method = "sparse_pca",
                               mean_method = "naive",
                               num_latent_factor = 1,
-                              n_folds = 5){
+                              n_folds = 5,
+                              verbose = TRUE){
   
   ###split the samples into n_folds splits
-  set.seed(1)
   sample_1 <- as.data.frame(sample_1)
   split_data <- vector("list", n_folds)
   sample_1_split_index <- index_spliter(1:nrow(sample_1),
@@ -454,7 +474,7 @@ simple_pc_testing <- function(sample_1,
   ###process each split
   for(split_index in 1:n_folds){
     
-    print(paste0("processiong fold ", split_index))
+    if(verbose) message(paste0("processiong fold ", split_index))
     
     sample_1_cross <- sample_1[sample_1_split_index[[split_index]], ]
     sample_1_nuisance <- sample_1[-sample_1_split_index[[split_index]], ]
@@ -504,9 +524,9 @@ simple_pc_testing <- function(sample_1,
                                                       split_data[[split_index]]$nuisance_collection$estimate_leading_pc[,latent_factor_index])
       
       same_sign <- sign(inner_product_projection_direction)
-      print(inner_product_projection_direction)
+      # print(inner_product_projection_direction)
       if(same_sign == 0){
-        print('the projection directions are orthogonal')
+        message('the projection directions are orthogonal')
         same_sign <- 1
       }
       
@@ -561,7 +581,13 @@ simple_pc_testing <- function(sample_1,
 #' @param mean_method Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".
 #' @param num_latent_factor Number of principle to be estimated/tested. Default is 1.
 #' @param n_folds Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.
+#' @param verbose Print information to the console. Default is TRUE.
 #' @export
+#' @return A list of test statistics.
+#' \item{test_statistics}{Test statistics. Each entry corresponds to the test result of one principle component.}
+#' \item{standard_error}{Estimated standard error of test_statistics_before_studentization.} 
+#' \item{test_statistics_before_studentization}{Similar to test_statistics but does not have variance = 1.}
+#' \item{split_data}{Intermediate quantities needed for further assessment and interpretation of the test results.}
 #' @examples 
 #' sample_size_1 <- sample_size_2 <- 300
 #' 
@@ -591,10 +617,10 @@ debiased_pc_testing <- function(sample_1,
                                 pca_method = "sparse_pca",
                                 mean_method = "naive",
                                 num_latent_factor = 1,
-                                n_folds = 5){
+                                n_folds = 5,
+                                verbose = TRUE){
   
   ###split the samples into n_folds splits
-  set.seed(1)
   sample_1 <- as.data.frame(sample_1)
   split_data <- vector("list", n_folds)
   sample_1_split_index <- index_spliter(1:nrow(sample_1),
@@ -610,7 +636,7 @@ debiased_pc_testing <- function(sample_1,
   assign("hyperparameter_shared_between_folds", -1, envir = local_environment)
   ###process each split
   for(split_index in 1:n_folds){
-    print(paste0("processiong fold ", split_index))
+    if(verbose) message(paste0("processiong fold ", split_index))
     
     sample_1_cross <- sample_1[sample_1_split_index[[split_index]], ]
     sample_1_nuisance <- sample_1[-sample_1_split_index[[split_index]], ]
@@ -679,9 +705,9 @@ debiased_pc_testing <- function(sample_1,
                                                       split_data[[split_index]]$nuisance_collection$estimate_leading_pc[,latent_factor_index])
       
       same_sign <- sign(inner_product_projection_direction)
-      print(inner_product_projection_direction)
+      # print(inner_product_projection_direction)
       if(same_sign == 0){
-        print('the projection directions are orthogonal')
+        message('the projection directions are orthogonal')
         same_sign <- 1
       }
       
@@ -736,17 +762,26 @@ debiased_pc_testing <- function(sample_1,
 #' @param mean_method Methods used to estimate the discriminant direction. Default is logistic Lasso "lasso". 
 #' @param num_latent_factor The principle component that lasso coefficient anchors at. The default is PC1 = 1.
 #' @param local_environment A environment for hyperparameters shared between folds.
+#' @param verbose Print information to the console. Default is TRUE.
 #' @export
+#' 
+#' @return A list of estimated nuisance quantities.
+#' \item{estimate_leading_pc}{Leading principle components}
+#' \item{estimate_mean_1}{Sample mean for group 1} 
+#' \item{estimate_mean_2}{Sample mean for group 1}
+#' \item{estimate_lasso_beta}{Logistic Lasso regression coefficients.}
+#' \item{estimate_projection_direction}{Anchored projection direction. It is similar to PC1 when signal is weak but similar to estimate_optimal_direction when the signal is moderately large.}
+#' \item{estimate_optimal_direction}{Discriminant direction.}
+
 #' 
 estimate_nuisance_parameter_lasso <- function(nuisance_sample_1,
                                               nuisance_sample_2,
                                               pca_method = "sparse_pca",
                                               mean_method = "lasso",
                                               num_latent_factor = 1,
-                                              local_environment = local_environment){
+                                              local_environment = local_environment,
+                                              verbose = TRUE){
   ###nuisance_sample_1 is required to be a data.frame
-  nuisance_sample_1 <<- nuisance_sample_1
-  nuisance_sample_2 <<- nuisance_sample_2
   
   feature_number <- ncol(nuisance_sample_1)
   
@@ -784,7 +819,7 @@ estimate_nuisance_parameter_lasso <- function(nuisance_sample_1,
       # hyperparameter_shared_between_folds <<- max(1, 0.7*cv_result$bestsumabsv)
       assign("hyperparameter_shared_between_folds", cv_result$bestsumabsv, envir = local_environment)
     }
-    print(local_environment$hyperparameter_shared_between_folds)
+    # print(local_environment$hyperparameter_shared_between_folds)
     estimate_leading_pc <- PMA::SPC(sample_centered,
                                K = num_latent_factor,
                                sumabsv = local_environment$hyperparameter_shared_between_folds)$v
@@ -842,9 +877,9 @@ estimate_nuisance_parameter_lasso <- function(nuisance_sample_1,
     estimate_optimal_direction <- estimate_lasso_beta
     
     if(mean_method == 'lasso'){
-      print(norm(estimate_optimal_direction, type = '2'))
+      # print(norm(estimate_optimal_direction, type = '2'))
       if(norm(estimate_optimal_direction, type = '2') > 0.1*(effective_sample_size)^(-1/3)){ #
-        print('bingo')
+        if(verbose) message('Bingo!Found signal.')
         # estimate_optimal_direction <- sign(estimate_optimal_direction) * pmax(abs(estimate_optimal_direction) - (effective_sample_size)^(-1/3),0)
         estimate_projection_direction <- (effective_sample_size)^(-1/2)*estimate_leading_pc + (effective_sample_size^(1/2) - 1)* (effective_sample_size)^(-1/2)* estimate_optimal_direction
       }else{
@@ -852,7 +887,7 @@ estimate_nuisance_parameter_lasso <- function(nuisance_sample_1,
       }
     }else if(mean_method == 'lasso_no_truncation'){
       if(norm(estimate_optimal_direction, type = '2') > 0){ #
-        print('bingo')
+        if(verbose) message('Bingo!Found signal.')
         # estimate_optimal_direction <- sign(estimate_optimal_direction) * pmax(abs(estimate_optimal_direction) - (effective_sample_size)^(-1/3),0)
         estimate_projection_direction <- estimate_leading_pc + effective_sample_size^(1/3) * estimate_optimal_direction
       }else{
@@ -880,6 +915,12 @@ estimate_nuisance_parameter_lasso <- function(nuisance_sample_1,
 #' @param nuisance_collection A collection of nuisance quantities estimated using "nuisance" samples. It is the output of estimate_nuisance_pc().
 #' @param mean_method Methods used to estimate the discriminant direction. Default is logistic Lasso "lasso". 
 #' @export
+#' 
+#' @return A list of test statistics.
+#' \item{influence_each_subject_1}{Test statistics for sample 1.}
+#' \item{influence_each_subject_1}{Test statistics for sample 2.} 
+#' \item{for_variance_each_subject_1}{Statistics for variance calculation, sample 1.}
+#' \item{for_variance_each_subject_2}{Statistics for variance calculation, sample 2.} 
 #' 
 #' 
 evaluate_pca_lasso_plug_in <- function(cross_fitting_sample_1,
@@ -922,7 +963,7 @@ evaluate_pca_lasso_plug_in <- function(cross_fitting_sample_1,
               for_variance_each_subject_2 = for_variance_each_subject_2))
 } 
 
-#' Simple plug-in test for two-sample mean comparison. 
+#' Anchored test for two-sample mean comparison. 
 #' 
 #' @param sample_1 Group 1 sample. Each row is a subject and each column corresponds to a feature.
 #' @param sample_2 Group 2 sample. Each row is a subject and each column corresponds to a feature.
@@ -930,7 +971,14 @@ evaluate_pca_lasso_plug_in <- function(cross_fitting_sample_1,
 #' @param mean_method Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".
 #' @param num_latent_factor The principle component that lasso coefficient anchors at. The default is PC1 = 1.
 #' @param n_folds Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.
+#' @param verbose Print information to the console. Default is TRUE.
+#' 
 #' @export
+#' @return A list of test statistics.
+#' \item{test_statistics}{Test statistics. Each entry corresponds to the test result of one principle component.}
+#' \item{standard_error}{Estimated standard error of test_statistics_before_studentization.} 
+#' \item{test_statistics_before_studentization}{Similar to test_statistics but does not have variance = 1.}
+#' \item{split_data}{Intermediate quantities needed for further assessment and interpretation of the test results.}
 #' @examples 
 #' sample_size_1 <- sample_size_2 <- 300
 #' true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
@@ -951,12 +999,13 @@ evaluate_pca_lasso_plug_in <- function(cross_fitting_sample_1,
 #'  
 
 
+
 anchored_lasso_testing <- function(sample_1, sample_2,
                                    pca_method = "sparse_pca",
                                    mean_method = "lasso",
                                    num_latent_factor = 1,
-                                   n_folds = 5){
-  set.seed(1)
+                                   n_folds = 5,
+                                   verbose = TRUE){
   sample_1 <- as.data.frame(sample_1)
   sample_2 <- as.data.frame(sample_2)
   split_data <- vector("list", n_folds)
@@ -970,7 +1019,7 @@ anchored_lasso_testing <- function(sample_1, sample_2,
   # local_environment$hyperparameter_shared_between_folds <- -1
   
   for(split_index in 1:n_folds){
-    print(paste0("processiong fold ", split_index))
+    if(verbose) message(paste0("processiong fold ", split_index))
     sample_1_cross <- sample_1[sample_1_split_index[[split_index]], ]
     sample_1_nuisance <- sample_1[-sample_1_split_index[[split_index]], ]
     
@@ -985,7 +1034,8 @@ anchored_lasso_testing <- function(sample_1, sample_2,
                                                                                        pca_method = pca_method,
                                                                                        mean_method = mean_method,
                                                                                        num_latent_factor = num_latent_factor,
-                                                                                       local_environment = local_environment)
+                                                                                       local_environment = local_environment,
+                                                                                       verbose = verbose)
     split_data[[split_index]]$influence_function_value <- evaluate_pca_lasso_plug_in(sample_1_cross,
                                                                                      sample_2_cross,
                                                                                      split_data[[split_index]]$nuisance_collection,
@@ -1005,9 +1055,8 @@ anchored_lasso_testing <- function(sample_1, sample_2,
                                                     split_data[[split_index]]$nuisance_collection$estimate_projection_direction)
     
     same_sign <- sign(inner_product_projection_direction)
-    print(inner_product_projection_direction)
     if(same_sign == 0){
-      print('the projection directions are orthogonal')
+      message('the projection directions are orthogonal')
       same_sign <- 1
     }
     

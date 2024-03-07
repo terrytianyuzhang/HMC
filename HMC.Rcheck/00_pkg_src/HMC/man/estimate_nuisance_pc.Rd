@@ -26,6 +26,14 @@ estimate_nuisance_pc(
 
 \item{local_environment}{A environment for hyperparameters shared between folds.}
 }
+\value{
+A list of estimated nuisance quantities.
+\item{estimate_leading_pc}{Leading principle components}
+\item{estimate_mean_1}{Sample mean for group 1}
+\item{estimate_mean_2}{Sample mean for group 1}
+\item{estimate_eigenvalue}{Eigenvalue for each principle compoenent.}
+\item{estimate_noise_variance}{Noise variance, I need this to construct block-diagonal estimates of the covariance matrix.}
+}
 \description{
 The function for nuisance parameter estimation in simple_pc_testing() and debiased_pc_testing().
 }

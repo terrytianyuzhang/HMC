@@ -10,7 +10,8 @@ estimate_nuisance_parameter_lasso(
   pca_method = "sparse_pca",
   mean_method = "lasso",
   num_latent_factor = 1,
-  local_environment = local_environment
+  local_environment = local_environment,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,17 @@ estimate_nuisance_parameter_lasso(
 \item{num_latent_factor}{The principle component that lasso coefficient anchors at. The default is PC1 = 1.}
 
 \item{local_environment}{A environment for hyperparameters shared between folds.}
+
+\item{verbose}{Print information to the console. Default is TRUE.}
+}
+\value{
+A list of estimated nuisance quantities.
+\item{estimate_leading_pc}{Leading principle components}
+\item{estimate_mean_1}{Sample mean for group 1}
+\item{estimate_mean_2}{Sample mean for group 1}
+\item{estimate_lasso_beta}{Logistic Lasso regression coefficients.}
+\item{estimate_projection_direction}{Anchored projection direction. It is similar to PC1 when signal is weak but similar to estimate_optimal_direction when the signal is moderately large.}
+\item{estimate_optimal_direction}{Discriminant direction.}
 }
 \description{
 The function for nuisance parameter estimation in anchored_lasso_testing().

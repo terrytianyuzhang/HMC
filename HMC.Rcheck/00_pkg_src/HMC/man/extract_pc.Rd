@@ -11,6 +11,8 @@ extract_pc(testing_result)
 }
 \value{
 A list, whose elements are the estimated PC for each split---the length of the output list is the same as n_folds.
+
+The PC vectors for each split.
 }
 \description{
 Extract the principle components from the output of simple_pc_testing() and debiased_pc_testing().

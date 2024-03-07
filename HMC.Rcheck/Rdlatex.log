@@ -82,31 +82,31 @@ No file Rd2.toc.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd) [1{/usr/local/
 texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2
 023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2023/texmf-dist/
-fonts/enc/dvips/inconsolata/i4-t1-0.enc}]
-Overfull \hbox (27.73488pt too wide) in paragraph at lines 83--83
+fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
+Overfull \hbox (27.73488pt too wide) in paragraph at lines 97--97
  [] \T1/zi4/m/n/9 ##the test statistic. It should follow normal(0,1) when there
  is no difference between the groups.[] 
-[2] (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
-[3{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 154--154
+[3] (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
 []\T1/ptm/m/it/10 The func-tion for nui-sance pa-ram-e-ter es-ti-ma-tion in an-
 
-[4] [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 330--330
+[4{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
+[5] [6] [7] [8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 415--415
 []\T1/ptm/m/it/10 Extract the prin-ci-ple com-po-nents from the out-put of sim-
 
-[7] [8]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 423--424
+[10] [11]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 553--554
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
-[9]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 453--454
+[12]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 585--586
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
 No file Rd2.ind.
-[10]
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.aux)
+[13]
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -120,7 +120,7 @@ texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist
 /fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/tim
 es/utmri8a.pfb>
-Output written on Rd2.pdf (10 pages, 95644 bytes).
+Output written on Rd2.pdf (13 pages, 101574 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.17 [TeX Live 2023] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (13 entries accepted, 0 rejected).
@@ -197,52 +197,52 @@ ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
 Writing index file Rd2.idx
 (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.aux)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.aux)
 (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 )
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.out)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.out)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.out)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.out)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.toc (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.toc (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd)) [1{/usr/local
 /texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/
 2023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2023/texmf-dist
-/fonts/enc/dvips/inconsolata/i4-t1-0.enc}]
-Overfull \hbox (27.73488pt too wide) in paragraph at lines 83--83
+/fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
+Overfull \hbox (27.73488pt too wide) in paragraph at lines 97--97
  [] \T1/zi4/m/n/9 ##the test statistic. It should follow normal(0,1) when there
  is no difference between the groups.[] 
-[2] (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
-[3{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 154--154
+[3] (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
 []\T1/ptm/m/it/10 The func-tion for nui-sance pa-ram-e-ter es-ti-ma-tion in an-
 
-[4] [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 330--330
+[4{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
+[5] [6] [7] [8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 415--415
 []\T1/ptm/m/it/10 Extract the prin-ci-ple com-po-nents from the out-put of sim-
 
-[7] [8]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 423--424
+[10] [11]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 553--554
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
-[9]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 453--454
+[12]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 585--586
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
 
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.ind [10]
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.ind [13]
 Overfull \hbox (13.3567pt too wide) in paragraph at lines 13--15
 []\T1/zi4/m/n/10 evaluate_influence_function_multi_factor\T1/ptm/m/n/10 , 
-[11])
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.aux)
+[14])
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -256,7 +256,7 @@ texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist
 /fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/tim
 es/utmri8a.pfb>
-Output written on Rd2.pdf (11 pages, 99186 bytes).
+Output written on Rd2.pdf (14 pages, 104877 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.17 [TeX Live 2023] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (13 entries accepted, 0 rejected).
@@ -333,52 +333,52 @@ ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
 Writing index file Rd2.idx
 (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.aux)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.aux)
 (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 )
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.out)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.out)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.out)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.out)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.toc (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.toc (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd)) [1{/usr/local
 /texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/
 2023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2023/texmf-dist
-/fonts/enc/dvips/inconsolata/i4-t1-0.enc}]
-Overfull \hbox (27.73488pt too wide) in paragraph at lines 83--83
+/fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
+Overfull \hbox (27.73488pt too wide) in paragraph at lines 97--97
  [] \T1/zi4/m/n/9 ##the test statistic. It should follow normal(0,1) when there
  is no difference between the groups.[] 
-[2] (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
-[3{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 154--154
+[3] (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
 []\T1/ptm/m/it/10 The func-tion for nui-sance pa-ram-e-ter es-ti-ma-tion in an-
 
-[4] [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 330--330
+[4{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
+[5] [6] [7] [8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 415--415
 []\T1/ptm/m/it/10 Extract the prin-ci-ple com-po-nents from the out-put of sim-
 
-[7] [8]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 423--424
+[10] [11]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 553--554
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
-[9]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 453--454
+[12]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 585--586
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
 
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.ind [10]
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.ind [13]
 Overfull \hbox (13.3567pt too wide) in paragraph at lines 13--15
 []\T1/zi4/m/n/10 evaluate_influence_function_multi_factor\T1/ptm/m/n/10 , 
-[11])
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpfsIwLt/Rd2pdfce08
-18b30112/Rd2.aux) )
+[14])
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpJwQ89k/Rd2pdf1778
+0529f0ae/Rd2.aux) )
 (see the transcript file for additional information)</usr/local/texlive/2023/te
 xmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texliv
 e/2023/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2023/
@@ -386,8 +386,8 @@ texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist
 /fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/tim
 es/utmri8a.pfb>
-Output written on Rd2.pdf (11 pages, 99394 bytes).
+Output written on Rd2.pdf (14 pages, 105619 bytes).
 Transcript written on Rd2.log.
 Saving output to ‘HMC-manual.pdf’ ...
 Done
-You may want to clean up by 'rm -Rf /var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T//RtmpfsIwLt/Rd2pdfce0818b30112'
+You may want to clean up by 'rm -Rf /var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T//RtmpJwQ89k/Rd2pdf17780529f0ae'

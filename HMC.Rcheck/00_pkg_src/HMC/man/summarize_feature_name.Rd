@@ -13,6 +13,8 @@ summarize_feature_name(testing_result, method = "majority voting")
 }
 \value{
 A list of names of features (your very original input data need to have column names!) that contribute to the test result. An empty list means there is barely any difference between the two groups.
+
+Feature names that consistently showing up in the discriminant vectors.
 }
 \description{
 Summarize the features (e.g. genes) that contribute to the test result, i.e. those features consistently show up in Lasso vectors.

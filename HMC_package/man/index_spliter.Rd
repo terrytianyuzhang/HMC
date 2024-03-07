@@ -11,6 +11,9 @@ index_spliter(array, n_folds = 5)
 
 \item{n_folds}{Number of splits}
 }
+\value{
+A list indicates the sample indices in each split.
+}
 \description{
 Split the sample index into n_folds many groups so that we can perform cross-fitting
 }
