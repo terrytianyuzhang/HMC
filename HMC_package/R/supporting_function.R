@@ -197,7 +197,6 @@ funny_lasso <- function(sample_1, sample_2,
                         pca_method = "dense",
                         mean_method = "lasso",
                         n_folds = 5){
-  set.seed(1)
   sample_1 <- as.data.frame(sample_1)
   sample_2 <- as.data.frame(sample_2)
   split_data <- vector("list", n_folds)
@@ -207,7 +206,6 @@ funny_lasso <- function(sample_1, sample_2,
                                         n_folds = n_folds)
   
   for(split_index in 1:n_folds){
-    print(paste0("processiong fold ", split_index))
     sample_1_cross <- sample_1[sample_1_split_index[[split_index]], ]
     sample_1_nuisance <- sample_1[-sample_1_split_index[[split_index]], ]
     
@@ -239,9 +237,8 @@ funny_lasso <- function(sample_1, sample_2,
                                                     split_data[[split_index]]$nuisance_collection$estimate_projection_direction)
     
     same_sign <- sign(inner_product_projection_direction)
-    print(inner_product_projection_direction)
     if(same_sign == 0){
-      print('the projection directions are orthogonal')
+      # print('the projection directions are orthogonal')
       same_sign <- 1
     }
     
