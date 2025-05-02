@@ -83,10 +83,11 @@ processiong fold 5
 Bingo!Found signal.
 >  result$test_statistics
          [,1]
-[1,] 18.68273
+[1,] 18.79961
 >  ##the test statistic. It should follow normal(0,1) when there is no difference between the groups.
 >  summarize_feature_name(result) 
- [1] "X1"  "X10" "X2"  "X3"  "X4"  "X44" "X5"  "X6"  "X7"  "X8"  "X9" 
+ [1] "X1"  "X10" "X14" "X2"  "X27" "X3"  "X33" "X4"  "X41" "X42" "X44" "X48"
+[13] "X5"  "X51" "X6"  "X7"  "X71" "X78" "X79" "X8"  "X9"  "X90" "X91" "X95"
 >  #summarize which features contribute to discriminant vectors (i.e. logistic lasso)
 >  extract_pc(result) # extract the estimated discriminant coefficients
 [[1]]
@@ -1349,7 +1350,7 @@ X100  0.000000e+00
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.917 0.141 5.125 0 0 
+Time elapsed:  4.796 0.11 5.019 0 0 
 > grDevices::dev.off()
 null device 
           1 

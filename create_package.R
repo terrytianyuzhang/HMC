@@ -1,37 +1,27 @@
+# Clean up environment
+rm(list = ls())
+
+# Load development tools
 library(devtools)
-library(roxygen2)
-# setwd("/Users/tianyuzhang/Documents/")
-# create("HMC")
-setwd("/Users/tianyuzhang/Documents/HMC/HMC_package/")
-document()
-setwd("..")
-build("HMC_package")
-install("HMC_package")
 
+# Define package path
+pkg_path <- "/Users/tianyuzhang/Documents/HMC/HMC_package"
+
+# Step 1: Document package (generate NAMESPACE and man/)
+document(pkg_path)
+
+# Step 2: Build source tar.gz (optional if you're just installing locally)
+build(pkg_path)
+
+# Step 3: Install the package from source
+install(pkg_path)
+
+# Step 4: Load the package
 library(HMC)
-?index_spliter
-?anchored_lasso_testing
 
-# 
-# 
-# foo <- function(x){
-#   pkgEnv <- new.env(parent=emptyenv())  
-#   pkgEnv$hyperparameter <- -1
-#   
-#   print(pkgEnv$hyperparameter)
-#   foo1(1, pkgEnv)
-#   foo1(1, pkgEnv)
-# }
-# 
-# foo1 <- function(x, env){
-#   if(env$hyperparameter == -1){
-#     print('ok')
-#     assign("hyperparameter", 10, envir = env)
-#     print(env$hyperparameter)
-#   }else{
-#     print('no')
-#     print(env$hyperparameter)
-#   }
-# }
-# 
-# foo(1)
+# Step 5: Check documentation for key functions
+help("index_spliter", package = "HMC")
+help("check_data_for_folds", package = "HMC")
+help("estimate_leading_pc", package = "HMC")
+help("collect_active_features_proj", package = "HMC")
+

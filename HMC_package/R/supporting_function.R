@@ -58,6 +58,8 @@ summarize_feature_name <- function(testing_result, method = 'majority voting'){
         gene_symbols <- union(gene_symbols, temp_gene_symbols)
       }else if (method %in% c('majority voting', 'intersection')){
         gene_symbols <- c(gene_symbols, temp_gene_symbols)
+      }else{
+        stop("wrong method, check ?summarize_feature_name")
       }
     }
   }
