@@ -1,7 +1,7 @@
 
-R version 4.3.1 (2023-06-16) -- "Beagle Scouts"
-Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20 (64-bit)
+R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -192,6 +192,51 @@ Bingo!Found signal.
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("anchored_lasso_testing", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("check_data_for_folds")
+> ### * check_data_for_folds
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: check_data_for_folds
+> ### Title: Check that data has enough rows for cross-validation folds
+> ### Aliases: check_data_for_folds
+> 
+> ### ** Examples
+> 
+> check_data_for_folds(matrix(1:20, nrow = 5), n_folds = 5)
+> ## Not run: 
+> ##D check_data_for_folds(matrix(1:4, nrow = 2), n_folds = 5)  # This will throw an error
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("check_data_for_folds", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("check_non_null_and_identical_colnames")
+> ### * check_non_null_and_identical_colnames
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: check_non_null_and_identical_colnames
+> ### Title: Check non-null and consistent column names across datasets
+> ### Aliases: check_non_null_and_identical_colnames
+> 
+> ### ** Examples
+> 
+> d1 <- data.frame(a = 1:2, b = 3:4)
+> d2 <- data.frame(a = 5:6, b = 7:8)
+> check_non_null_and_identical_colnames(list(d1, d2))
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("check_non_null_and_identical_colnames", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
 > nameEx("debiased_pc_testing")
 > ### * debiased_pc_testing
@@ -772,6 +817,147 @@ X100  0.000000e+00
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("debiased_pc_testing", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
+> nameEx("estimate_leading_pc")
+> ### * estimate_leading_pc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: estimate_leading_pc
+> ### Title: Estimate the leading principal component
+> ### Aliases: estimate_leading_pc
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D X <- matrix(rnorm(100), nrow = 20)
+> ##D estimate_leading_pc(X, pca_method = "dense_pca")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("estimate_leading_pc", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("fit_lasso")
+> ### * fit_lasso
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: fit_lasso
+> ### Title: Fit a (group) Lasso logistic regression classifier
+> ### Aliases: fit_lasso
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D X1 <- matrix(rnorm(100), nrow = 10)
+> ##D X2 <- matrix(rnorm(100), nrow = 10)
+> ##D fit_lasso(X1, X2, classifier_method = "lasso")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("fit_lasso", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("index_spliter")
+> ### * index_spliter
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: index_spliter
+> ### Title: Split indices into folds
+> ### Aliases: index_spliter
+> 
+> ### ** Examples
+> 
+> index_spliter(1:10, n_folds = 3)
+[[1]]
+[1] 9 4 7
+
+[[2]]
+[1] 1 2 5
+
+[[3]]
+[1]  3 10  6  8
+
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("index_spliter", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("mean_comparison_anchor")
+> ### * mean_comparison_anchor
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: mean_comparison_anchor
+> ### Title: High-dimensional two-sample mean comparison with anchored
+> ###   projection
+> ### Aliases: mean_comparison_anchor
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D X <- matrix(rnorm(200 * 100), nrow = 100)
+> ##D Y <- matrix(rnorm(200 * 100), nrow = 100)
+> ##D result <- mean_comparison_anchor(X, Y, pca_method = "dense_pca", classifier_method = "lasso")
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("mean_comparison_anchor", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("normalize_and_split")
+> ### * normalize_and_split
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: normalize_and_split
+> ### Title: Normalize and split two datasets using pooled mean and standard
+> ###   deviation
+> ### Aliases: normalize_and_split
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> df1 <- matrix(rnorm(20), nrow = 5)
+> df2 <- matrix(rnorm(20), nrow = 5)
+> normalize_and_split(df1, df2)
+$df1
+            [,1]       [,2]        [,3]       [,4]
+[1,] -0.38049344  1.5679389  1.42819561  1.6885688
+[2,]  0.05184822  0.4725636 -0.11955599  0.3951031
+[3,]  2.39339883 -1.0349075 -0.04620811 -2.0777824
+[4,]  0.44542908 -0.5298995 -0.56570590  0.5993036
+[5,]  0.52236792 -0.3192430 -1.75933264 -0.5788542
+
+$df2
+           [,1]       [,2]         [,3]       [,4]
+[1,] -1.0445834 -1.4031615 -0.000196885  0.5865445
+[2,]  0.0678207  0.8017231 -1.292340155  0.4513618
+[3,] -0.9898444  0.2039550  0.839093148 -0.1665711
+[4,] -0.6009399 -0.9240516  0.808663160 -0.4114556
+[5,] -0.4650036  1.1650824  0.707387769 -0.4862185
+
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("normalize_and_split", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
 > nameEx("simple_pc_testing")
 > ### * simple_pc_testing
 > 
@@ -1345,12 +1531,36 @@ X100  0.000000e+00
 > 
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("simple_pc_testing", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("validate_and_convert_data")
+> ### * validate_and_convert_data
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: validate_and_convert_data
+> ### Title: Validate and convert input data
+> ### Aliases: validate_and_convert_data
+> 
+> ### ** Examples
+> 
+> validate_and_convert_data(data.frame(x = 1:3, y = 4:6), "example_data")
+     x y
+[1,] 1 4
+[2,] 2 5
+[3,] 3 6
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("validate_and_convert_data", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > ### * <FOOTER>
 > ###
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.796 0.11 5.019 0 0 
+Time elapsed:  5.15 0.083 5.237 0 0 
 > grDevices::dev.off()
 null device 
           1 

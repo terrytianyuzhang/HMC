@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.8.9)  16 AUG 2024 20:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.8.9)  2 MAY 2025 12:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**\input ./Rd2.tex \input ./Rd2.tex \input ./Rd2.tex
+**\input ./Rd2.tex
  (./Rd2.tex
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
@@ -27,6 +27,9 @@ Package: Rd
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
 )
 (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
@@ -157,9 +160,6 @@ Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 )
 \ldescriptionwidth=\skip57
 
-(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2022/02/03 v1.0f TeX engine tests
-)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 )
@@ -328,16 +328,11 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip58
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 390.
-Package hyperref Info: Option `linktocpage' set `true' on input line 390.
-Package hyperref Info: Option `plainpages' set `false' on input line 390.
+Package hyperref Info: Option `colorlinks' set `true' on input line 413.
+Package hyperref Info: Option `linktocpage' set `true' on input line 413.
+Package hyperref Info: Option `plainpages' set `false' on input line 413.
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2021/10/04 v1.0m Standard LaTeX package
-)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2021/02/14 v1.3d Input encoding file
-\inpenc@prehook=\toks26
-\inpenc@posthook=\toks27
 )
 \@indexfile=\write3
 \openout3 = `Rd2.idx'.
@@ -354,8 +349,8 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count290
 \l__pdf_internal_box=\box58
 )
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.aux)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpO26n3P/Rd2pdf51e9
+14923081/Rd2.aux)
 \openout1 = `Rd2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -384,136 +379,210 @@ LaTeX Font Info:    ... okay on input line 8.
 \scratchbox=\box59
 \nofMPsegments=\count292
 \nofMParguments=\count293
-\everyMPshowfont=\toks28
+\everyMPshowfont=\toks26
 \MPscratchCnt=\count294
 \MPscratchDim=\dimen156
 \MPnumerator=\count295
 \makeMPintoPDFobject=\count296
-\everyMPtoPDFconversion=\toks29
+\everyMPtoPDFconversion=\toks27
 )
 Package hyperref Info: Link coloring ON on input line 8.
 
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.out)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.out)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpO26n3P/Rd2pdf51e9
+14923081/Rd2.out)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpO26n3P/Rd2pdf51e9
+14923081/Rd2.out)
 \@outlinefile=\write4
 \openout4 = `Rd2.out'.
 
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 31
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 35
 .
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 31.
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 33
-.
+(Font)              scaled to size 10.0pt on input line 35.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 35.
 
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd
-File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
-)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 1.
- (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 1.
- (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
+LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
+
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 1.
-
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 35
+.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-))
-\tf@toc=\write5
-\openout5 = `Rd2.toc'.
-
- [1
+)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpO26n3P/Rd2pdf51e9
+14923081/Rd2.toc [1
 
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2023
-/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
-LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 9.0pt on input line 87.
+/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}])
+\tf@toc=\write5
+\openout5 = `Rd2.toc'.
 
-Overfull \hbox (27.73488pt too wide) in paragraph at lines 100--100
+
+[2]
+LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
+(Font)              scaled to size 9.0pt on input line 93.
+
+Overfull \hbox (27.73488pt too wide) in paragraph at lines 106--106
  [] \T1/zi4/m/n/9 ##the test statistic. It should follow normal(0,1) when there
  is no difference between the groups.[] 
  []
 
-[3]
-LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 1
-63.
+[3] [4] [5]
+Overfull \hbox (2.3889pt too wide) in paragraph at lines 262--263
+[]\T1/ptm/m/n/10 A re-sult ob-ject re-turned by []\T1/zi4/m/n/10 mean_compariso
+n_anchor()[]\T1/ptm/m/n/10 , con-tain-ing []\T1/zi4/m/n/10 fold_data
+ []
+
+[6] [7]
+LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 3
+43.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd
 File: ts1zi4.fd 2018/01/14 TS1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
-(Font)              scaled to size 9.0pt on input line 163.
+(Font)              scaled to size 9.0pt on input line 343.
 
-Underfull \hbox (badness 10000) in paragraph at lines 184--184
+Overfull \hbox (20.96829pt too wide) in paragraph at lines 379--380
+[]\T1/ptm/m/n/10 Character. PCA method to use. Op-tions are []\T1/zi4/m/n/10 "d
+ense_pca" []\T1/ptm/m/n/10 (de-fault) or []\T1/zi4/m/n/10 "sparse_pca"[]\T1/ptm
+/m/n/10 . 
+ []
+
+
+! LaTeX Error: Unicode character ≤ (U+2264)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.384 For low-dimensional settings (≤
+                                        30 features), the method automatical...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+[8{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 402--402
 []\T1/ptm/m/it/10 The func-tion for nui-sance pa-ram-e-ter es-ti-ma-tion in an-
 
  []
 
-[4{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
-[5] [6] [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 421--421
+[9] [10] [11] [12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 633--633
 []\T1/ptm/m/it/10 Extract the prin-ci-ple com-po-nents from the out-put of sim-
 
  []
 
-[10] [11] [12]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 559--560
+[14]
+Overfull \hbox (11.94833pt too wide) in paragraph at lines 680--681
+[]\T1/ptm/m/n/10 Character. Type of lambda to use from cross-validation. Op-tio
+ns are []\T1/zi4/m/n/10 "lambda.min"
+ []
+
+
+Overfull \hbox (7.04874pt too wide) in paragraph at lines 684--685
+[]\T1/ptm/m/n/10 Optional group-ing vec-tor for []\T1/zi4/m/n/10 group_lasso[]\
+T1/ptm/m/n/10 , same length as the num-ber of columns
+ []
+
+[15]
+Overfull \hbox (6.29684pt too wide) in paragraph at lines 741--742
+[]\T1/ptm/m/n/10 Performs a cross-validated, projection-based mean com-par-i-so
+n be-tween two high-dimensional groups
+ []
+
+[16]
+Overfull \hbox (16.10782pt too wide) in paragraph at lines 766--767
+[]\T1/ptm/m/n/10 Character. Method for es-ti-mat-ing the pro-jec-tion di-rec-ti
+on. Op-tions are []\T1/zi4/m/n/10 "dense_pca"
+ []
+
+
+Overfull \hbox (21.6284pt too wide) in paragraph at lines 768--769
+[]\T1/ptm/m/n/10 Character. Clas-si-fier to guide the pro-jec-tion. Op-tions ar
+e []\T1/zi4/m/n/10 "lasso" []\T1/ptm/m/n/10 or []\T1/zi4/m/n/10 "group_lasso"[]
+\T1/ptm/m/n/10 .
+ []
+
+
+Overfull \hbox (2.36815pt too wide) in paragraph at lines 770--771
+[]\T1/ptm/m/n/10 Character. Reg-u-lar-iza-tion pa-ram-e-ter choice in Lasso. Op
+-tions are []\T1/zi4/m/n/10 "lambda.min"
+ []
+
+
+Overfull \hbox (9.75328pt too wide) in paragraph at lines 807--807
+ []\T1/zi4/m/n/9 result <- mean_comparison_anchor(X, Y, pca_method = "dense_pca
+", classifier_method = "lasso")[] 
+ []
+
+[17] [18]
+Overfull \hbox (15.59889pt too wide) in paragraph at lines 893--894
+[]\T1/ptm/m/n/10 Character. Lambda se-lec-tion method. Op-tions are []\T1/zi4/m
+/n/10 "lambda.min" []\T1/ptm/m/n/10 or []\T1/zi4/m/n/10 "lambda.1se"[]\T1/ptm/m
+/n/10 . 
+ []
+
+[19] [20]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 993--994
+\T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
+her; or 'intersection'---
+ []
+
+[21]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 1024--1025
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
  []
 
 
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 591--592
-\T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
-her; or 'intersection'---
- []
-
-[13]
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.ind [14]
-Overfull \hbox (13.3567pt too wide) in paragraph at lines 13--15
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpO26n3P/Rd2pdf51e9
+14923081/Rd2.ind [22]
+Overfull \hbox (13.3567pt too wide) in paragraph at lines 26--28
 []\T1/zi4/m/n/10 evaluate_influence_function_multi_factor\T1/ptm/m/n/10 , 
  []
 
-[15
+[23
 
 
 ])
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.aux)
+(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpO26n3P/Rd2pdf51e9
+14923081/Rd2.aux)
 Package rerunfilecheck Info: File `Rd2.out' has not changed.
-(rerunfilecheck)             Checksum: EF00FC04FD671D7A299D0426AB217CDC;2463.
+(rerunfilecheck)             Checksum: 079E08B4F96232168C35D891742462A1;4653.
  ) 
 Here is how much of TeX's memory you used:
- 10495 strings out of 476025
- 163707 string characters out of 5790018
+ 10515 strings out of 476025
+ 164332 string characters out of 5790018
  1866388 words of memory out of 5000000
- 30654 multiletter control sequences out of 15000+600000
- 549019 words of font info for 77 fonts, out of 8000000 for 9000
+ 30594 multiletter control sequences out of 15000+600000
+ 546129 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 92i,6n,92p,563b,694s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 92i,6n,92p,409b,728s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
-a-zi4r.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.
-pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/
-local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texl
-ive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/t
-exmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (15 pages, 105744 bytes).
+a-zi4r.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
+></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/loc
+al/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive
+/2023/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (23 pages, 124127 bytes).
 PDF statistics:
- 284 PDF objects out of 1000 (max. 8388607)
- 251 compressed objects within 3 object streams
- 100 named destinations out of 1000 (max. 500000)
- 113 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 478 PDF objects out of 1000 (max. 8388607)
+ 437 compressed objects within 5 object streams
+ 188 named destinations out of 1000 (max. 500000)
+ 201 words of extra memory for PDF output out of 10000 (max. 10000000)
 

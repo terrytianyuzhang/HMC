@@ -1,17 +1,18 @@
 Hmm ... looks like a package
-Converting parsed Rd's to LaTeX .
+Converting parsed Rd's to LaTeX ..
 Creating pdf output from LaTeX ...
-
 This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex)
  restricted \write18 enabled.
 entering extended mode
+(./Rd2.tex
 LaTeX2e <2022-11-01> patch level 1
-L3 programming layer <2023-02-22> (./Rd2.tex
+L3 programming layer <2023-02-22>
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/bk10.clo))
 (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/bm.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/alltt.sty)
@@ -27,15 +28,8 @@ For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/times.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/zi4.sty
-`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
 (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
 (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def)
@@ -44,6 +38,7 @@ For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
 (/usr/local/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/keyval.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
@@ -66,47 +61,129 @@ ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
 (/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 
 (/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
-)))) (/usr/local/texlive/2023/texmf-dist/tex/latex/base/makeidx.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty)
-Writing index file Rd2.idx
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+)))) (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
 No file Rd2.aux.
 (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-) (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd)
-No file Rd2.toc.
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1pcr.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd) [1{/usr/local/
-texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2
-023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2023/texmf-dist/
-fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
-Overfull \hbox (27.73488pt too wide) in paragraph at lines 100--100
- [] \T1/zi4/m/n/9 ##the test statistic. It should follow normal(0,1) when there
+(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd)
+No file Rd2.toc.
+[1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/l
+ocal/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}] [2]
+Overfull \hbox (139.38028pt too wide) in paragraph at lines 104--104
+ [] \T1/pcr/m/n/9 ##the test statistic. It should follow normal(0,1) when there
  is no difference between the groups.[] 
-[3] (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
-Underfull \hbox (badness 10000) in paragraph at lines 184--184
+
+Overfull \hbox (52.98038pt too wide) in paragraph at lines 106--106
+ [] \T1/pcr/m/n/9 #summarize which features contribute to discriminant vectors 
+(i.e. logistic lasso)[] 
+
+Overfull \hbox (58.38037pt too wide) in paragraph at lines 139--139
+ []\T1/pcr/m/n/9 check_data_for_folds(matrix(1:4, nrow = 2), n_folds = 5)  # Th
+is will throw an error[] 
+[3]
+Overfull \hbox (9.489pt too wide) in paragraph at lines 194--195
+[]\T1/ptm/m/n/10 A re-sult ob-ject from []\T1/pcr/m/n/10 mean_comparison_anchor
+() []\T1/ptm/m/n/10 con-tain-ing []\T1/pcr/m/n/10 fold_data[]\T1/ptm/m/n/10 . 
+[4]
+Overfull \hbox (12.78088pt too wide) in paragraph at lines 254--254
+ []\T1/pcr/m/n/10 compute_predictive_contributions(result, group, group_thresho
+ld = 5) 
+[5]
+Overfull \hbox (35.3889pt too wide) in paragraph at lines 260--261
+[]\T1/ptm/m/n/10 A re-sult ob-ject re-turned by []\T1/pcr/m/n/10 mean_compariso
+n_anchor()[]\T1/ptm/m/n/10 , con-tain-ing []\T1/pcr/m/n/10 fold_data
+[6] (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/ts1pcr.fd) [7]
+Overfull \hbox (90.78033pt too wide) in paragraph at lines 355--355
+ [] \T1/pcr/m/n/9 summarize_pc_name(result, latent_fator_index = 1) #shows whic
+h features contribute to PC1[] 
+
+Overfull \hbox (30.78088pt too wide) in paragraph at lines 369--369
+ []\T1/pcr/m/n/10 estimate_leading_pc(control, pca_method = c("dense_pca", "spa
+rse_pca")) 
+
+Overfull \hbox (43.96829pt too wide) in paragraph at lines 377--378
+[]\T1/ptm/m/n/10 Character. PCA method to use. Op-tions are []\T1/pcr/m/n/10 "d
+ense_pca" []\T1/ptm/m/n/10 (de-fault) or []\T1/pcr/m/n/10 "sparse_pca"[]\T1/ptm
+/m/n/10 . 
+
+! LaTeX Error: Unicode character ≤ (U+2264)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.382 For low-dimensional settings (≤
+                                        30 features), the method automatical...
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 400--400
 []\T1/ptm/m/it/10 The func-tion for nui-sance pa-ram-e-ter es-ti-ma-tion in an-
 
-[4{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
-[5] [6] [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 421--421
+[8] [9] [10] [11] [12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 631--631
 []\T1/ptm/m/it/10 Extract the prin-ci-ple com-po-nents from the out-put of sim-
 
-[10] [11]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 559--560
+[14]
+Overfull \hbox (23.94833pt too wide) in paragraph at lines 678--679
+[]\T1/ptm/m/n/10 Character. Type of lambda to use from cross-validation. Op-tio
+ns are []\T1/pcr/m/n/10 "lambda.min"
+[15]
+Overfull \hbox (6.29684pt too wide) in paragraph at lines 739--740
+[]\T1/ptm/m/n/10 Performs a cross-validated, projection-based mean com-par-i-so
+n be-tween two high-dimensional groups
+[16]
+Overfull \hbox (27.10782pt too wide) in paragraph at lines 764--765
+[]\T1/ptm/m/n/10 Character. Method for es-ti-mat-ing the pro-jec-tion di-rec-ti
+on. Op-tions are []\T1/pcr/m/n/10 "dense_pca"
+
+Overfull \hbox (41.6284pt too wide) in paragraph at lines 766--767
+[]\T1/ptm/m/n/10 Character. Clas-si-fier to guide the pro-jec-tion. Op-tions ar
+e []\T1/pcr/m/n/10 "lasso" []\T1/ptm/m/n/10 or []\T1/pcr/m/n/10 "group_lasso"[]
+\T1/ptm/m/n/10 .
+
+Overfull \hbox (14.36815pt too wide) in paragraph at lines 768--769
+[]\T1/ptm/m/n/10 Character. Reg-u-lar-iza-tion pa-ram-e-ter choice in Lasso. Op
+-tions are []\T1/pcr/m/n/10 "lambda.min"
+
+Overfull \hbox (0.32092pt too wide) in paragraph at lines 797--798
+[][][]\T1/pcr/m/n/10 process_fold_mean_diff[][][]\T1/ptm/m/n/10 , [][][]\T1/pcr
+/m/n/10 combine_folds_mean_diff[][][]\T1/ptm/m/n/10 , [][][]\T1/pcr/m/n/10 esti
+mate_leading_pc[][][]\T1/ptm/m/n/10 ,
+
+Overfull \hbox (106.98032pt too wide) in paragraph at lines 805--805
+ []\T1/pcr/m/n/9 result <- mean_comparison_anchor(X, Y, pca_method = "dense_pca
+", classifier_method = "lasso")[] 
+[17] [18]
+Overfull \hbox (7.73872pt too wide) in paragraph at lines 887--888
+[]\T1/ptm/m/n/10 Character. PCA method to use. Op-tions are []\T1/pcr/m/n/10 "d
+ense_pca" []\T1/ptm/m/n/10 or []\T1/pcr/m/n/10 "sparse_pca"[]\T1/ptm/m/n/10 . 
+
+Overfull \hbox (39.59889pt too wide) in paragraph at lines 891--892
+[]\T1/ptm/m/n/10 Character. Lambda se-lec-tion method. Op-tions are []\T1/pcr/m
+/n/10 "lambda.min" []\T1/ptm/m/n/10 or []\T1/pcr/m/n/10 "lambda.1se"[]\T1/ptm/m
+/n/10 . 
+[19] [20]
+Overfull \hbox (85.38034pt too wide) in paragraph at lines 970--970
+ []\T1/pcr/m/n/9 summarize_pc_name(result, latent_fator_index = 1) #shows which
+ features contribute to PC1[] 
+
+Overfull \hbox (0.78088pt too wide) in paragraph at lines 983--983
+ []\T1/pcr/m/n/10 summarize_feature_name(testing_result, method = "majority vot
+ing") 
+
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 991--992
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
-[12]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 591--592
+[21]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 1022--1023
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
-No file Rd2.ind.
-[13]
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.aux)
+[22] [23] (./Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -114,30 +191,33 @@ Package rerunfilecheck Warning: File `Rd2.out' has changed.
 
  )
 (see the transcript file for additional information)</usr/local/texlive/2023/te
-xmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texliv
-e/2023/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2023/
-texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist
-/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
+xmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2023/texmf-dist
+/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/tim
-es/utmri8a.pfb>
-Output written on Rd2.pdf (13 pages, 101924 bytes).
+es/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on Rd2.pdf (23 pages, 114161 bytes).
 Transcript written on Rd2.log.
-This is makeindex, version 2.17 [TeX Live 2023] (kpathsea + Thai support).
-Scanning input file Rd2.idx....done (13 entries accepted, 0 rejected).
-Sorting entries....done (43 comparisons).
-Generating output file Rd2.ind....done (30 lines written, 0 warnings).
-Output written in Rd2.ind.
-Transcript written in Rd2.ilg.
+Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+  unable to run pdflatex on 'Rd2.tex'
+LaTeX errors:
+! LaTeX Error: Unicode character ≤ (U+2264)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
 This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex)
  restricted \write18 enabled.
 entering extended mode
+(./Rd2.tex
 LaTeX2e <2022-11-01> patch level 1
-L3 programming layer <2023-02-22> (./Rd2.tex
+L3 programming layer <2023-02-22>
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/bk10.clo))
 (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/bm.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/alltt.sty)
@@ -153,15 +233,8 @@ For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/times.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/zi4.sty
-`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
 (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
 (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def)
@@ -170,6 +243,7 @@ For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
 (/usr/local/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/keyval.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
 (/usr/local/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
@@ -192,202 +266,144 @@ ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
 (/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 
 (/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
-)))) (/usr/local/texlive/2023/texmf-dist/tex/latex/base/makeidx.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty)
-Writing index file Rd2.idx
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
+)))) (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.aux)
+(./Rd2.aux)
 (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.out)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.out)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.toc (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
-) (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd)) [1{/usr/local
-/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/
-2023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2023/texmf-dist
-/fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
-Overfull \hbox (27.73488pt too wide) in paragraph at lines 100--100
- [] \T1/zi4/m/n/9 ##the test statistic. It should follow normal(0,1) when there
+) (./Rd2.out) (./Rd2.out)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1pcr.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd) (./Rd2.toc
+[1{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/l
+ocal/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc}]) [2]
+Overfull \hbox (139.38028pt too wide) in paragraph at lines 104--104
+ [] \T1/pcr/m/n/9 ##the test statistic. It should follow normal(0,1) when there
  is no difference between the groups.[] 
-[3] (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
-Underfull \hbox (badness 10000) in paragraph at lines 184--184
+
+Overfull \hbox (52.98038pt too wide) in paragraph at lines 106--106
+ [] \T1/pcr/m/n/9 #summarize which features contribute to discriminant vectors 
+(i.e. logistic lasso)[] 
+[3]
+Overfull \hbox (58.38037pt too wide) in paragraph at lines 139--139
+ []\T1/pcr/m/n/9 check_data_for_folds(matrix(1:4, nrow = 2), n_folds = 5)  # Th
+is will throw an error[] 
+[4]
+Overfull \hbox (9.489pt too wide) in paragraph at lines 194--195
+[]\T1/ptm/m/n/10 A re-sult ob-ject from []\T1/pcr/m/n/10 mean_comparison_anchor
+() []\T1/ptm/m/n/10 con-tain-ing []\T1/pcr/m/n/10 fold_data[]\T1/ptm/m/n/10 . 
+[5]
+Overfull \hbox (12.78088pt too wide) in paragraph at lines 254--254
+ []\T1/pcr/m/n/10 compute_predictive_contributions(result, group, group_thresho
+ld = 5) 
+
+Overfull \hbox (35.3889pt too wide) in paragraph at lines 260--261
+[]\T1/ptm/m/n/10 A re-sult ob-ject re-turned by []\T1/pcr/m/n/10 mean_compariso
+n_anchor()[]\T1/ptm/m/n/10 , con-tain-ing []\T1/pcr/m/n/10 fold_data
+[6] (/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/ts1pcr.fd) [7]
+Overfull \hbox (90.78033pt too wide) in paragraph at lines 355--355
+ [] \T1/pcr/m/n/9 summarize_pc_name(result, latent_fator_index = 1) #shows whic
+h features contribute to PC1[] 
+
+Overfull \hbox (30.78088pt too wide) in paragraph at lines 369--369
+ []\T1/pcr/m/n/10 estimate_leading_pc(control, pca_method = c("dense_pca", "spa
+rse_pca")) 
+
+Overfull \hbox (43.96829pt too wide) in paragraph at lines 377--378
+[]\T1/ptm/m/n/10 Character. PCA method to use. Op-tions are []\T1/pcr/m/n/10 "d
+ense_pca" []\T1/ptm/m/n/10 (de-fault) or []\T1/pcr/m/n/10 "sparse_pca"[]\T1/ptm
+/m/n/10 . 
+
+! LaTeX Error: Unicode character ≤ (U+2264)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.382 For low-dimensional settings (≤
+                                        30 features), the method automatical...
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 400--400
 []\T1/ptm/m/it/10 The func-tion for nui-sance pa-ram-e-ter es-ti-ma-tion in an-
 
-[4{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
-[5] [6] [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 421--421
+[8] [9] [10] [11] [12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 631--631
 []\T1/ptm/m/it/10 Extract the prin-ci-ple com-po-nents from the out-put of sim-
 
-[10] [11] [12]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 559--560
+[14]
+Overfull \hbox (23.94833pt too wide) in paragraph at lines 678--679
+[]\T1/ptm/m/n/10 Character. Type of lambda to use from cross-validation. Op-tio
+ns are []\T1/pcr/m/n/10 "lambda.min"
+[15]
+Overfull \hbox (6.29684pt too wide) in paragraph at lines 739--740
+[]\T1/ptm/m/n/10 Performs a cross-validated, projection-based mean com-par-i-so
+n be-tween two high-dimensional groups
+[16]
+Overfull \hbox (27.10782pt too wide) in paragraph at lines 764--765
+[]\T1/ptm/m/n/10 Character. Method for es-ti-mat-ing the pro-jec-tion di-rec-ti
+on. Op-tions are []\T1/pcr/m/n/10 "dense_pca"
+
+Overfull \hbox (41.6284pt too wide) in paragraph at lines 766--767
+[]\T1/ptm/m/n/10 Character. Clas-si-fier to guide the pro-jec-tion. Op-tions ar
+e []\T1/pcr/m/n/10 "lasso" []\T1/ptm/m/n/10 or []\T1/pcr/m/n/10 "group_lasso"[]
+\T1/ptm/m/n/10 .
+
+Overfull \hbox (14.36815pt too wide) in paragraph at lines 768--769
+[]\T1/ptm/m/n/10 Character. Reg-u-lar-iza-tion pa-ram-e-ter choice in Lasso. Op
+-tions are []\T1/pcr/m/n/10 "lambda.min"
+
+Overfull \hbox (0.32092pt too wide) in paragraph at lines 797--798
+[][][]\T1/pcr/m/n/10 process_fold_mean_diff[][][]\T1/ptm/m/n/10 , [][][]\T1/pcr
+/m/n/10 combine_folds_mean_diff[][][]\T1/ptm/m/n/10 , [][][]\T1/pcr/m/n/10 esti
+mate_leading_pc[][][]\T1/ptm/m/n/10 ,
+
+Overfull \hbox (106.98032pt too wide) in paragraph at lines 805--805
+ []\T1/pcr/m/n/9 result <- mean_comparison_anchor(X, Y, pca_method = "dense_pca
+", classifier_method = "lasso")[] 
+[17] [18]
+Overfull \hbox (7.73872pt too wide) in paragraph at lines 887--888
+[]\T1/ptm/m/n/10 Character. PCA method to use. Op-tions are []\T1/pcr/m/n/10 "d
+ense_pca" []\T1/ptm/m/n/10 or []\T1/pcr/m/n/10 "sparse_pca"[]\T1/ptm/m/n/10 . 
+
+Overfull \hbox (39.59889pt too wide) in paragraph at lines 891--892
+[]\T1/ptm/m/n/10 Character. Lambda se-lec-tion method. Op-tions are []\T1/pcr/m
+/n/10 "lambda.min" []\T1/ptm/m/n/10 or []\T1/pcr/m/n/10 "lambda.1se"[]\T1/ptm/m
+/n/10 . 
+[19] [20]
+Overfull \hbox (85.38034pt too wide) in paragraph at lines 970--970
+ []\T1/pcr/m/n/9 summarize_pc_name(result, latent_fator_index = 1) #shows which
+ features contribute to PC1[] 
+
+Overfull \hbox (0.78088pt too wide) in paragraph at lines 983--983
+ []\T1/pcr/m/n/10 summarize_feature_name(testing_result, method = "majority vot
+ing") 
+
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 991--992
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
-
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 591--592
+[21]
+Overfull \hbox (3.7275pt too wide) in paragraph at lines 1022--1023
 \T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
 her; or 'intersection'---
-[13]
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.ind [14]
-Overfull \hbox (13.3567pt too wide) in paragraph at lines 13--15
-[]\T1/zi4/m/n/10 evaluate_influence_function_multi_factor\T1/ptm/m/n/10 , 
-[15])
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.aux)
-
-Package rerunfilecheck Warning: File `Rd2.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
- )
+[22] [23] (./Rd2.aux) )
 (see the transcript file for additional information)</usr/local/texlive/2023/te
-xmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texliv
-e/2023/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2023/
-texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist
-/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
+xmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2023/texmf-dist
+/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/tim
-es/utmri8a.pfb>
-Output written on Rd2.pdf (15 pages, 105310 bytes).
+es/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on Rd2.pdf (23 pages, 117345 bytes).
 Transcript written on Rd2.log.
-This is makeindex, version 2.17 [TeX Live 2023] (kpathsea + Thai support).
-Scanning input file Rd2.idx....done (13 entries accepted, 0 rejected).
-Sorting entries....done (43 comparisons).
-Generating output file Rd2.ind....done (30 lines written, 0 warnings).
-Output written in Rd2.ind.
-Transcript written in Rd2.ilg.
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex)
- restricted \write18 enabled.
-entering extended mode
-LaTeX2e <2022-11-01> patch level 1
-L3 programming layer <2023-02-22> (./Rd2.tex
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/book.cls
-Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/bk10.clo))
-(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/ifthen.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/bm.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/alltt.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/verbatim.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/url/url.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/textcomp.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
-(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty))
-(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsopn.sty))
-(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/amssymb.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/times.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/zi4.sty
-`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/keyval.tex)))))
-(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
-(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
-(/usr/local/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-(/usr/local/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
-(/usr/local/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/hycolor/hycolor.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/auxhook/auxhook.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/nameref.sty
-(/usr/local/texlive/2023/texmf-dist/tex/latex/refcount/refcount.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
-ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
-(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/pd1enc.def)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/intcalc/intcalc.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/puenc.def)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/bitset/bitset.sty
-(/usr/local/texlive/2023/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
-(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hpdftex.def
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+  unable to run pdflatex on 'Rd2.tex'
+LaTeX errors:
+! LaTeX Error: Unicode character ≤ (U+2264)
+               not set up for use with LaTeX.
 
-(/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
-)))) (/usr/local/texlive/2023/texmf-dist/tex/latex/base/makeidx.sty)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty)
-Writing index file Rd2.idx
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1ptm.fd)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.aux)
-(/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.out)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.out)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.toc (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
-) (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd)
-(/usr/local/texlive/2023/texmf-dist/tex/latex/jknapltx/ursfs.fd)) [1{/usr/local
-/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/
-2023/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2023/texmf-dist
-/fonts/enc/dvips/inconsolata/i4-t1-0.enc}] [2]
-Overfull \hbox (27.73488pt too wide) in paragraph at lines 100--100
- [] \T1/zi4/m/n/9 ##the test statistic. It should follow normal(0,1) when there
- is no difference between the groups.[] 
-[3] (/usr/local/texlive/2023/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
-Underfull \hbox (badness 10000) in paragraph at lines 184--184
-[]\T1/ptm/m/it/10 The func-tion for nui-sance pa-ram-e-ter es-ti-ma-tion in an-
-
-[4{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
-[5] [6] [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 421--421
-[]\T1/ptm/m/it/10 Extract the prin-ci-ple com-po-nents from the out-put of sim-
-
-[10] [11] [12]
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 559--560
-\T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
-her; or 'intersection'---
-
-Overfull \hbox (3.7275pt too wide) in paragraph at lines 591--592
-\T1/ptm/m/n/10 tive/useful. It can be 'union'---all the fea-tures pooled to-get
-her; or 'intersection'---
-[13]
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.ind [14]
-Overfull \hbox (13.3567pt too wide) in paragraph at lines 13--15
-[]\T1/zi4/m/n/10 evaluate_influence_function_multi_factor\T1/ptm/m/n/10 , 
-[15])
-(/private/var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T/RtmpFvvD82/Rd2pdf7630
-1c07c7f5/Rd2.aux) )
-(see the transcript file for additional information)</usr/local/texlive/2023/te
-xmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texliv
-e/2023/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2023/
-texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2023/texmf-dist
-/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
-e1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/tim
-es/utmri8a.pfb>
-Output written on Rd2.pdf (15 pages, 105744 bytes).
-Transcript written on Rd2.log.
-Saving output to ‘HMC-manual.pdf’ ...
-Done
-You may want to clean up by 'rm -Rf /var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T//RtmpFvvD82/Rd2pdf76301c07c7f5'
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+Error in running tools::texi2pdf()
+You may want to clean up by 'rm -Rf /var/folders/ps/b1m7xc9s0ygcx4k2zk_t4rkr0000gn/T//RtmpO26n3P/Rd2pdf51e99ae6fb4'

@@ -111,7 +111,6 @@ check_non_null_and_identical_colnames <- function(data_list) {
 #'   \item{df2}{Normalized version of `df2`.}
 #' }
 #'
-#' @importFrom stats coef sd
 #' @examples
 #' set.seed(123)
 #' df1 <- matrix(rnorm(20), nrow = 5)
@@ -177,8 +176,7 @@ check_data_for_folds <- function(data, n_folds) {
 #'
 #' @importFrom glmnet cv.glmnet
 #' @importFrom grpreg cv.grpreg
-#' @importFrom stats coef sd
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' X1 <- matrix(rnorm(100), nrow = 10)
@@ -241,7 +239,7 @@ fit_lasso <- function(control_train, treat_train,
 #'
 #' @return A normalized numeric vector representing the leading principal component direction.
 #'
-#' @details For low-dimensional settings (\eqn{\le} 30 features), the method automatically switches to dense PCA.
+#' @details For low-dimensional settings (≤ 30 features), the method automatically switches to dense PCA.
 #' For sparse PCA, the function uses the `PMA::SPC.cv` cross-validation method.
 #'
 #' @importFrom irlba irlba

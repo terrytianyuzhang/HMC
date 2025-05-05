@@ -1,6 +1,6 @@
 * using log directory ‘/Users/tianyuzhang/Documents/HMC/HMC.Rcheck’
-* using R version 4.3.1 (2023-06-16)
-* using platform: aarch64-apple-darwin20 (64-bit)
+* using R version 4.4.2 (2024-10-31)
+* using platform: aarch64-apple-darwin20
 * R was compiled by
     Apple clang version 14.0.0 (clang-1400.0.29.202)
     GNU Fortran (GCC) 12.2.0
@@ -8,10 +8,15 @@
 * using session charset: UTF-8
 * using option ‘--as-cran’
 * checking for file ‘HMC/DESCRIPTION’ ... OK
-* this is package ‘HMC’ version ‘1.1’
+* this is package ‘HMC’ version ‘1.2’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [3s/12s] Note_to_CRAN_maintainers
+* checking CRAN incoming feasibility ... [3s/14s] NOTE
 Maintainer: ‘Tianyu Zhang <tianyuz3@andrew.cmu.edu>’
+
+The Title field should be in title case. Current version is:
+‘High-dimensional mean comparison with projection and cross-fitting’
+In title case that is:
+‘High-Dimensional Mean Comparison with Projection and Cross-Fitting’
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -24,13 +29,14 @@ Maintainer: ‘Tianyu Zhang <tianyuz3@andrew.cmu.edu>’
 * checking whether package ‘HMC’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
-* checking for future file timestamps ... OK
+* checking for future file timestamps ... NOTE
+unable to verify current time
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
 * checking for left-over files ... OK
 * checking index information ... OK
 * checking package subdirectories ... OK
-* checking R files for non-ASCII characters ... OK
+* checking code files for non-ASCII characters ... OK
 * checking R files for syntax errors ... OK
 * checking whether the package can be loaded ... OK
 * checking whether the package can be loaded with stated dependencies ... OK
@@ -42,7 +48,16 @@ Maintainer: ‘Tianyu Zhang <tianyuz3@andrew.cmu.edu>’
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... OK
+* checking R code for possible problems ... NOTE
+collect_active_features_proj: no visible binding for global variable
+  ‘result’
+fit_lasso: no visible global function definition for ‘coef’
+normalize_and_split: no visible binding for global variable ‘sd’
+Undefined global functions or variables:
+  coef result sd
+Consider adding
+  importFrom("stats", "coef", "sd")
+to your NAMESPACE file.
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
@@ -53,83 +68,222 @@ Maintainer: ‘Tianyu Zhang <tianyuz3@andrew.cmu.edu>’
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
 * checking examples ... OK
-* checking PDF version of manual ... OK
+* checking PDF version of manual ... WARNING
+LaTeX errors when creating PDF version.
+This typically indicates Rd problems.
+LaTeX errors found:
+! LaTeX Error: Unicode character ≤ (U+2264)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+* checking PDF version of manual without index ... ERROR
 * checking HTML version of manual ... NOTE
 Found the following HTML validation problems:
+anchored_lasso_testing.html:15:44 (anchored_lasso_testing.Rd:5): Error: <main> is not recognized!
+anchored_lasso_testing.html:15:44 (anchored_lasso_testing.Rd:5): Warning: discarding unexpected <main>
+anchored_lasso_testing.html:125:1 (anchored_lasso_testing.Rd:62): Warning: discarding unexpected </main>
 anchored_lasso_testing.html:4:1 (anchored_lasso_testing.Rd:5): Warning: <link> inserting "type" attribute
 anchored_lasso_testing.html:12:1 (anchored_lasso_testing.Rd:5): Warning: <script> proprietary attribute "onload"
 anchored_lasso_testing.html:12:1 (anchored_lasso_testing.Rd:5): Warning: <script> inserting "type" attribute
 anchored_lasso_testing.html:17:1 (anchored_lasso_testing.Rd:5): Warning: <table> lacks "summary" attribute
 anchored_lasso_testing.html:44:1 (anchored_lasso_testing.Rd:19): Warning: <table> lacks "summary" attribute
 anchored_lasso_testing.html:84:1 (anchored_lasso_testing.Rd:37): Warning: <table> lacks "summary" attribute
+check_data_for_folds.html:15:44 (check_data_for_folds.Rd:5): Error: <main> is not recognized!
+check_data_for_folds.html:15:44 (check_data_for_folds.Rd:5): Warning: discarding unexpected <main>
+check_data_for_folds.html:63:1 (check_data_for_folds.Rd:25): Warning: discarding unexpected </main>
+check_data_for_folds.html:4:1 (check_data_for_folds.Rd:5): Warning: <link> inserting "type" attribute
+check_data_for_folds.html:12:1 (check_data_for_folds.Rd:5): Warning: <script> proprietary attribute "onload"
+check_data_for_folds.html:12:1 (check_data_for_folds.Rd:5): Warning: <script> inserting "type" attribute
+check_data_for_folds.html:17:1 (check_data_for_folds.Rd:5): Warning: <table> lacks "summary" attribute
+check_data_for_folds.html:35:1 (check_data_for_folds.Rd:10): Warning: <table> lacks "summary" attribute
+check_non_null_and_identical_colnames.html:15:44 (check_non_null_and_identical_colnames.Rd:5): Error: <main> is not recognized!
+check_non_null_and_identical_colnames.html:15:44 (check_non_null_and_identical_colnames.Rd:5): Warning: discarding unexpected <main>
+check_non_null_and_identical_colnames.html:57:1 (check_non_null_and_identical_colnames.Rd:22): Warning: discarding unexpected </main>
+check_non_null_and_identical_colnames.html:4:1 (check_non_null_and_identical_colnames.Rd:5): Warning: <link> inserting "type" attribute
+check_non_null_and_identical_colnames.html:12:1 (check_non_null_and_identical_colnames.Rd:5): Warning: <script> proprietary attribute "onload"
+check_non_null_and_identical_colnames.html:12:1 (check_non_null_and_identical_colnames.Rd:5): Warning: <script> inserting "type" attribute
+check_non_null_and_identical_colnames.html:17:1 (check_non_null_and_identical_colnames.Rd:5): Warning: <table> lacks "summary" attribute
+check_non_null_and_identical_colnames.html:35:1 (check_non_null_and_identical_colnames.Rd:10): Warning: <table> lacks "summary" attribute
+collect_active_features_proj.html:15:44 (collect_active_features_proj.Rd:5): Error: <main> is not recognized!
+collect_active_features_proj.html:15:44 (collect_active_features_proj.Rd:5): Warning: discarding unexpected <main>
+collect_active_features_proj.html:75:1 (collect_active_features_proj.Rd:29): Warning: discarding unexpected </main>
+collect_active_features_proj.html:4:1 (collect_active_features_proj.Rd:5): Warning: <link> inserting "type" attribute
+collect_active_features_proj.html:12:1 (collect_active_features_proj.Rd:5): Warning: <script> proprietary attribute "onload"
+collect_active_features_proj.html:12:1 (collect_active_features_proj.Rd:5): Warning: <script> inserting "type" attribute
+collect_active_features_proj.html:17:1 (collect_active_features_proj.Rd:5): Warning: <table> lacks "summary" attribute
+collect_active_features_proj.html:40:1 (collect_active_features_proj.Rd:15): Warning: <table> lacks "summary" attribute
+combine_folds_mean_diff.html:15:44 (combine_folds_mean_diff.Rd:5): Error: <main> is not recognized!
+combine_folds_mean_diff.html:15:44 (combine_folds_mean_diff.Rd:5): Warning: discarding unexpected <main>
+combine_folds_mean_diff.html:62:1 (combine_folds_mean_diff.Rd:20): Warning: discarding unexpected </main>
+combine_folds_mean_diff.html:4:1 (combine_folds_mean_diff.Rd:5): Warning: <link> inserting "type" attribute
+combine_folds_mean_diff.html:12:1 (combine_folds_mean_diff.Rd:5): Warning: <script> proprietary attribute "onload"
+combine_folds_mean_diff.html:12:1 (combine_folds_mean_diff.Rd:5): Warning: <script> inserting "type" attribute
+combine_folds_mean_diff.html:17:1 (combine_folds_mean_diff.Rd:5): Warning: <table> lacks "summary" attribute
+combine_folds_mean_diff.html:35:1 (combine_folds_mean_diff.Rd:10): Warning: <table> lacks "summary" attribute
+compute_predictive_contributions.html:15:44 (compute_predictive_contributions.Rd:5): Error: <main> is not recognized!
+compute_predictive_contributions.html:15:44 (compute_predictive_contributions.Rd:5): Warning: discarding unexpected <main>
+compute_predictive_contributions.html:76:1 (compute_predictive_contributions.Rd:30): Warning: discarding unexpected </main>
+compute_predictive_contributions.html:4:1 (compute_predictive_contributions.Rd:5): Warning: <link> inserting "type" attribute
+compute_predictive_contributions.html:12:1 (compute_predictive_contributions.Rd:5): Warning: <script> proprietary attribute "onload"
+compute_predictive_contributions.html:12:1 (compute_predictive_contributions.Rd:5): Warning: <script> inserting "type" attribute
+compute_predictive_contributions.html:17:1 (compute_predictive_contributions.Rd:5): Warning: <table> lacks "summary" attribute
+compute_predictive_contributions.html:35:1 (compute_predictive_contributions.Rd:10): Warning: <table> lacks "summary" attribute
+debiased_pc_testing.html:15:44 (debiased_pc_testing.Rd:5): Error: <main> is not recognized!
+debiased_pc_testing.html:15:44 (debiased_pc_testing.Rd:5): Warning: discarding unexpected <main>
+debiased_pc_testing.html:126:1 (debiased_pc_testing.Rd:65): Warning: discarding unexpected </main>
 debiased_pc_testing.html:4:1 (debiased_pc_testing.Rd:5): Warning: <link> inserting "type" attribute
 debiased_pc_testing.html:12:1 (debiased_pc_testing.Rd:5): Warning: <script> proprietary attribute "onload"
 debiased_pc_testing.html:12:1 (debiased_pc_testing.Rd:5): Warning: <script> inserting "type" attribute
 debiased_pc_testing.html:17:1 (debiased_pc_testing.Rd:5): Warning: <table> lacks "summary" attribute
 debiased_pc_testing.html:43:1 (debiased_pc_testing.Rd:18): Warning: <table> lacks "summary" attribute
 debiased_pc_testing.html:79:1 (debiased_pc_testing.Rd:34): Warning: <table> lacks "summary" attribute
+estimate_leading_pc.html:15:44 (estimate_leading_pc.Rd:5): Error: <main> is not recognized!
+estimate_leading_pc.html:15:44 (estimate_leading_pc.Rd:5): Warning: discarding unexpected <main>
+estimate_leading_pc.html:49:38 (estimate_leading_pc.Rd:21): Warning: replacing invalid character code 137
+estimate_leading_pc.html:70:1 (estimate_leading_pc.Rd:29): Warning: discarding unexpected </main>
+estimate_leading_pc.html:4:1 (estimate_leading_pc.Rd:5): Warning: <link> inserting "type" attribute
+estimate_leading_pc.html:12:1 (estimate_leading_pc.Rd:5): Warning: <script> proprietary attribute "onload"
+estimate_leading_pc.html:12:1 (estimate_leading_pc.Rd:5): Warning: <script> inserting "type" attribute
+estimate_leading_pc.html:17:1 (estimate_leading_pc.Rd:5): Warning: <table> lacks "summary" attribute
+estimate_leading_pc.html:35:1 (estimate_leading_pc.Rd:10): Warning: <table> lacks "summary" attribute
+estimate_nuisance_parameter_lasso.html:15:44 (estimate_nuisance_parameter_lasso.Rd:5): Error: <main> is not recognized!
+estimate_nuisance_parameter_lasso.html:15:44 (estimate_nuisance_parameter_lasso.Rd:5): Warning: discarding unexpected <main>
+estimate_nuisance_parameter_lasso.html:111:1 (estimate_nuisance_parameter_lasso.Rd:42): Warning: discarding unexpected </main>
 estimate_nuisance_parameter_lasso.html:4:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <link> inserting "type" attribute
 estimate_nuisance_parameter_lasso.html:12:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <script> proprietary attribute "onload"
 estimate_nuisance_parameter_lasso.html:12:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <script> inserting "type" attribute
 estimate_nuisance_parameter_lasso.html:17:1 (estimate_nuisance_parameter_lasso.Rd:5): Warning: <table> lacks "summary" attribute
 estimate_nuisance_parameter_lasso.html:44:1 (estimate_nuisance_parameter_lasso.Rd:19): Warning: <table> lacks "summary" attribute
 estimate_nuisance_parameter_lasso.html:84:1 (estimate_nuisance_parameter_lasso.Rd:37): Warning: <table> lacks "summary" attribute
+estimate_nuisance_pc.html:15:44 (estimate_nuisance_pc.Rd:5): Error: <main> is not recognized!
+estimate_nuisance_pc.html:15:44 (estimate_nuisance_pc.Rd:5): Warning: discarding unexpected <main>
+estimate_nuisance_pc.html:97:1 (estimate_nuisance_pc.Rd:35): Warning: discarding unexpected </main>
 estimate_nuisance_pc.html:4:1 (estimate_nuisance_pc.Rd:5): Warning: <link> inserting "type" attribute
 estimate_nuisance_pc.html:12:1 (estimate_nuisance_pc.Rd:5): Warning: <script> proprietary attribute "onload"
 estimate_nuisance_pc.html:12:1 (estimate_nuisance_pc.Rd:5): Warning: <script> inserting "type" attribute
 estimate_nuisance_pc.html:17:1 (estimate_nuisance_pc.Rd:5): Warning: <table> lacks "summary" attribute
 estimate_nuisance_pc.html:42:1 (estimate_nuisance_pc.Rd:17): Warning: <table> lacks "summary" attribute
 estimate_nuisance_pc.html:74:1 (estimate_nuisance_pc.Rd:31): Warning: <table> lacks "summary" attribute
+evaluate_influence_function_multi_factor.html:15:44 (evaluate_influence_function_multi_factor.Rd:5): Error: <main> is not recognized!
+evaluate_influence_function_multi_factor.html:15:44 (evaluate_influence_function_multi_factor.Rd:5): Warning: discarding unexpected <main>
+evaluate_influence_function_multi_factor.html:91:1 (evaluate_influence_function_multi_factor.Rd:30): Warning: discarding unexpected </main>
 evaluate_influence_function_multi_factor.html:4:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <link> inserting "type" attribute
 evaluate_influence_function_multi_factor.html:12:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <script> proprietary attribute "onload"
 evaluate_influence_function_multi_factor.html:12:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <script> inserting "type" attribute
 evaluate_influence_function_multi_factor.html:17:1 (evaluate_influence_function_multi_factor.Rd:5): Warning: <table> lacks "summary" attribute
 evaluate_influence_function_multi_factor.html:40:1 (evaluate_influence_function_multi_factor.Rd:15): Warning: <table> lacks "summary" attribute
 evaluate_influence_function_multi_factor.html:64:1 (evaluate_influence_function_multi_factor.Rd:25): Warning: <table> lacks "summary" attribute
+evaluate_pca_lasso_plug_in.html:15:44 (evaluate_pca_lasso_plug_in.Rd:5): Error: <main> is not recognized!
+evaluate_pca_lasso_plug_in.html:15:44 (evaluate_pca_lasso_plug_in.Rd:5): Warning: discarding unexpected <main>
+evaluate_pca_lasso_plug_in.html:83:1 (evaluate_pca_lasso_plug_in.Rd:28): Warning: discarding unexpected </main>
 evaluate_pca_lasso_plug_in.html:4:1 (evaluate_pca_lasso_plug_in.Rd:5): Warning: <link> inserting "type" attribute
 evaluate_pca_lasso_plug_in.html:12:1 (evaluate_pca_lasso_plug_in.Rd:5): Warning: <script> proprietary attribute "onload"
 evaluate_pca_lasso_plug_in.html:12:1 (evaluate_pca_lasso_plug_in.Rd:5): Warning: <script> inserting "type" attribute
 evaluate_pca_lasso_plug_in.html:17:1 (evaluate_pca_lasso_plug_in.Rd:5): Warning: <table> lacks "summary" attribute
 evaluate_pca_lasso_plug_in.html:40:1 (evaluate_pca_lasso_plug_in.Rd:15): Warning: <table> lacks "summary" attribute
 evaluate_pca_lasso_plug_in.html:64:1 (evaluate_pca_lasso_plug_in.Rd:25): Warning: <table> lacks "summary" attribute
+evaluate_pca_plug_in.html:15:44 (evaluate_pca_plug_in.Rd:5): Error: <main> is not recognized!
+evaluate_pca_plug_in.html:15:44 (evaluate_pca_plug_in.Rd:5): Warning: discarding unexpected <main>
+evaluate_pca_plug_in.html:70:1 (evaluate_pca_plug_in.Rd:23): Warning: discarding unexpected </main>
 evaluate_pca_plug_in.html:4:1 (evaluate_pca_plug_in.Rd:5): Warning: <link> inserting "type" attribute
 evaluate_pca_plug_in.html:12:1 (evaluate_pca_plug_in.Rd:5): Warning: <script> proprietary attribute "onload"
 evaluate_pca_plug_in.html:12:1 (evaluate_pca_plug_in.Rd:5): Warning: <script> inserting "type" attribute
 evaluate_pca_plug_in.html:17:1 (evaluate_pca_plug_in.Rd:5): Warning: <table> lacks "summary" attribute
 evaluate_pca_plug_in.html:39:1 (evaluate_pca_plug_in.Rd:14): Warning: <table> lacks "summary" attribute
 evaluate_pca_plug_in.html:59:1 (evaluate_pca_plug_in.Rd:22): Warning: <table> lacks "summary" attribute
+extract_lasso_coef.html:15:44 (extract_lasso_coef.Rd:5): Error: <main> is not recognized!
+extract_lasso_coef.html:15:44 (extract_lasso_coef.Rd:5): Warning: discarding unexpected <main>
+extract_lasso_coef.html:50:1 (extract_lasso_coef.Rd:15): Warning: discarding unexpected </main>
 extract_lasso_coef.html:4:1 (extract_lasso_coef.Rd:5): Warning: <link> inserting "type" attribute
 extract_lasso_coef.html:12:1 (extract_lasso_coef.Rd:5): Warning: <script> proprietary attribute "onload"
 extract_lasso_coef.html:12:1 (extract_lasso_coef.Rd:5): Warning: <script> inserting "type" attribute
 extract_lasso_coef.html:17:1 (extract_lasso_coef.Rd:5): Warning: <table> lacks "summary" attribute
 extract_lasso_coef.html:35:1 (extract_lasso_coef.Rd:10): Warning: <table> lacks "summary" attribute
+extract_pc.html:15:44 (extract_pc.Rd:5): Error: <main> is not recognized!
+extract_pc.html:15:44 (extract_pc.Rd:5): Warning: discarding unexpected <main>
+extract_pc.html:50:1 (extract_pc.Rd:15): Warning: discarding unexpected </main>
 extract_pc.html:4:1 (extract_pc.Rd:5): Warning: <link> inserting "type" attribute
 extract_pc.html:12:1 (extract_pc.Rd:5): Warning: <script> proprietary attribute "onload"
 extract_pc.html:12:1 (extract_pc.Rd:5): Warning: <script> inserting "type" attribute
 extract_pc.html:17:1 (extract_pc.Rd:5): Warning: <table> lacks "summary" attribute
 extract_pc.html:35:1 (extract_pc.Rd:10): Warning: <table> lacks "summary" attribute
+fit_lasso.html:15:44 (fit_lasso.Rd:5): Error: <main> is not recognized!
+fit_lasso.html:15:44 (fit_lasso.Rd:5): Warning: discarding unexpected <main>
+fit_lasso.html:89:1 (fit_lasso.Rd:42): Warning: discarding unexpected </main>
+fit_lasso.html:4:1 (fit_lasso.Rd:5): Warning: <link> inserting "type" attribute
+fit_lasso.html:12:1 (fit_lasso.Rd:5): Warning: <script> proprietary attribute "onload"
+fit_lasso.html:12:1 (fit_lasso.Rd:5): Warning: <script> inserting "type" attribute
+fit_lasso.html:17:1 (fit_lasso.Rd:5): Warning: <table> lacks "summary" attribute
+fit_lasso.html:41:1 (fit_lasso.Rd:16): Warning: <table> lacks "summary" attribute
+index_spliter.html:15:44 (index_spliter.Rd:5): Error: <main> is not recognized!
+index_spliter.html:15:44 (index_spliter.Rd:5): Warning: discarding unexpected <main>
+index_spliter.html:59:1 (index_spliter.Rd:22): Warning: discarding unexpected </main>
 index_spliter.html:4:1 (index_spliter.Rd:5): Warning: <link> inserting "type" attribute
 index_spliter.html:12:1 (index_spliter.Rd:5): Warning: <script> proprietary attribute "onload"
 index_spliter.html:12:1 (index_spliter.Rd:5): Warning: <script> inserting "type" attribute
 index_spliter.html:17:1 (index_spliter.Rd:5): Warning: <table> lacks "summary" attribute
 index_spliter.html:35:1 (index_spliter.Rd:10): Warning: <table> lacks "summary" attribute
+mean_comparison_anchor.html:15:44 (mean_comparison_anchor.Rd:5): Error: <main> is not recognized!
+mean_comparison_anchor.html:15:44 (mean_comparison_anchor.Rd:5): Warning: discarding unexpected <main>
+mean_comparison_anchor.html:124:1 (mean_comparison_anchor.Rd:58): Warning: discarding unexpected </main>
+mean_comparison_anchor.html:4:1 (mean_comparison_anchor.Rd:5): Warning: <link> inserting "type" attribute
+mean_comparison_anchor.html:12:1 (mean_comparison_anchor.Rd:5): Warning: <script> proprietary attribute "onload"
+mean_comparison_anchor.html:12:1 (mean_comparison_anchor.Rd:5): Warning: <script> inserting "type" attribute
+mean_comparison_anchor.html:17:1 (mean_comparison_anchor.Rd:5): Warning: <table> lacks "summary" attribute
+mean_comparison_anchor.html:45:1 (mean_comparison_anchor.Rd:20): Warning: <table> lacks "summary" attribute
+normalize_and_split.html:15:44 (normalize_and_split.Rd:5): Error: <main> is not recognized!
+normalize_and_split.html:15:44 (normalize_and_split.Rd:5): Warning: discarding unexpected <main>
+normalize_and_split.html:71:1 (normalize_and_split.Rd:30): Warning: discarding unexpected </main>
+normalize_and_split.html:4:1 (normalize_and_split.Rd:5): Warning: <link> inserting "type" attribute
+normalize_and_split.html:12:1 (normalize_and_split.Rd:5): Warning: <script> proprietary attribute "onload"
+normalize_and_split.html:12:1 (normalize_and_split.Rd:5): Warning: <script> inserting "type" attribute
+normalize_and_split.html:17:1 (normalize_and_split.Rd:5): Warning: <table> lacks "summary" attribute
+normalize_and_split.html:36:1 (normalize_and_split.Rd:10): Warning: <table> lacks "summary" attribute
+process_fold_mean_diff.html:15:44 (process_fold_mean_diff.Rd:5): Error: <main> is not recognized!
+process_fold_mean_diff.html:15:44 (process_fold_mean_diff.Rd:5): Warning: discarding unexpected <main>
+process_fold_mean_diff.html:95:1 (process_fold_mean_diff.Rd:42): Warning: discarding unexpected </main>
+process_fold_mean_diff.html:4:1 (process_fold_mean_diff.Rd:5): Warning: <link> inserting "type" attribute
+process_fold_mean_diff.html:12:1 (process_fold_mean_diff.Rd:5): Warning: <script> proprietary attribute "onload"
+process_fold_mean_diff.html:12:1 (process_fold_mean_diff.Rd:5): Warning: <script> inserting "type" attribute
+process_fold_mean_diff.html:17:1 (process_fold_mean_diff.Rd:5): Warning: <table> lacks "summary" attribute
+process_fold_mean_diff.html:46:1 (process_fold_mean_diff.Rd:21): Warning: <table> lacks "summary" attribute
+simple_pc_testing.html:15:44 (simple_pc_testing.Rd:5): Error: <main> is not recognized!
+simple_pc_testing.html:15:44 (simple_pc_testing.Rd:5): Warning: discarding unexpected <main>
+simple_pc_testing.html:124:1 (simple_pc_testing.Rd:63): Warning: discarding unexpected </main>
 simple_pc_testing.html:4:1 (simple_pc_testing.Rd:5): Warning: <link> inserting "type" attribute
 simple_pc_testing.html:12:1 (simple_pc_testing.Rd:5): Warning: <script> proprietary attribute "onload"
 simple_pc_testing.html:12:1 (simple_pc_testing.Rd:5): Warning: <script> inserting "type" attribute
 simple_pc_testing.html:17:1 (simple_pc_testing.Rd:5): Warning: <table> lacks "summary" attribute
 simple_pc_testing.html:43:1 (simple_pc_testing.Rd:18): Warning: <table> lacks "summary" attribute
 simple_pc_testing.html:79:1 (simple_pc_testing.Rd:34): Warning: <table> lacks "summary" attribute
+summarize_feature_name.html:15:44 (summarize_feature_name.Rd:5): Error: <main> is not recognized!
+summarize_feature_name.html:15:44 (summarize_feature_name.Rd:5): Warning: discarding unexpected <main>
+summarize_feature_name.html:54:1 (summarize_feature_name.Rd:17): Warning: discarding unexpected </main>
 summarize_feature_name.html:4:1 (summarize_feature_name.Rd:5): Warning: <link> inserting "type" attribute
 summarize_feature_name.html:12:1 (summarize_feature_name.Rd:5): Warning: <script> proprietary attribute "onload"
 summarize_feature_name.html:12:1 (summarize_feature_name.Rd:5): Warning: <script> inserting "type" attribute
 summarize_feature_name.html:17:1 (summarize_feature_name.Rd:5): Warning: <table> lacks "summary" attribute
 summarize_feature_name.html:35:1 (summarize_feature_name.Rd:10): Warning: <table> lacks "summary" attribute
+summarize_pc_name.html:15:44 (summarize_pc_name.Rd:5): Error: <main> is not recognized!
+summarize_pc_name.html:15:44 (summarize_pc_name.Rd:5): Warning: discarding unexpected <main>
+summarize_pc_name.html:62:1 (summarize_pc_name.Rd:23): Warning: discarding unexpected </main>
 summarize_pc_name.html:4:1 (summarize_pc_name.Rd:5): Warning: <link> inserting "type" attribute
 summarize_pc_name.html:12:1 (summarize_pc_name.Rd:5): Warning: <script> proprietary attribute "onload"
 summarize_pc_name.html:12:1 (summarize_pc_name.Rd:5): Warning: <script> inserting "type" attribute
 summarize_pc_name.html:17:1 (summarize_pc_name.Rd:5): Warning: <table> lacks "summary" attribute
 summarize_pc_name.html:39:1 (summarize_pc_name.Rd:14): Warning: <table> lacks "summary" attribute
-* checking for non-standard things in the check directory ... OK
+validate_and_convert_data.html:15:44 (validate_and_convert_data.Rd:5): Error: <main> is not recognized!
+validate_and_convert_data.html:15:44 (validate_and_convert_data.Rd:5): Warning: discarding unexpected <main>
+validate_and_convert_data.html:59:1 (validate_and_convert_data.Rd:22): Warning: discarding unexpected </main>
+validate_and_convert_data.html:4:1 (validate_and_convert_data.Rd:5): Warning: <link> inserting "type" attribute
+validate_and_convert_data.html:12:1 (validate_and_convert_data.Rd:5): Warning: <script> proprietary attribute "onload"
+validate_and_convert_data.html:12:1 (validate_and_convert_data.Rd:5): Warning: <script> inserting "type" attribute
+validate_and_convert_data.html:17:1 (validate_and_convert_data.Rd:5): Warning: <table> lacks "summary" attribute
+validate_and_convert_data.html:35:1 (validate_and_convert_data.Rd:10): Warning: <table> lacks "summary" attribute
+* checking for non-standard things in the check directory ... NOTE
+Found the following files/directories:
+  ‘HMC-manual.tex’
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 NOTE
+Status: 1 ERROR, 1 WARNING, 5 NOTEs

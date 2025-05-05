@@ -3,43 +3,6 @@
 # library(glmnet)
 # library(MASS)
 
-#' Split the sample index into n_folds many groups so that we can perform cross-fitting
-#'
-#' @param array Sample index. Usually just an array from 1 to the number of samples in one group.
-#' @param n_folds Number of splits
-#' 
-#' @return A list indicates the sample indices in each split.
-#' @export
-#' 
-index_spliter <- function(array, n_folds = 5){
-  
-  # array <- 1:99
-  
-  # Calculate the length of each part
-  part_length <- length(array) %/% n_folds
-  
-  # Create an empty list to store the parts
-  parts <- vector("list", n_folds)
-  
-  # Randomly shuffle the array
-  shuffled_array <- sample(array)
-  
-  # Split the shuffled array into parts
-  for (fold_index in 1:n_folds) {
-    start_index <- (fold_index - 1) * part_length + 1
-    
-    if(fold_index < n_folds){
-      end_index <- fold_index * part_length
-    }else{
-      end_index <- length(array)
-    }
-    
-    parts[[fold_index]] <- shuffled_array[start_index:end_index]
-  }
-  
-  return(parts)
-}
-
 #' The function for nuisance parameter estimation in simple_pc_testing() and debiased_pc_testing().
 #'
 #' @param nuisance_sample_1 Group 1 sample. Each row is a subject and each column corresponds to a feature.

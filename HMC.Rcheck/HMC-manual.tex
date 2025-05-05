@@ -1,0 +1,1064 @@
+\nonstopmode{}
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\makeatletter\@ifl@t@r\fmtversion{2018/04/01}{}{\usepackage[utf8]{inputenc}}\makeatother
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `HMC'}}
+\par\bigskip{\large \today}
+\end{center}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdftitle = {HMC: High-dimensional mean comparison with projection and cross-fitting}}}{}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdfauthor = {Tianyu Zhang}}}{}
+\begin{description}
+\raggedright{}
+\item[Title]\AsIs{High-dimensional mean comparison with projection and
+cross-fitting}
+\item[Version]\AsIs{1.2}
+\item[Date]\AsIs{2025-05-02}
+\item[Description]\AsIs{
+Provides interpretable high-dimensional mean comparison methods (HMC). 
+For example, users can apply these methods to assess the difference in 
+gene expression between two treatment groups. It is not a gene-by-gene 
+comparison. Instead, the methods focus on the interplay between features 
+and identify those that are predictive of the group label. The tests are 
+valid frequentist procedures and yield sparse estimates indicating which 
+features contribute to the group differences.}
+\item[License]\AsIs{GPL-2}
+\item[Encoding]\AsIs{UTF-8}
+\item[Roxygen]\AsIs{list(markdown = TRUE)}
+\item[RoxygenNote]\AsIs{7.3.2}
+\item[Imports]\AsIs{glmnet, irlba, PMA, MASS, stats, grpreg}
+\item[URL]\AsIs{}\url{https://github.com/terrytianyuzhang/HMC/tree/main/HMC_package}\AsIs{}
+\item[NeedsCompilation]\AsIs{no}
+\item[Author]\AsIs{Tianyu Zhang [aut, cre, cph]}
+\item[Maintainer]\AsIs{Tianyu Zhang }\email{tianyuz3@andrew.cmu.edu}\AsIs{}
+\end{description}
+\Rdcontents{Contents}
+\HeaderA{anchored\_lasso\_testing}{Anchored test for two-sample mean comparison.}{anchored.Rul.lasso.Rul.testing}
+%
+\begin{Description}
+Anchored test for two-sample mean comparison.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+anchored_lasso_testing(
+  sample_1,
+  sample_2,
+  pca_method = "sparse_pca",
+  mean_method = "lasso",
+  lasso_tuning_method = "min",
+  num_latent_factor = 1,
+  n_folds = 5,
+  verbose = TRUE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{sample\_1}] Group 1 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{sample\_2}] Group 2 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{pca\_method}] Methods used to estimate principle component The default is "sparse\_pca", using sparse PCA from package PMA. Other choices are "dense\_pca"---the regular PCA; and "hard"--- hard-thresholding PCA, which also induces sparsity.
+
+\item[\code{mean\_method}] Methods used to estimate the discriminant direction. Default is logistic Lasso "lasso". Can also take value "lasso\_no\_truncation"
+
+\item[\code{lasso\_tuning\_method}] Method for Lasso penalty hyperparameter tuning. Default is "min", the minimizer of cross-validation error; users can also use "1se" for more sparse solutions.
+
+\item[\code{num\_latent\_factor}] The principle component that lasso coefficient anchors at. The default is PC1 = 1.
+
+\item[\code{n\_folds}] Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.
+
+\item[\code{verbose}] Print information to the console. Default is TRUE.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of test statistics.
+\begin{ldescription}
+\item[\code{test\_statistics}] Test statistics. Each entry corresponds to the test result of one principle component.
+\item[\code{standard\_error}] Estimated standard error of test\_statistics\_before\_studentization.
+\item[\code{test\_statistics\_before\_studentization}] Similar to test\_statistics but does not have variance = 1.
+\item[\code{split\_data}] Intermediate quantities needed for further assessment and interpretation of the test results.
+\end{ldescription}
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+sample_size_1 <- sample_size_2 <- 300
+true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
+true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
+
+sample_1 <- data.frame(MASS::mvrnorm(sample_size_1,
+                               mu = true_mean_1,
+                               Sigma = diag(1, 100)))
+ sample_2 <- data.frame(MASS::mvrnorm(sample_size_2,
+                               mu = true_mean_2,
+                               Sigma = diag(1, 100)))
+ result <- anchored_lasso_testing(sample_1, sample_2)
+ result$test_statistics
+ ##the test statistic. It should follow normal(0,1) when there is no difference between the groups.
+ summarize_feature_name(result) 
+ #summarize which features contribute to discriminant vectors (i.e. logistic lasso)
+ extract_pc(result) # extract the estimated discriminant coefficients
+ 
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{check\_data\_for\_folds}{Check that data has enough rows for cross-validation folds}{check.Rul.data.Rul.for.Rul.folds}
+%
+\begin{Description}
+Validates that the input data has at least as many rows as the number of desired folds.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+check_data_for_folds(data, n_folds)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] A data frame or matrix.
+
+\item[\code{n\_folds}] Integer. The number of folds to check for.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+NULL (called for its side effect). Throws an error if the number of rows is too small.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+check_data_for_folds(matrix(1:20, nrow = 5), n_folds = 5)
+## Not run: 
+check_data_for_folds(matrix(1:4, nrow = 2), n_folds = 5)  # This will throw an error
+
+## End(Not run)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{check\_non\_null\_and\_identical\_colnames}{Check non-null and consistent column names across datasets}{check.Rul.non.Rul.null.Rul.and.Rul.identical.Rul.colnames}
+%
+\begin{Description}
+Ensures all input datasets have non-null, non-empty, and identical column names.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+check_non_null_and_identical_colnames(data_list)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data\_list}] A list of matrices or data frames to be checked.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+NULL (called for side-effect). Throws an error if validation fails.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+d1 <- data.frame(a = 1:2, b = 3:4)
+d2 <- data.frame(a = 5:6, b = 7:8)
+check_non_null_and_identical_colnames(list(d1, d2))
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{collect\_active\_features\_proj}{Collect active features and groups based on projection directions}{collect.Rul.active.Rul.features.Rul.proj}
+%
+\begin{Description}
+Identifies consistently non-zero features across cross-validation folds using a voting scheme and returns active groups if a grouping vector is provided.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+collect_active_features_proj(
+  test_result,
+  voting_method = c("majority_voting"),
+  group = NULL,
+  group_threshold = 1
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{test\_result}] A result object from \code{mean\_comparison\_anchor()} containing \code{fold\_data}.
+
+\item[\code{voting\_method}] Character. Method to determine active features. Only \code{"majority\_voting"} is currently supported.
+
+\item[\code{group}] Optional grouping vector with feature names. Must match the feature dimension of \code{classifier\_coef}.
+
+\item[\code{group\_threshold}] Integer. Minimum number of active features required to declare a group active. Default is 1.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+If \code{group} is provided, returns a list with:
+\begin{description}
+
+\item[active\_features] Character vector of consistently non-zero features.
+\item[active\_groups] Character vector of active groups.
+
+\end{description}
+
+If \code{group} is NULL, returns a character vector of active features only.
+\end{Value}
+\HeaderA{combine\_folds\_mean\_diff}{Combine fold-level test statistics from cross-validation}{combine.Rul.folds.Rul.mean.Rul.diff}
+%
+\begin{Description}
+Aggregates fold-level test statistics and variances to compute an overall test statistic and p-value.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+combine_folds_mean_diff(fold_data, verbose = FALSE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{fold\_data}] A list of results from \code{process\_fold\_mean\_diff()}, one for each fold.
+
+\item[\code{verbose}] Logical. Whether to print diagnostic messages. Default is FALSE.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list containing:
+\begin{description}
+
+\item[p\_value] Two-sided p-value for the overall test statistic.
+\item[test\_statistic] Standardized test statistic.
+\item[fold\_data] Original input list, for reference or diagnostics.
+
+\end{description}
+
+\end{Value}
+\HeaderA{compute\_predictive\_contributions}{Compute predictive contributions of feature groups}{compute.Rul.predictive.Rul.contributions}
+%
+\begin{Description}
+Analyzes the relative contribution of grouped features to the overall discriminant signal, based on averaged Lasso coefficients across cross-validation folds.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+compute_predictive_contributions(result, group, group_threshold = 5)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{result}] A result object returned by \code{mean\_comparison\_anchor()}, containing \code{fold\_data} with classifier coefficients.
+
+\item[\code{group}] A grouping vector indicating group membership of features. Must be the same length as the number of features.
+
+\item[\code{group\_threshold}] Integer. Minimum number of active features required in a group for it to be considered active. Default is 5.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+The function identifies active groups based on cross-validated non-zero coefficients, then decomposes the total L2 norm of the average coefficient vector across groups.
+\end{Details}
+%
+\begin{Value}
+A data frame with two columns:
+\begin{description}
+
+\item[group] Group name or label.
+\item[score] Proportion of total predictive signal attributable to that group.
+
+\end{description}
+
+\end{Value}
+%
+\begin{SeeAlso}
+\code{\LinkA{collect\_active\_features\_proj}{collect.Rul.active.Rul.features.Rul.proj}}
+\end{SeeAlso}
+\HeaderA{debiased\_pc\_testing}{Debiased one-step test for two-sample mean comparison. A small p-value tells us not only there is difference in the mean vectors, but can also indicates which principle component the difference aligns with.}{debiased.Rul.pc.Rul.testing}
+%
+\begin{Description}
+Debiased one-step test for two-sample mean comparison. A small p-value tells us not only there is difference in the mean vectors, but can also indicates which principle component the difference aligns with.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+debiased_pc_testing(
+  sample_1,
+  sample_2 = NULL,
+  pca_method = "sparse_pca",
+  mean_method = "naive",
+  num_latent_factor = 1,
+  n_folds = 5,
+  verbose = TRUE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{sample\_1}] Group 1 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{sample\_2}] Group 2 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{pca\_method}] Methods used to estimate principle component The default is "sparse\_pca", using sparse PCA from package PMA. Other choices are "dense\_pca"---the regular PCA; and "hard"--- hard-thresholding PCA, which also induces sparsity.
+
+\item[\code{mean\_method}] Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".
+
+\item[\code{num\_latent\_factor}] Number of principle to be estimated/tested. Default is 1.
+
+\item[\code{n\_folds}] Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.
+
+\item[\code{verbose}] Print information to the console. Default is TRUE.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of test statistics.
+\begin{ldescription}
+\item[\code{test\_statistics}] Test statistics. Each entry corresponds to the test result of one principle component.
+\item[\code{standard\_error}] Estimated standard error of test\_statistics\_before\_studentization.
+\item[\code{test\_statistics\_before\_studentization}] Similar to test\_statistics but does not have variance = 1.
+\item[\code{split\_data}] Intermediate quantities needed for further assessment and interpretation of the test results.
+\end{ldescription}
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+sample_size_1 <- sample_size_2 <- 300
+
+true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
+true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
+pc1 <- c(rep(1, 10), rep(0, 90))
+pc1 <- pc1/norm(pc1, type = '2')
+
+simulation_covariance <- 10 * pc1 %*% t(pc1)
+simulation_covariance <- simulation_covariance + diag(1, 100)
+
+sample_1 <- data.frame(MASS::mvrnorm(sample_size_1,
+                               mu = true_mean_1,
+                               Sigma = simulation_covariance))
+ sample_2 <- data.frame(MASS::mvrnorm(sample_size_2,
+                               mu = true_mean_2,
+                               Sigma = simulation_covariance))
+ result <- debiased_pc_testing(sample_1, sample_2)
+ result$test_statistics
+ ##these are test statistics. Each one of them corresponds to one PC.
+ summarize_pc_name(result, latent_fator_index = 1) #shows which features contribute to PC1
+ extract_pc(result) # extract the estimated leading PCs.
+ 
+ 
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{estimate\_leading\_pc}{Estimate the leading principal component}{estimate.Rul.leading.Rul.pc}
+%
+\begin{Description}
+Estimates the leading principal component of the input matrix using dense or sparse PCA.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+estimate_leading_pc(control, pca_method = c("dense_pca", "sparse_pca"))
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{control}] A matrix or data frame. Each row is a sample, and each column is a feature.
+
+\item[\code{pca\_method}] Character. PCA method to use. Options are \code{"dense\_pca"} (default) or \code{"sparse\_pca"}.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+For low-dimensional settings (≤ 30 features), the method automatically switches to dense PCA.
+For sparse PCA, the function uses the \code{PMA::SPC.cv} cross-validation method.
+\end{Details}
+%
+\begin{Value}
+A normalized numeric vector representing the leading principal component direction.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+X <- matrix(rnorm(100), nrow = 20)
+estimate_leading_pc(X, pca_method = "dense_pca")
+
+## End(Not run)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{estimate\_nuisance\_parameter\_lasso}{The function for nuisance parameter estimation in anchored\_lasso\_testing().}{estimate.Rul.nuisance.Rul.parameter.Rul.lasso}
+%
+\begin{Description}
+The function for nuisance parameter estimation in anchored\_lasso\_testing().
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+estimate_nuisance_parameter_lasso(
+  nuisance_sample_1,
+  nuisance_sample_2,
+  pca_method = "sparse_pca",
+  mean_method = "lasso",
+  lasso_tuning_method = "min",
+  num_latent_factor = 1,
+  local_environment = local_environment,
+  verbose = TRUE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{nuisance\_sample\_1}] Group 1 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{nuisance\_sample\_2}] Group 2 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{pca\_method}] Methods used to estimate principle component The default is "sparse\_pca", using sparse PCA from package PMA. Other choices are "dense\_pca"---the regular PCA; and "hard"--- hard-thresholding PCA, which also induces sparsity.
+
+\item[\code{mean\_method}] Methods used to estimate the discriminant direction. Default is logistic Lasso "lasso". Can also take value "lasso\_no\_truncation"
+
+\item[\code{lasso\_tuning\_method}] Method for Lasso penalty hyperparameter tuning. Default is "min", the minimizer of cross-validation error; users can also use "1se" for more sparse solutions.
+
+\item[\code{num\_latent\_factor}] The principle component that lasso coefficient anchors at. The default is PC1 = 1.
+
+\item[\code{local\_environment}] An environment for hyperparameters shared between folds.
+
+\item[\code{verbose}] Print information to the console. Default is TRUE.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of estimated nuisance quantities.
+\begin{ldescription}
+\item[\code{estimate\_leading\_pc}] Leading principle components
+\item[\code{estimate\_mean\_1}] Sample mean for group 1
+\item[\code{estimate\_mean\_2}] Sample mean for group 1
+\item[\code{estimate\_lasso\_beta}] Logistic Lasso regression coefficients.
+\item[\code{estimate\_projection\_direction}] Anchored projection direction. It is similar to PC1 when signal is weak but similar to estimate\_optimal\_direction when the signal is moderately large.
+\item[\code{estimate\_optimal\_direction}] Discriminant direction.
+\end{ldescription}
+\end{Value}
+\HeaderA{estimate\_nuisance\_pc}{The function for nuisance parameter estimation in simple\_pc\_testing() and debiased\_pc\_testing().}{estimate.Rul.nuisance.Rul.pc}
+%
+\begin{Description}
+The function for nuisance parameter estimation in simple\_pc\_testing() and debiased\_pc\_testing().
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+estimate_nuisance_pc(
+  nuisance_sample_1,
+  nuisance_sample_2 = NULL,
+  pca_method = "sparse_pca",
+  mean_method = "naive",
+  num_latent_factor = 1,
+  local_environment = NA
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{nuisance\_sample\_1}] Group 1 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{nuisance\_sample\_2}] Group 2 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{pca\_method}] Methods used to estimate principle component The default is "sparse\_pca", using sparse PCA from package PMA. Other choices are "dense\_pca"---the regular PCA; and "hard"--- hard-thresholding PCA, which also induces sparsity.
+
+\item[\code{mean\_method}] Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".
+
+\item[\code{num\_latent\_factor}] Number of principle to be estimated/tested. Default is 1.
+
+\item[\code{local\_environment}] A environment for hyperparameters shared between folds.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of estimated nuisance quantities.
+\begin{ldescription}
+\item[\code{estimate\_leading\_pc}] Leading principle components
+\item[\code{estimate\_mean\_1}] Sample mean for group 1
+\item[\code{estimate\_mean\_2}] Sample mean for group 1
+\item[\code{estimate\_eigenvalue}] Eigenvalue for each principle compoenent.
+\item[\code{estimate\_noise\_variance}] Noise variance, I need this to construct block-diagonal estimates of the covariance matrix.
+\end{ldescription}
+\end{Value}
+\HeaderA{evaluate\_influence\_function\_multi\_factor}{Calculate the test statistics on the left-out samples. Called in debiased\_pc\_testing().}{evaluate.Rul.influence.Rul.function.Rul.multi.Rul.factor}
+%
+\begin{Description}
+Calculate the test statistics on the left-out samples. Called in debiased\_pc\_testing().
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+evaluate_influence_function_multi_factor(
+  cross_fitting_sample_1,
+  cross_fitting_sample_2 = NULL,
+  nuisance_collection,
+  num_latent_factor = 1
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{cross\_fitting\_sample\_1}] Group 1 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{cross\_fitting\_sample\_2}] Group 2 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{nuisance\_collection}] A collection of nuisance quantities estimated using "nuisance" samples. It is the output of estimate\_nuisance\_pc().
+
+\item[\code{num\_latent\_factor}] Number of principle components to be considered.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of test statistics.
+\begin{ldescription}
+\item[\code{inner\_product\_1}] Simple inner products for sample 1.
+\item[\code{inner\_product\_2}] Simple inner products for sample 2.
+\item[\code{influence\_eigenvector\_each\_subject\_1}] Debiased test statistics, sample 1.
+\item[\code{influence\_eigenvector\_each\_subject\_2}] Debiased test statistics, sample 1.
+\item[\code{for\_variance\_subject\_1}] Statistics for variance calculation, sample 1.
+\item[\code{for\_variance\_subject\_2}] Statistics for variance calculation, sample 2.
+\end{ldescription}
+\end{Value}
+\HeaderA{evaluate\_pca\_lasso\_plug\_in}{Calculate the test statistics on the left-out samples. Called in anchored\_lasso\_testing().}{evaluate.Rul.pca.Rul.lasso.Rul.plug.Rul.in}
+%
+\begin{Description}
+Calculate the test statistics on the left-out samples. Called in anchored\_lasso\_testing().
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+evaluate_pca_lasso_plug_in(
+  cross_fitting_sample_1,
+  cross_fitting_sample_2,
+  nuisance_collection,
+  mean_method = "lasso"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{cross\_fitting\_sample\_1}] Group 1 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{cross\_fitting\_sample\_2}] Group 2 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{nuisance\_collection}] A collection of nuisance quantities estimated using "nuisance" samples. It is the output of estimate\_nuisance\_pc().
+
+\item[\code{mean\_method}] Methods used to estimate the discriminant direction. Default is logistic Lasso "lasso". Can also take value "lasso\_no\_truncation"
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of test statistics.
+\begin{ldescription}
+\item[\code{influence\_each\_subject\_1}] Test statistics for sample 1.
+\item[\code{influence\_each\_subject\_1}] Test statistics for sample 2.
+\item[\code{for\_variance\_each\_subject\_1}] Statistics for variance calculation, sample 1.
+\item[\code{for\_variance\_each\_subject\_2}] Statistics for variance calculation, sample 2.
+\end{ldescription}
+\end{Value}
+\HeaderA{evaluate\_pca\_plug\_in}{Calculate the test statistics on the left-out samples. Called in simple\_pc\_testing().}{evaluate.Rul.pca.Rul.plug.Rul.in}
+%
+\begin{Description}
+Calculate the test statistics on the left-out samples. Called in simple\_pc\_testing().
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+evaluate_pca_plug_in(
+  cross_fitting_sample_1,
+  cross_fitting_sample_2 = NULL,
+  nuisance_collection
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{cross\_fitting\_sample\_1}] Group 1 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{cross\_fitting\_sample\_2}] Group 2 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{nuisance\_collection}] A collection of nuisance quantities estimated using "nuisance" samples. It is the output of estimate\_nuisance\_pc().
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of test statistics.
+\begin{ldescription}
+\item[\code{influence\_each\_subject\_1}] Statistics for sample 1.
+\item[\code{influence\_each\_subject\_2}] Statistics for sample 2.
+\end{ldescription}
+\end{Value}
+\HeaderA{extract\_lasso\_coef}{Extract the lasso estimate from the output of anchored\_lasso\_testing().}{extract.Rul.lasso.Rul.coef}
+%
+\begin{Description}
+Extract the lasso estimate from the output of anchored\_lasso\_testing().
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+extract_lasso_coef(testing_result)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{testing\_result}] The output/test result list from anchored\_lasso\_testing().
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list, whose elements are the estimated discriminant directions for each split---the length of the output list is the same as n\_folds.
+
+The discriminant vectors for each split.
+\end{Value}
+\HeaderA{extract\_pc}{Extract the principle components from the output of simple\_pc\_testing() and debiased\_pc\_testing().}{extract.Rul.pc}
+%
+\begin{Description}
+Extract the principle components from the output of simple\_pc\_testing() and debiased\_pc\_testing().
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+extract_pc(testing_result)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{testing\_result}] The output/test result list from simple\_pc\_testing() or debiased\_pc\_testing().
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list, whose elements are the estimated PC for each split---the length of the output list is the same as n\_folds.
+
+The PC vectors for each split.
+\end{Value}
+\HeaderA{fit\_lasso}{Fit a (group) Lasso logistic regression classifier}{fit.Rul.lasso}
+%
+\begin{Description}
+Performs Lasso or group Lasso logistic regression to distinguish between two groups of samples.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+fit_lasso(
+  control_train,
+  treat_train,
+  lambda_type = c("lambda.min", "lambda.1se"),
+  classifier_method = c("lasso", "group_lasso"),
+  group = NULL
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{control\_train}] A matrix or data frame for the control group. Rows are samples, columns are features.
+
+\item[\code{treat\_train}] A matrix or data frame for the treatment group. Rows are samples, columns are features.
+
+\item[\code{lambda\_type}] Character. Type of lambda to use from cross-validation. Options are \code{"lambda.min"} (default) and \code{"lambda.1se"}.
+
+\item[\code{classifier\_method}] Character. Choice of classifier. \code{"lasso"} (default) or \code{"group\_lasso"}.
+
+\item[\code{group}] Optional grouping vector for \code{group\_lasso}, same length as the number of columns in the input data.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+The function fits a logistic regression using either \code{glmnet} for Lasso or \code{grpreg} for group Lasso.
+Coefficients are soft-thresholded by the maximum coefficient times \code{n\textasciicircum{}(-1/3)} where \code{n} is the effective sample size.
+\end{Details}
+%
+\begin{Value}
+A numeric vector of estimated regression coefficients (excluding intercept), thresholded for small values.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+X1 <- matrix(rnorm(100), nrow = 10)
+X2 <- matrix(rnorm(100), nrow = 10)
+fit_lasso(X1, X2, classifier_method = "lasso")
+
+## End(Not run)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{index\_spliter}{Split indices into folds}{index.Rul.spliter}
+%
+\begin{Description}
+Randomly splits a given vector of indices into approximately equal-sized folds.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+index_spliter(array, n_folds = 5)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{array}] A vector of indices (e.g., \code{1:n}) to be split into folds.
+
+\item[\code{n\_folds}] Integer. Number of folds. Default is 5.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of length \code{n\_folds}, each containing a subset of the shuffled indices.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+index_spliter(1:10, n_folds = 3)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{mean\_comparison\_anchor}{High-dimensional two-sample mean comparison with anchored projection}{mean.Rul.comparison.Rul.anchor}
+%
+\begin{Description}
+Performs a cross-validated, projection-based mean comparison between two high-dimensional groups using sparse or dense PCA and (group) Lasso classifiers.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+mean_comparison_anchor(
+  control,
+  treatment,
+  pca_method = c("dense_pca", "sparse_pca"),
+  classifier_method = c("lasso", "group_lasso"),
+  lambda_type = "lambda.1se",
+  n_folds = 10,
+  group = NULL,
+  standardize_feature = TRUE,
+  verbose = TRUE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{control}] A matrix or data frame for the control group. Rows are samples; columns are features.
+
+\item[\code{treatment}] A matrix or data frame for the treatment group. Rows are samples; columns are features.
+
+\item[\code{pca\_method}] Character. Method for estimating the projection direction. Options are \code{"dense\_pca"} or \code{"sparse\_pca"}. Default is \code{"sparse\_pca"}.
+
+\item[\code{classifier\_method}] Character. Classifier to guide the projection. Options are \code{"lasso"} or \code{"group\_lasso"}. Default is \code{"lasso"}.
+
+\item[\code{lambda\_type}] Character. Regularization parameter choice in Lasso. Options are \code{"lambda.min"} or \code{"lambda.1se"}. Default is \code{"lambda.1se"}.
+
+\item[\code{n\_folds}] Integer. Number of cross-validation folds. Default is 10.
+
+\item[\code{group}] Optional. A grouping vector (required for \code{group\_lasso}), same length as the number of columns in \code{control}.
+
+\item[\code{standardize\_feature}] Logical. Whether to standardize features using pooled mean and standard deviation. Default is TRUE.
+
+\item[\code{verbose}] Logical. Whether to print messages during execution. Default is TRUE.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+This function applies a projection-based method for high-dimensional mean testing. The projection direction is computed by anchoring the leading principal component with a regularized classifier (Lasso or group Lasso), and test statistics are aggregated across folds.
+\end{Details}
+%
+\begin{Value}
+A list with:
+\begin{description}
+
+\item[p\_value] Two-sided p-value for the overall test.
+\item[test\_statistic] Standardized test statistic.
+\item[fold\_data] Per-fold results, including projections and scores.
+
+\end{description}
+
+\end{Value}
+%
+\begin{SeeAlso}
+\code{\LinkA{process\_fold\_mean\_diff}{process.Rul.fold.Rul.mean.Rul.diff}}, \code{\LinkA{combine\_folds\_mean\_diff}{combine.Rul.folds.Rul.mean.Rul.diff}}, \code{\LinkA{estimate\_leading\_pc}{estimate.Rul.leading.Rul.pc}}, \code{\LinkA{fit\_lasso}{fit.Rul.lasso}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+X <- matrix(rnorm(200 * 100), nrow = 100)
+Y <- matrix(rnorm(200 * 100), nrow = 100)
+result <- mean_comparison_anchor(X, Y, pca_method = "dense_pca", classifier_method = "lasso")
+
+## End(Not run)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{normalize\_and\_split}{Normalize and split two datasets using pooled mean and standard deviation}{normalize.Rul.and.Rul.split}
+%
+\begin{Description}
+Combines two datasets, normalizes features using pooled mean and standard deviation,
+and returns the normalized datasets separately.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+normalize_and_split(df1, df2)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{df1}] A data frame or matrix. Typically group 1.
+
+\item[\code{df2}] A data frame or matrix. Typically group 2.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list with elements:
+\begin{description}
+
+\item[df1] Normalized version of \code{df1}.
+\item[df2] Normalized version of \code{df2}.
+
+\end{description}
+
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+set.seed(123)
+df1 <- matrix(rnorm(20), nrow = 5)
+df2 <- matrix(rnorm(20), nrow = 5)
+normalize_and_split(df1, df2)
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{process\_fold\_mean\_diff}{Process one cross-validation fold for mean difference testing}{process.Rul.fold.Rul.mean.Rul.diff}
+%
+\begin{Description}
+Computes the test statistic, variance, and projection direction for one fold in a cross-validated comparison of two groups.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+process_fold_mean_diff(
+  fold_index,
+  control,
+  treatment,
+  control_split_index,
+  tr_split_index,
+  pca_method,
+  classifier_method,
+  lambda_type,
+  group,
+  verbose
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{fold\_index}] Integer index of the current fold.
+
+\item[\code{control}] Matrix or data frame for the control group (rows = samples, columns = features).
+
+\item[\code{treatment}] Matrix or data frame for the treatment group (rows = samples, columns = features).
+
+\item[\code{control\_split\_index}] A list of row indices for each fold of the control group.
+
+\item[\code{tr\_split\_index}] A list of row indices for each fold of the treatment group.
+
+\item[\code{pca\_method}] Character. PCA method to use. Options are \code{"dense\_pca"} or \code{"sparse\_pca"}.
+
+\item[\code{classifier\_method}] Character. Classifier method. Options are \code{"lasso"} or \code{"group\_lasso"}.
+
+\item[\code{lambda\_type}] Character. Lambda selection method. Options are \code{"lambda.min"} or \code{"lambda.1se"}.
+
+\item[\code{group}] Optional grouping vector for group lasso.
+
+\item[\code{verbose}] Logical. Whether to print progress messages.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list containing the test statistic, its variance, scores for each group, the projection direction, and intermediate quantities.
+\end{Value}
+\HeaderA{simple\_pc\_testing}{Simple plug-in test for two-sample mean comparison.}{simple.Rul.pc.Rul.testing}
+%
+\begin{Description}
+Simple plug-in test for two-sample mean comparison.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+simple_pc_testing(
+  sample_1,
+  sample_2 = NULL,
+  pca_method = "sparse_pca",
+  mean_method = "naive",
+  num_latent_factor = 1,
+  n_folds = 5,
+  verbose = TRUE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{sample\_1}] Group 1 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{sample\_2}] Group 2 sample. Each row is a subject and each column corresponds to a feature.
+
+\item[\code{pca\_method}] Methods used to estimate principle component The default is "sparse\_pca", using sparse PCA from package PMA. Other choices are "dense\_pca"---the regular PCA; and "hard"--- hard-thresholding PCA, which also induces sparsity.
+
+\item[\code{mean\_method}] Methods used to estimate the mean vector. Default is sample mean "naive". There is also a hard-thresholding sparse estiamtor "hard".
+
+\item[\code{num\_latent\_factor}] Number of principle to be estimated/tested. Default is 1.
+
+\item[\code{n\_folds}] Number of splits when performing cross-fitting. The default is 5, if computational time allows, you can try to set it to 10.
+
+\item[\code{verbose}] Print information to the console. Default is TRUE.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of test statistics.
+\begin{ldescription}
+\item[\code{test\_statistics}] Test statistics. Each entry corresponds to the test result of one principle component.
+\item[\code{standard\_error}] Estimated standard error of test\_statistics\_before\_studentization.
+\item[\code{test\_statistics\_before\_studentization}] Similar to test\_statistics but does not have variance = 1.
+\item[\code{split\_data}] Intermediate quantities needed for further assessment and interpretation of the test results.
+\end{ldescription}
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+sample_size_1 <- sample_size_2 <- 300
+true_mean_1 <- matrix(c(rep(1, 10), rep(0, 90)), ncol = 1)
+true_mean_2 <- matrix(c(rep(1.5, 10), rep(0, 90)), ncol = 1)
+pc1 <- c(rep(1, 10), rep(0, 90))
+pc1 <- pc1/norm(pc1, type = '2')
+
+simulation_covariance <- 10 * pc1 %*% t(pc1)
+simulation_covariance <- simulation_covariance + diag(1, 100)
+
+sample_1 <- data.frame(MASS::mvrnorm(sample_size_1,
+                                     mu = true_mean_1,
+                                     Sigma = simulation_covariance))
+sample_2 <- data.frame(MASS::mvrnorm(sample_size_2,
+                                     mu = true_mean_2,
+                                     Sigma = simulation_covariance))
+result <- simple_pc_testing(sample_1, sample_2)
+result$test_statistics
+##these are test statistics. Each one of them corresponds to one PC.
+summarize_pc_name(result, latent_fator_index = 1) #shows which features contribute to PC1
+extract_pc(result) # extract the estimated leading PCs.
+
+\end{ExampleCode}
+\end{Examples}
+\HeaderA{summarize\_feature\_name}{Summarize the features (e.g. genes) that contribute to the test result, i.e. those features consistently show up in Lasso vectors.}{summarize.Rul.feature.Rul.name}
+%
+\begin{Description}
+Summarize the features (e.g. genes) that contribute to the test result, i.e. those features consistently show up in Lasso vectors.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+summarize_feature_name(testing_result, method = "majority voting")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{testing\_result}] The output/test result list from anchored\_lasso\_testing().
+
+\item[\code{method}] How to combine the feature list across different splits. Default is 'majority voting'---features that show up more than 50\% of the splits are considered active/useful. It can be 'union'---all the features pooled together; or 'intersection'---only include features showing up in all splits.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of names of features (your very original input data need to have column names!) that contribute to the test result. An empty list means there is barely any difference between the two groups.
+
+Feature names that consistently showing up in the discriminant vectors.
+\end{Value}
+\HeaderA{summarize\_pc\_name}{Summarize the features (e.g. genes) that contribute to the test result, i.e. those features consistently show up in the sparse principle components.}{summarize.Rul.pc.Rul.name}
+%
+\begin{Description}
+Summarize the features (e.g. genes) that contribute to the test result, i.e. those features consistently show up in the sparse principle components.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+summarize_pc_name(
+  testing_result,
+  latent_fator_index = 1,
+  method = "majority voting"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{testing\_result}] The output/test result list from simple\_pc\_testing() or debiased\_pc\_testing().
+
+\item[\code{latent\_fator\_index}] Which principle component should the algorithm summarize? Default is PC1.
+
+\item[\code{method}] How to combine the feature list across different splits. Default is 'majority voting'---features that show up more than 50\% of the splits are considered active/useful. It can be 'union'---all the features pooled together; or 'intersection'---only include features showing up in all splits.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A list of names of features (your very original input data need to have column names!) that contribute to the test result.
+
+Feature names that consistently showing up in the estimated PC vectors.
+\end{Value}
+\HeaderA{validate\_and\_convert\_data}{Validate and convert input data}{validate.Rul.and.Rul.convert.Rul.data}
+%
+\begin{Description}
+Checks whether the input is a matrix or data frame, and converts it to a matrix if valid.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+validate_and_convert_data(data, name)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] A matrix or data frame.
+
+\item[\code{name}] A string used in error messages to identify the variable name.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+A numeric matrix.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+validate_and_convert_data(data.frame(x = 1:3, y = 4:6), "example_data")
+
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}

@@ -14,7 +14,8 @@ document(pkg_path)
 build(pkg_path)
 
 # Step 3: Install the package from source
-install(pkg_path)
+# install(pkg_path)
+check(pkg = pkg_path, args = "--as-cran")
 
 # Step 4: Load the package
 library(HMC)
@@ -24,4 +25,5 @@ help("index_spliter", package = "HMC")
 help("check_data_for_folds", package = "HMC")
 help("estimate_leading_pc", package = "HMC")
 help("collect_active_features_proj", package = "HMC")
+?HMC
 

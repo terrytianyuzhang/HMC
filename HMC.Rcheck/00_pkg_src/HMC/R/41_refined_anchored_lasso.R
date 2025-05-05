@@ -338,8 +338,8 @@ collect_active_features_proj <- function(test_result, voting_method = c("majorit
   
   # Collect non-zero features for each fold
   for (i in 1:n_folds) {
-    beta <- test_result$fold_data[[i]]$proj_direction
-    names(beta) <- names(test_result$fold_data[[i]]$classifier_coef)
+    beta <- result$fold_data[[i]]$proj_direction
+    names(beta) <- names(result$fold_data[[i]]$classifier_coef)
     
     non_zero_features <- names(beta[abs(beta) > 1e-10])
     active_features_list[[i]] <- non_zero_features

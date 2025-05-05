@@ -1,18 +1,28 @@
 Package: HMC
-Title: High Dimensional Mean Comparison with Projection and
-        Cross-Fitting
-Version: 1.1
-Date: 2024-08-16
+Title: High-dimensional mean comparison with projection and
+        cross-fitting
+Version: 1.2
+Date: 2025-05-02
 Authors@R: 
-    person("Tianyu","Zhang", role = c("aut", "cre","cph"),email = "tianyuz3@andrew.cmu.edu")
-Description: Provides interpretable High-dimensional Mean Comparison methods (HMC). For example, users can use them to assess the difference in gene expression between two treatment groups. It is not a gene-by-gene comparison. Instead, we focus on the interplay between features and are interested in those that are predictive of the group label. The methods are valid frequentist tests and give sparse estimates indicating which features contribute to the test results.
+    person("Tianyu", "Zhang", 
+           role = c("aut", "cre", "cph"), 
+           email = "tianyuz3@andrew.cmu.edu")
+Description: 
+    Provides interpretable high-dimensional mean comparison methods (HMC). 
+    For example, users can apply these methods to assess the difference in 
+    gene expression between two treatment groups. It is not a gene-by-gene 
+    comparison. Instead, the methods focus on the interplay between features 
+    and identify those that are predictive of the group label. The tests are 
+    valid frequentist procedures and yield sparse estimates indicating which 
+    features contribute to the group differences.
 License: GPL-2
-Imports: glmnet, irlba, PMA, MASS, stats
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
+Imports: glmnet, irlba, PMA, MASS, stats, grpreg
+URL: https://github.com/terrytianyuzhang/HMC/tree/main/HMC_package
 NeedsCompilation: no
-Packaged: 2024-08-17 00:41:30 UTC; tianyuzhang
+Packaged: 2025-05-02 16:00:47 UTC; tianyuzhang
 Author: Tianyu Zhang [aut, cre, cph]
 Maintainer: Tianyu Zhang <tianyuz3@andrew.cmu.edu>
-Built: R 4.3.1; ; 2024-08-17 00:43:00 UTC; unix
+Built: R 4.4.2; ; 2025-05-02 16:05:19 UTC; unix

@@ -18,7 +18,7 @@ A normalized numeric vector representing the leading principal component directi
 Estimates the leading principal component of the input matrix using dense or sparse PCA.
 }
 \details{
-For low-dimensional settings (\eqn{\le} 30 features), the method automatically switches to dense PCA.
+For low-dimensional settings (≤ 30 features), the method automatically switches to dense PCA.
 For sparse PCA, the function uses the \code{PMA::SPC.cv} cross-validation method.
 }
 \examples{

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head><title>R: High Dimensional Mean Comparison with Projection and
-Cross-Fitting</title>
+<head><title>R: High-dimensional mean comparison with projection and
+cross-fitting</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <link rel="stylesheet" type="text/css" href="R.css" />
 </head><body><div class="container">
-<h1> High Dimensional Mean Comparison with Projection and
-Cross-Fitting
+<h1> High-dimensional mean comparison with projection and
+cross-fitting
 <img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
 </h1>
 <hr/>
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;HMC&rsquo; version 1.1</h2>
+</div><h2>Documentation for package &lsquo;HMC&rsquo; version 1.2</h2>
 
 <ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
 </ul>
@@ -25,8 +25,20 @@ Cross-Fitting
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="anchored_lasso_testing.html">anchored_lasso_testing</a></td>
 <td>Anchored test for two-sample mean comparison.</td></tr>
+<tr><td style="width: 25%;"><a href="check_data_for_folds.html">check_data_for_folds</a></td>
+<td>Check that data has enough rows for cross-validation folds</td></tr>
+<tr><td style="width: 25%;"><a href="check_non_null_and_identical_colnames.html">check_non_null_and_identical_colnames</a></td>
+<td>Check non-null and consistent column names across datasets</td></tr>
+<tr><td style="width: 25%;"><a href="collect_active_features_proj.html">collect_active_features_proj</a></td>
+<td>Collect active features and groups based on projection directions</td></tr>
+<tr><td style="width: 25%;"><a href="combine_folds_mean_diff.html">combine_folds_mean_diff</a></td>
+<td>Combine fold-level test statistics from cross-validation</td></tr>
+<tr><td style="width: 25%;"><a href="compute_predictive_contributions.html">compute_predictive_contributions</a></td>
+<td>Compute predictive contributions of feature groups</td></tr>
 <tr><td style="width: 25%;"><a href="debiased_pc_testing.html">debiased_pc_testing</a></td>
 <td>Debiased one-step test for two-sample mean comparison. A small p-value tells us not only there is difference in the mean vectors, but can also indicates which principle component the difference aligns with.</td></tr>
+<tr><td style="width: 25%;"><a href="estimate_leading_pc.html">estimate_leading_pc</a></td>
+<td>Estimate the leading principal component</td></tr>
 <tr><td style="width: 25%;"><a href="estimate_nuisance_parameter_lasso.html">estimate_nuisance_parameter_lasso</a></td>
 <td>The function for nuisance parameter estimation in anchored_lasso_testing().</td></tr>
 <tr><td style="width: 25%;"><a href="estimate_nuisance_pc.html">estimate_nuisance_pc</a></td>
@@ -41,13 +53,23 @@ Cross-Fitting
 <td>Extract the lasso estimate from the output of anchored_lasso_testing().</td></tr>
 <tr><td style="width: 25%;"><a href="extract_pc.html">extract_pc</a></td>
 <td>Extract the principle components from the output of simple_pc_testing() and debiased_pc_testing().</td></tr>
+<tr><td style="width: 25%;"><a href="fit_lasso.html">fit_lasso</a></td>
+<td>Fit a (group) Lasso logistic regression classifier</td></tr>
 <tr><td style="width: 25%;"><a href="index_spliter.html">index_spliter</a></td>
-<td>Split the sample index into n_folds many groups so that we can perform cross-fitting</td></tr>
+<td>Split indices into folds</td></tr>
+<tr><td style="width: 25%;"><a href="mean_comparison_anchor.html">mean_comparison_anchor</a></td>
+<td>High-dimensional two-sample mean comparison with anchored projection</td></tr>
+<tr><td style="width: 25%;"><a href="normalize_and_split.html">normalize_and_split</a></td>
+<td>Normalize and split two datasets using pooled mean and standard deviation</td></tr>
+<tr><td style="width: 25%;"><a href="process_fold_mean_diff.html">process_fold_mean_diff</a></td>
+<td>Process one cross-validation fold for mean difference testing</td></tr>
 <tr><td style="width: 25%;"><a href="simple_pc_testing.html">simple_pc_testing</a></td>
 <td>Simple plug-in test for two-sample mean comparison.</td></tr>
 <tr><td style="width: 25%;"><a href="summarize_feature_name.html">summarize_feature_name</a></td>
 <td>Summarize the features (e.g. genes) that contribute to the test result, i.e. those features consistently show up in Lasso vectors.</td></tr>
 <tr><td style="width: 25%;"><a href="summarize_pc_name.html">summarize_pc_name</a></td>
 <td>Summarize the features (e.g. genes) that contribute to the test result, i.e. those features consistently show up in the sparse principle components.</td></tr>
+<tr><td style="width: 25%;"><a href="validate_and_convert_data.html">validate_and_convert_data</a></td>
+<td>Validate and convert input data</td></tr>
 </table>
 </div></body></html>
