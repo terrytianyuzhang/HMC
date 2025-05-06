@@ -66,8 +66,6 @@ test_result <- mean_comparison_anchor(
 
 The p-value of the test is available, and we can list the features---genes in this case---that are used to distinguish the two groups.
 
-I made some changes
-
 ```{r}
 test_result$p_value
 collect_active_features_proj(test_result)
