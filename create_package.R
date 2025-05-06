@@ -14,9 +14,9 @@ document(pkg_path)
 build(pkg_path)
 
 # Step 3: Install the package from source
-# install(pkg_path)
+# 
 check(pkg = pkg_path, args = "--as-cran")
-
+install(pkg_path)
 # Step 4: Load the package
 library(HMC)
 

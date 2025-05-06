@@ -9,7 +9,7 @@ mean_comparison_anchor(
   treatment,
   pca_method = c("dense_pca", "sparse_pca"),
   classifier_method = c("lasso", "group_lasso"),
-  lambda_type = "lambda.1se",
+  lambda_type = "lambda.min",
   n_folds = 10,
   group = NULL,
   standardize_feature = TRUE,
@@ -25,7 +25,7 @@ mean_comparison_anchor(
 
 \item{classifier_method}{Character. Classifier to guide the projection. Options are \code{"lasso"} or \code{"group_lasso"}. Default is \code{"lasso"}.}
 
-\item{lambda_type}{Character. Regularization parameter choice in Lasso. Options are \code{"lambda.min"} or \code{"lambda.1se"}. Default is \code{"lambda.1se"}.}
+\item{lambda_type}{Character. Regularization parameter choice in Lasso. Options are \code{"lambda.min"} or \code{"lambda.1se"}. Default is \code{"lambda.min"}.}
 
 \item{n_folds}{Integer. Number of cross-validation folds. Default is 10.}
 

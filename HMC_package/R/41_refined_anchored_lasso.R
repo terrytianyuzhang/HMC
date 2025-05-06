@@ -151,7 +151,7 @@ combine_folds_mean_diff <- function(fold_data, verbose = FALSE) {
 #' @param treatment A matrix or data frame for the treatment group. Rows are samples; columns are features.
 #' @param pca_method Character. Method for estimating the projection direction. Options are `"dense_pca"` or `"sparse_pca"`. Default is `"sparse_pca"`.
 #' @param classifier_method Character. Classifier to guide the projection. Options are `"lasso"` or `"group_lasso"`. Default is `"lasso"`.
-#' @param lambda_type Character. Regularization parameter choice in Lasso. Options are `"lambda.min"` or `"lambda.1se"`. Default is `"lambda.1se"`.
+#' @param lambda_type Character. Regularization parameter choice in Lasso. Options are `"lambda.min"` or `"lambda.1se"`. Default is `"lambda.min"`.
 #' @param n_folds Integer. Number of cross-validation folds. Default is 10.
 #' @param group Optional. A grouping vector (required for `group_lasso`), same length as the number of columns in `control`.
 #' @param standardize_feature Logical. Whether to standardize features using pooled mean and standard deviation. Default is TRUE.
@@ -182,7 +182,7 @@ mean_comparison_anchor <- function(
     control, treatment,
     pca_method = c("dense_pca", "sparse_pca"),
     classifier_method = c("lasso", "group_lasso"),
-    lambda_type = 'lambda.1se',
+    lambda_type = 'lambda.min',
     n_folds = 10,
     group = NULL,
     standardize_feature = TRUE,

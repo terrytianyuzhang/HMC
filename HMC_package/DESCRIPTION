@@ -1,7 +1,7 @@
 Package: HMC
 Title: High-Dimensional Mean Comparison with Projection and Cross-Fitting
-Version: 1.2
-Date: 2025-05-02
+Version: 1.2.1
+Date: 2025-05-06
 Authors@R: 
     person("Tianyu", "Zhang", 
            role = c("aut", "cre", "cph"), 
