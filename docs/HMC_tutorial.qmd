@@ -108,7 +108,9 @@ The p-value from the two-sample mean comparison test is:
 test_result$p_value
 ```
 
-The function below extracts the genes most frequently selected by the lasso classifier as discriminative features between the two groups:
+This means the average expression level is significantly different.
+
+The function below extracts the genes frequently selected by the lasso classifier as discriminative features between the two groups. Usually they are the most improtant genes discriminating the two groups.
 
 ```{r, eval = TRUE}
 collect_active_features_proj(test_result)
