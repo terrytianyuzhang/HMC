@@ -1,6 +1,6 @@
 ---
 title: "Performing Two-Sample Mean Comparison Using HMC"
-author: "Tianyu Zhang"
+author: "Tianyu Zhang, Jing Lei and Kathryn Roeder"
 format: html
 editor: visual
 ---

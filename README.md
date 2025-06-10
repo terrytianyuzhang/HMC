@@ -1,4 +1,4 @@
-# HMC
+# HMC (In progress)
 
 **HMC** is an R package for high-dimensional two-sample mean comparison using data-driven projections and cross-fitting.
 
