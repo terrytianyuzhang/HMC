@@ -2,7 +2,7 @@
 % Please edit documentation in R/51_convergence.R
 \name{convergence_testing}
 \alias{convergence_testing}
-\title{High-dimensional two-stage mean comparison with projection-based testing}
+\title{Mean-difference convergence analysis for high-dimensional data.}
 \usage{
 convergence_testing(
   control,
@@ -22,7 +22,7 @@ convergence_testing(
 
 \item{treatment1}{A matrix or data frame representing the first treatment group.}
 
-\item{treatment2}{A matrix or data frame representing the second treatment group (comparison target).}
+\item{treatment2}{A matrix or data frame representing the second treatment group.}
 
 \item{pca_method}{Character. Method for estimating principal components. Must be either \code{"dense_pca"} or \code{"sparse_pca"}.}
 
@@ -41,13 +41,12 @@ convergence_testing(
 \value{
 A list containing:
 \describe{
-\item{p_value}{Two-sided p-value for the null hypothesis of no mean difference along the constructed projection direction.}
+\item{p_value}{For the null hypothesis that treatment 1 and treatment 2 do not exhibit similar differences from the control, a smaller test statistic indicates greater similarity between the treatments.}
 \item{test_statistic}{Aggregated test statistic across folds.}
 \item{fold_data}{List of per-fold results including statistics, scores, and projections.}
 }
 }
 \description{
-Performs a cross-validated two-stage mean comparison procedure for high-dimensional data.
 The method combines sparse classification (lasso or group-lasso) and principal component analysis
 to construct interpretable projection directions for hypothesis testing.
 }

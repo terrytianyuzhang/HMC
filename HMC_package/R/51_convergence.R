@@ -261,15 +261,14 @@ combine_folds <- function(fold_data, n_folds, verbose = FALSE) {
   ))
 }
 
-#' High-dimensional two-stage mean comparison with projection-based testing
+#' Mean-difference convergence analysis for high-dimensional data. 
 #'
-#' Performs a cross-validated two-stage mean comparison procedure for high-dimensional data.
 #' The method combines sparse classification (lasso or group-lasso) and principal component analysis
 #' to construct interpretable projection directions for hypothesis testing.
 #'
 #' @param control A matrix or data frame representing the control group. Rows are samples and columns are features.
 #' @param treatment1 A matrix or data frame representing the first treatment group.
-#' @param treatment2 A matrix or data frame representing the second treatment group (comparison target).
+#' @param treatment2 A matrix or data frame representing the second treatment group.
 #' @param pca_method Character. Method for estimating principal components. Must be either \code{"dense_pca"} or \code{"sparse_pca"}.
 #' @param classifier_method Character. Method for feature selection. Must be either \code{"lasso"} or \code{"group_lasso"}.
 #' @param lambda_type Character. Type of regularization strength to use from cross-validation. Either \code{"lambda.min"} or \code{"lambda.1se"}.
@@ -280,7 +279,7 @@ combine_folds <- function(fold_data, n_folds, verbose = FALSE) {
 #'
 #' @return A list containing:
 #' \describe{
-#'   \item{p_value}{Two-sided p-value for the null hypothesis of no mean difference along the constructed projection direction.}
+#'   \item{p_value}{For the null hypothesis that treatment 1 and treatment 2 do not exhibit similar differences from the control, a smaller test statistic indicates greater similarity between the treatments.}
 #'   \item{test_statistic}{Aggregated test statistic across folds.}
 #'   \item{fold_data}{List of per-fold results including statistics, scores, and projections.}
 #' }

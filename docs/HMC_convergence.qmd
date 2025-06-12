@@ -1,0 +1,116 @@
+---
+title: "Performing Two-Sample Mean Comparison Using HMC"
+format: html
+editor: visual
+---
+
+This tutorial demonstrates how to use the `HMC` package to perform high-dimensional two-sample mean comparison, leveraging data-driven projection and cross-fitting for improved power and interpretability. The demonstration uses a sample dataset that can be downloaded via the following Bash script:
+
+```{bash, eval = FALSE}
+wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds
+```
+
+```{r, echo = TRUE, eval=FALSE}
+library(data.table)
+library(HMC)
+
+# Load data
+residual_subset <- readRDS("tiny_cleary_for_HMC.rds")
+
+# Subset to control and treatment groups, and drop guide annotations
+
+control <- residual_subset[
+    Guides_collapsed_by_gene == "non-targeting",
+    !"Guides_collapsed_by_gene"
+]
+perturbed <- residual_subset[
+    Guides_collapsed_by_gene == "STAT1",
+    !"Guides_collapsed_by_gene"
+]
+
+```
+
+```{r, echo = FALSE, eval=TRUE}
+library(data.table)
+library(HMC)
+
+# Load data
+output_dir <- "/Users/tianyuzhang/Documents/HMC/docs/"
+residual_subset <- readRDS(paste0(output_dir, "/data/tiny_cleary_for_HMC.rds"))
+clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds"))
+
+# Subset to control and treatment groups, then remove guide labels
+control <- residual_subset[
+    Guides_collapsed_by_gene == "non-targeting",
+    !"Guides_collapsed_by_gene"
+]
+perturbed <- residual_subset[
+    Guides_collapsed_by_gene == "STAT1",
+    !"Guides_collapsed_by_gene"
+]
+```
+
+First 3 cells and first 5 genes from the control group:
+
+```{r, eval=TRUE}
+control[1:3, 1:5]
+```
+
+First 3 cells and first 5 genes from the treatment group:
+
+```{r, eval = TRUE}
+perturbed[1:3, 1:5]
+```
+
+Next, we apply the test using a subset of genes corresponding to a specific cluster. We load the gene grouping file and isolate genes from cluster 31:
+
+```{r, echo = FALSE, eval = TRUE}
+clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds"))
+gene_to_keep <- which(clustering$cluster_index == 31)
+control_subset <- control[, ..gene_to_keep]
+perturbed_subset <- perturbed[, ..gene_to_keep]
+```
+
+```{r, echo = TRUE, eval = FALSE}
+clustering <- readRDS("gene_clustering_for_HMC.rds")
+gene_to_keep <- which(clustering$cluster_index == 31)
+control_subset <- control[, ..gene_to_keep]
+perturbed_subset <- perturbed[, ..gene_to_keep]
+```
+
+We now run the comparison function using the selected genes:
+
+```{r, echo = TRUE, eval = FALSE}
+set.seed(123)
+test_result <- mean_comparison_anchor(
+    control = control_subset,
+    treatment = perturbed_subset,
+    pca_method = "sparse_pca",
+    classifier_method = "lasso",
+    lambda_type = "lambda.min",
+    n_folds = 5,
+    verbose = FALSE
+)
+```
+
+```{r, echo = FALSE, eval = FALSE}
+saveRDS(test_result, file = paste0(output_dir, "data/lasso_group31_test_result.rds"))
+```
+
+```{r, echo = FALSE, eval = TRUE}
+test_result <- readRDS(paste0(output_dir, "data/lasso_group31_test_result.rds"))
+```
+
+The p-value from the two-sample mean comparison test is:
+
+```{r, eval = TRUE}
+test_result$p_value
+```
+
+This means the average expression level is significantly different.
+
+The function below extracts the genes frequently selected by the lasso classifier as discriminative features between the two groups. Usually they are the most improtant genes discriminating the two groups.
+
+```{r, eval = TRUE}
+collect_active_features_proj(test_result)
+```
