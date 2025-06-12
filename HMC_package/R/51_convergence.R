@@ -1,7 +1,20 @@
-
-# -------------------------
-# all the functions above are also used in the anchored lasso test
-# --------------------------
+#' Identify candidate genes based on model coefficients and grouping
+#'
+#' Filters model-selected features to identify candidate genes for further analysis,
+#' optionally aggregating by group if using group lasso.
+#'
+#' @param beta_1_con A named numeric vector of estimated coefficients from the first-stage model.
+#' @param group A vector indicating group membership for each gene (feature). Must be the same length as the number of columns in \code{control_train}.
+#' @param classifier_method Character string indicating the classifier method. Must be either \code{"lasso"} or \code{"group_lasso"}.
+#' @param control_train A matrix or data frame representing the control group, used to infer gene names if needed.
+#'
+#' @return A list with two elements:
+#' \describe{
+#'   \item{candidate_genes}{A character vector of gene names with non-zero coefficients or belonging to selected groups.}
+#'   \item{group_subset}{A named vector of group labels corresponding to \code{candidate_genes}, or \code{NULL} if not applicable.}
+#' }
+#'
+#' @export
 
 process_candidate_genes <- function(beta_1_con, group, classifier_method, control_train) {
   # Ensure the group vector has names corresponding to gene identifiers
@@ -29,9 +42,38 @@ process_candidate_genes <- function(beta_1_con, group, classifier_method, contro
   return(list(candidate_genes = candidate_genes, group_subset = group_subset))
 }
 
-# ---------------------------
-# Fold Functions
-# ---------------------------
+#' Process a single cross-validation fold for projected mean comparison
+#'
+#' Performs one fold of a two-stage high-dimensional mean comparison procedure.
+#' This includes sparse feature selection via lasso/group-lasso, projection direction
+#' adjustment via principal components, and computation of test statistics and scores.
+#'
+#' @param i Integer. Fold index.
+#' @param control A matrix or data frame of control samples.
+#' @param treatment1 A matrix or data frame of first treatment group samples.
+#' @param treatment2 A matrix or data frame of second treatment group samples.
+#' @param control_split_index A list of row indices used to split \code{control} into train/test sets.
+#' @param tr1_split_index A list of row indices used to split \code{treatment1}.
+#' @param tr2_split_index A list of row indices used to split \code{treatment2}.
+#' @param pca_method Character. Method to estimate the principal component. Either \code{"dense_pca"} or \code{"sparse_pca"}.
+#' @param classifier_method Character. Classification method. Either \code{"lasso"} or \code{"group_lasso"}.
+#' @param lambda_type Character. Type of regularization parameter used in model fitting. Either \code{"lambda.min"} or \code{"lambda.1se"}.
+#' @param group Optional grouping vector for group-lasso. Should match the number of columns in \code{control}.
+#' @param verbose Logical. Whether to print progress messages.
+#'
+#' @return A list containing:
+#' \describe{
+#'   \item{statistic}{Estimated difference in projected means between control and treatment2.}
+#'   \item{variance}{Estimated variance of the test statistic.}
+#'   \item{control_score}{Projected scores for control test data.}
+#'   \item{tr2_score}{Projected scores for treatment2 test data.}
+#'   \item{proj_direction}{Final projection direction vector used for scoring.}
+#'   \item{first_beta}{First-stage model coefficients (control vs treatment1).}
+#'   \item{final_beta}{Second-stage model coefficients (control vs treatment2).}
+#'   \item{second_pc}{Principal component vector from control data.}
+#' }
+#'
+#' @export
 
 process_fold <- function(i, control, treatment1, treatment2, 
                          control_split_index, tr1_split_index, tr2_split_index,
@@ -133,6 +175,27 @@ process_fold <- function(i, control, treatment1, treatment2,
   ))
 }
 
+#' Combine results from multiple folds to compute final test statistic
+#'
+#' Aggregates per-fold statistics from a high-dimensional projection test procedure
+#' to compute a single test statistic and two-sided p-value. Projection directions
+#' are aligned and padded to ensure consistency across folds.
+#'
+#' @param fold_data A list of length \code{n_folds}, where each element contains results from a single fold,
+#' typically returned by \code{process_fold()}.
+#' @param n_folds Integer. Number of folds used in the procedure.
+#' @param verbose Logical. Whether to print messages during fold combination (e.g., orthogonal direction warnings).
+#'
+#' @return A list containing:
+#' \describe{
+#'   \item{p_value}{Two-sided p-value of the aggregated test.}
+#'   \item{test_statistic}{Final test statistic computed as the mean of signed fold statistics normalized by standard error.}
+#'   \item{fold_data}{Original \code{fold_data} list, possibly modified to include padded projection directions.}
+#' }
+#'
+#' @export
+
+
 combine_folds <- function(fold_data, n_folds, verbose = FALSE) {
   numerator_test_statistic<-0
   denominator_variance<-0
@@ -200,9 +263,31 @@ combine_folds <- function(fold_data, n_folds, verbose = FALSE) {
   ))
 }
 
-# ---------------------------
-# Main Function
-# ---------------------------
+#' High-dimensional two-stage mean comparison with projection-based testing
+#'
+#' Performs a cross-validated two-stage mean comparison procedure for high-dimensional data.
+#' The method combines sparse classification (lasso or group-lasso) and principal component analysis
+#' to construct interpretable projection directions for hypothesis testing.
+#'
+#' @param control A matrix or data frame representing the control group. Rows are samples and columns are features.
+#' @param treatment1 A matrix or data frame representing the first treatment group.
+#' @param treatment2 A matrix or data frame representing the second treatment group (comparison target).
+#' @param pca_method Character. Method for estimating principal components. Must be either \code{"dense_pca"} or \code{"sparse_pca"}.
+#' @param classifier_method Character. Method for feature selection. Must be either \code{"lasso"} or \code{"group_lasso"}.
+#' @param lambda_type Character. Type of regularization strength to use from cross-validation. Either \code{"lambda.min"} or \code{"lambda.1se"}.
+#' @param n_folds Integer. Number of folds for cross-validation. Default is 10.
+#' @param group Optional. A grouping vector for use with group-lasso, with length equal to the number of columns in \code{control}.
+#' @param standardize_feature Logical. Whether to normalize features using pooled mean and standard deviation before analysis. Default is \code{TRUE}.
+#' @param verbose Logical. Whether to print progress messages. Default is \code{TRUE}.
+#'
+#' @return A list containing:
+#' \describe{
+#'   \item{p_value}{Two-sided p-value for the null hypothesis of no mean difference along the constructed projection direction.}
+#'   \item{test_statistic}{Aggregated test statistic across folds.}
+#'   \item{fold_data}{List of per-fold results including statistics, scores, and projections.}
+#' }
+#'
+#' @export
 
 convergence_testing <- function(
     control, treatment1, treatment2,
@@ -274,9 +359,26 @@ convergence_testing <- function(
   
 }
 
-# ---------------------------
-# Visualization Functions
-# ---------------------------
+#' Identify consistently selected features across folds
+#'
+#' Aggregates non-zero features from cross-validation folds and applies majority voting
+#' to identify stable, active features. Optionally returns active feature groups if a
+#' grouping structure is provided.
+#'
+#' @param test_result A list returned by \code{convergence_testing()}, containing fold-wise results in the \code{$fold_data} element.
+#' @param voting_method Character. Voting rule used to select features. Currently only \code{"majority_voting"} is supported.
+#' @param group Optional. A named vector assigning each feature to a group. Required for identifying active groups.
+#' @param group_threshold Integer. Minimum number of selected features in a group for it to be considered active. Default is 1.
+#'
+#' @return If \code{group} is \code{NULL}, returns a character vector of active feature names.
+#' If \code{group} is provided, returns a list with:
+#' \describe{
+#'   \item{active_features}{Character vector of consistently selected features.}
+#'   \item{active_groups}{Character vector of active group labels.}
+#' }
+#'
+#' @export
+
 
 collect_active_features <- function(test_result, voting_method = c("majority_voting"), 
                                     group = NULL, group_threshold = 1) {
