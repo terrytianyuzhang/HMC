@@ -97,32 +97,82 @@ check_non_null_and_identical_colnames <- function(data_list) {
   }
 }
 
-#' Normalize and split two datasets using pooled mean and standard deviation
+#' #' Normalize and split two datasets using pooled mean and standard deviation
+#' #'
+#' #' Combines two datasets, normalizes features using pooled mean and standard deviation,
+#' #' and returns the normalized datasets separately.
+#' #'
+#' #' @param df1 A data frame or matrix. Typically group 1.
+#' #' @param df2 A data frame or matrix. Typically group 2.
+#' #'
+#' #' @return A list with elements:
+#' #' \describe{
+#' #'   \item{df1}{Normalized version of `df1`.}
+#' #'   \item{df2}{Normalized version of `df2`.}
+#' #' }
+#' #'
+#' #' @importFrom stats coef sd
+#' #' @examples
+#' #' set.seed(123)
+#' #' df1 <- matrix(rnorm(20), nrow = 5)
+#' #' df2 <- matrix(rnorm(20), nrow = 5)
+#' #' normalize_and_split(df1, df2)
+#' #'
+#' #' @export
+#' 
+#' normalize_and_split <- function(df1, df2) {
+#'   # Combine
+#'   combined <- rbind(df1, df2)
+#'   
+#'   # Compute pooled mean and SD
+#'   pooled_mean <- colMeans(combined)
+#'   pooled_sd <- apply(combined, 2, sd)
+#'   
+#'   # Center and scale
+#'   normalized <- scale(combined, center = pooled_mean, scale = pooled_sd)
+#'   
+#'   # Split back
+#'   df1_norm <- normalized[1:nrow(df1), , drop = FALSE]
+#'   df2_norm <- normalized[(nrow(df1) + 1):nrow(combined), , drop = FALSE]
+#'   
+#'   return(list(df1 = df1_norm, df2 = df2_norm))
+#' }
+
+#' Normalize and split datasets using pooled mean and standard deviation
 #'
-#' Combines two datasets, normalizes features using pooled mean and standard deviation,
+#' Combines two or three datasets, normalizes features using pooled mean and standard deviation,
 #' and returns the normalized datasets separately.
 #'
-#' @param df1 A data frame or matrix. Typically group 1.
-#' @param df2 A data frame or matrix. Typically group 2.
+#' @param df1 A data frame or matrix. Typically the control group.
+#' @param df2 A data frame or matrix. Typically treatment group 1.
+#' @param df3 Optional. A data frame or matrix, typically treatment group 2. Default is \code{NULL}.
 #'
 #' @return A list with elements:
 #' \describe{
-#'   \item{df1}{Normalized version of `df1`.}
-#'   \item{df2}{Normalized version of `df2`.}
+#'   \item{df1}{Normalized version of \code{df1}.}
+#'   \item{df2}{Normalized version of \code{df2}.}
+#'   \item{df3}{If \code{df3} is provided, its normalized version is also returned.}
 #' }
 #'
-#' @importFrom stats coef sd
+#' @importFrom stats colMeans sd
+#'
 #' @examples
 #' set.seed(123)
 #' df1 <- matrix(rnorm(20), nrow = 5)
 #' df2 <- matrix(rnorm(20), nrow = 5)
+#' df3 <- matrix(rnorm(20), nrow = 5)
 #' normalize_and_split(df1, df2)
+#' normalize_and_split(df1, df2, df3)
 #'
 #' @export
 
-normalize_and_split <- function(df1, df2) {
-  # Combine
-  combined <- rbind(df1, df2)
+normalize_and_split <- function(df1, df2, df3 = NULL) {
+  # Combine dataframes
+  if (is.null(df3)) {
+    combined <- rbind(df1, df2)
+  } else {
+    combined <- rbind(df1, df2, df3)
+  }
   
   # Compute pooled mean and SD
   pooled_mean <- colMeans(combined)
@@ -133,9 +183,14 @@ normalize_and_split <- function(df1, df2) {
   
   # Split back
   df1_norm <- normalized[1:nrow(df1), , drop = FALSE]
-  df2_norm <- normalized[(nrow(df1) + 1):nrow(combined), , drop = FALSE]
+  df2_norm <- normalized[(nrow(df1) + 1):(nrow(df1) + nrow(df2)), , drop = FALSE]
   
-  return(list(df1 = df1_norm, df2 = df2_norm))
+  if (is.null(df3)) {
+    return(list(df1 = df1_norm, df2 = df2_norm))
+  } else {
+    df3_norm <- normalized[(nrow(df1) + nrow(df2) + 1):nrow(combined), , drop = FALSE]
+    return(list(df1 = df1_norm, df2 = df2_norm, df3 = df3_norm))
+  }
 }
 
 #' Check that data has enough rows for cross-validation folds
