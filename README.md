@@ -10,6 +10,13 @@ You can install from CRAN using:
 install.packages("HMC")
 ```
 
+The CRAN version can be slightly behind the latest version.
+
+```r
+devtools::install_github("terrytianyuzhang/HMC/HMC_package")
+```
+
+
 ## 📖 Tutorial
 
 👉 [Performing Two-Sample Mean Comparison Using HMC](https://terrytianyuzhang.github.io/HMC/HMC_tutorial.html)
