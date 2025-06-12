@@ -18,8 +18,13 @@
 
 process_candidate_genes <- function(beta_1_con, group, classifier_method, control_train) {
   # Ensure the group vector has names corresponding to gene identifiers
-  if (is.null(names(group))) {
-    names(group) <- colnames(control_train)  # Assuming genes are columns in control_train
+  if (!is.null(group)) {
+    if (is.null(names(group))) {
+      if (length(group) != ncol(control_train)) {
+        stop("Length of `group` does not match the number of columns in `control_train`.")
+      }
+      names(group) <- colnames(control_train)
+    }
   }
   
   if (classifier_method == "group_lasso") {
@@ -117,7 +122,8 @@ process_fold <- function(i, control, treatment1, treatment2,
   
   control_train_interest <- control_train[, candidate_genes, drop = FALSE]
   tr2_train_interest <- tr2_train[, candidate_genes, drop = FALSE]
-  
+  message('candidate_genes')
+  print(candidate_genes)
   # Fit Lasso for control vs treatment2
   beta_2_con <- tryCatch({
     fit_lasso(control_train_interest, tr2_train_interest, lambda_type, classifier_method, group_subset)
@@ -134,11 +140,15 @@ process_fold <- function(i, control, treatment1, treatment2,
   # ===================================================
   n_effect2 <- 2 * min(nrow(control_train_interest), nrow(tr2_train_interest))  # Effective training size
   a_n <- n_effect2^(1/3)  # Scaling factor based on effective sample size
-  
+  message('pc_2_con')
+  print(pc_2_con)
+  message('beta_2_con')
+  print(beta_2_con)
   # Adjust projection direction using Lasso coefficients and normalize
   v_hat_tilde_diamond <- (pc_2_con + a_n * beta_2_con)  # Adjustment
   v_hat_tilde_diamond <- v_hat_tilde_diamond / norm(v_hat_tilde_diamond, type = "2")  # Normalize
-  
+  message('v_hat_tilde_diamond')
+  print(v_hat_tilde_diamond)
   # ===================================================
   # Compute test statistic, scores, and variance
   # ===================================================
@@ -214,7 +224,9 @@ combine_folds <- function(fold_data, n_folds, verbose = FALSE) {
   valid_folds <- which(!missing_proj_directions)
   first_valid_fold <- valid_folds[1]  # Select the first non-degenerate case as the baseline
   folds_effect_num <- length(valid_folds)
+  message("valid_folds")
   
+  print(valid_folds)
   # ===================================================
   # Padding for each proj_direction so that I can combine them later
   # ===================================================
@@ -236,6 +248,11 @@ combine_folds <- function(fold_data, n_folds, verbose = FALSE) {
   # ===================================================
   
   for (i in valid_folds) {
+    # print(str(fold_data[[i]]$variance))
+    if (length(fold_data[[i]]$variance) != 1 || is.na(fold_data[[i]]$variance)) {
+      if (verbose) message("Skipping fold ", i, ": invalid variance.")
+      next
+    }
     denominator_variance <- denominator_variance + fold_data[[i]]$variance
     projection_sign_match <- sign(crossprod(fold_data[[first_valid_fold]]$proj_direction, fold_data[[i]]$proj_direction))
     

@@ -231,7 +231,15 @@ fit_lasso <- function(control_train, treat_train,
   X_train <- rbind(control_train, treat_train)  
   y_train <- c(rep(0, nrow(control_train)), rep(1, nrow(treat_train)))  
   
-  if (classifier_method == "group_lasso") {
+  if (ncol(X_train) == 1) {
+    # Fallback to plain logistic regression for single-feature case
+    colname <- colnames(X_train)
+    df <- data.frame(y = y_train, x = X_train[, 1])
+    fit <- glm(y ~ x, data = df, family = "binomial")
+    beta_val <- coef(fit)["x"]
+    beta_est <- structure(beta_val, names = colname)
+    
+  } else if (classifier_method == "group_lasso") {
     if (is.null(group)) stop("Group vector must be provided for group lasso.")
     
     lasso_result <- cv.grpreg(X = X_train, 
@@ -239,17 +247,18 @@ fit_lasso <- function(control_train, treat_train,
                               group = group, 
                               penalty = "grLasso", 
                               family = 'binomial')
+    beta_est <- coef(lasso_result, s = lambda_type)[-1]
+    names(beta_est) <- colnames(X_train)
     
   } else {
     lasso_result <- cv.glmnet(X_train, y_train, family = "binomial", alpha = 1)
+    
+    beta_est <- coef(lasso_result, s = lambda_type)[-1]
+    names(beta_est) <- colnames(X_train)
   }
-  # Step 3: Extract LASSO coefficients at the optimal lambda
-  # Extract coefficients at the optimal lambda
-  beta_est <- coef(lasso_result, s = lambda_type)[-1]
-  names(beta_est) <- colnames(X_train)
   
   # Calculate threshold for small coefficients
-  
+
   n_effect <- 2 * min(nrow(control_train), nrow(treat_train))
   max_beta_element <- max(abs(beta_est))
   
