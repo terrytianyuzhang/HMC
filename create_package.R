@@ -5,7 +5,7 @@ rm(list = ls())
 library(devtools)
 
 # Define package path
-pkg_path <- "/Users/tianyuzhang/Documents/HMC/HMC_package"
+pkg_path <- "~/Documents/HMC/HMC_package"
 
 # Step 1: Document package (generate NAMESPACE and man/)
 document(pkg_path)

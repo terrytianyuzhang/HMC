@@ -113,8 +113,6 @@ process_fold <- function(i, control, treatment1, treatment2,
       final_beta = NA,
       second_pc = NA
     ))
-    
-    next
   }
   
   control_train_interest <- control_train[, candidate_genes, drop = FALSE]

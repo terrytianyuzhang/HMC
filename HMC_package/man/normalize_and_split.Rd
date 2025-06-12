@@ -2,30 +2,35 @@
 % Please edit documentation in R/31_pre_processing_functions.R
 \name{normalize_and_split}
 \alias{normalize_and_split}
-\title{Normalize and split two datasets using pooled mean and standard deviation}
+\title{Normalize and split datasets using pooled mean and standard deviation}
 \usage{
-normalize_and_split(df1, df2)
+normalize_and_split(df1, df2, df3 = NULL)
 }
 \arguments{
-\item{df1}{A data frame or matrix. Typically group 1.}
+\item{df1}{A data frame or matrix. Typically the control group.}
 
-\item{df2}{A data frame or matrix. Typically group 2.}
+\item{df2}{A data frame or matrix. Typically treatment group 1.}
+
+\item{df3}{Optional. A data frame or matrix, typically treatment group 2. Default is \code{NULL}.}
 }
 \value{
 A list with elements:
 \describe{
 \item{df1}{Normalized version of \code{df1}.}
 \item{df2}{Normalized version of \code{df2}.}
+\item{df3}{If \code{df3} is provided, its normalized version is also returned.}
 }
 }
 \description{
-Combines two datasets, normalizes features using pooled mean and standard deviation,
+Combines two or three datasets, normalizes features using pooled mean and standard deviation,
 and returns the normalized datasets separately.
 }
 \examples{
 set.seed(123)
 df1 <- matrix(rnorm(20), nrow = 5)
 df2 <- matrix(rnorm(20), nrow = 5)
+df3 <- matrix(rnorm(20), nrow = 5)
 normalize_and_split(df1, df2)
+normalize_and_split(df1, df2, df3)
 
 }
