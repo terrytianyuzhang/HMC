@@ -1,3 +1,4 @@
+# THIS FILE CAN BE DELETED, IT WAS FOR DEVELOPING THE TUTORIAL
 # devtools::install_github("terrytianyuzhang/HMC/HMC_package")
 rm(list = ls())
 library(data.table)
@@ -83,15 +84,19 @@ collect_active_features(test_result_null)
 
 control_subset <- control[1:100, ]
 psudo_control_subset <- control[101:200,]
-psudo_control_subset[, 1:10] <- 5 * psudo_control_subset[, 1:10] 
+psudo_control_subset[, 1:5] <- 10 * psudo_control_subset[, 1:5] 
 
 test_result_null <- convergence_testing(
   control = control_subset,
-  treatment1 =  psudo_control_subset,
-  treatment2 = STAT1,
+  treatment1 =  STAT1,
+  treatment2 = psudo_control_subset,
   pca_method = "dense_pca",
   classifier_method = "lasso",
   lambda_type = "lambda.min",
   n_folds = 5,
   verbose = TRUE
 )
+
+test_result_null$p_value
+collect_active_features(test_result_null)
+psudo_control_subset[1:5, 1:10]
