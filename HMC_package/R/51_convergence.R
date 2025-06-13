@@ -220,9 +220,7 @@ combine_folds <- function(fold_data, n_folds, verbose = FALSE) {
   valid_folds <- which(!missing_proj_directions)
   first_valid_fold <- valid_folds[1]  # Select the first non-degenerate case as the baseline
   folds_effect_num <- length(valid_folds)
-  message("valid_folds")
-  
-  print(valid_folds)
+
   # ===================================================
   # Padding for each proj_direction so that I can combine them later
   # ===================================================

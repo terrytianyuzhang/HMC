@@ -98,13 +98,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This tutorial demonstrates how to use the <code>HMC</code> package to perform high-dimensional two-sample mean comparison, leveraging data-driven projection and cross-fitting for improved power and interpretability. The demonstration uses a sample dataset that can be downloaded via the following Bash script:</p>
+<p>This tutorial demonstrates how to perform convergence analysis using the <code>HMC</code> package. We will use a sample dataset, which can be downloaded using the following Bash command:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>To get started, install the <code>HMC</code> package from GitHub using the following command:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"terrytianyuzhang/HMC/HMC_package"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Next, load the required packages and data, then extract the control and treatment groups for the convergence analysis. We will use <code>STAT1</code> and <code>STAT2</code>. Based on their names, we expect them to induce similar effects when perturbed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HMC)</span>
@@ -150,7 +152,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3: 0.09746205 0.02317766 0.01390659 0.032448719 0.006373856</code></pre>
 </div>
 </div>
-<p>We now run the comparison function using the selected genes:</p>
+<p>Now we perform the convergence analysis using the <code>convergence_testing()</code> function.</p>
+<p>We compare <code>STAT1</code> and <code>STAT2</code>, using control group as the baseline.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>test_result <span class="ot">&lt;-</span> <span class="fu">convergence_testing</span>(</span>
@@ -164,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The p-value from the two-sample mean comparison test is:</p>
+<p>The p-value from the convergence analysis is:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>test_result<span class="sc">$</span>p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -172,59 +175,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [1,] 1.145651e-42</code></pre>
 </div>
 </div>
-<p>This means the average expression level is significantly different.</p>
-<p>The function below extracts the genes frequently selected by the lasso classifier as discriminative features between the two groups. Usually they are the most improtant genes discriminating the two groups.</p>
+<p>A small p-value suggests that <code>STAT1</code> and <code>STAT2</code> induce similar effects, relative to the control group. The null hypothesis is that <code>STAT1</code> and <code>STAT2</code> perturb different sets of genes.</p>
+<p>To further investigate which features contribute to the observed similarity or difference, we extract the consistently selected features:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_active_features</span>(test_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "IFI6"  "IFIT3" "OAS3"  "XAF1" </code></pre>
 </div>
 </div>
+<p>To illustrate how the method behaves under a null-like scenario, we simulate an artificial example where one of the treatment groups (treatment2) is nearly identical to the control group, except for a small perturbation in a few features.</p>
+<p>Specifically, we:</p>
+<ul>
+<li><p>Split the control group into two parts: <code>control_subset</code> and <code>psudo_control_subset</code></p></li>
+<li><p>Perturb the first 5 features of <code>psudo_control_subset</code> by multiplying them by 10</p></li>
+<li><p>Compare <code>STAT1</code> and this perturbed subset of control, using <code>control_subset</code> as the baseline</p></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>control_subset <span class="ot">&lt;-</span> control[<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, ]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>psudo_control_subset <span class="ot">&lt;-</span> control[<span class="dv">101</span><span class="sc">:</span><span class="dv">200</span>,]</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>psudo_control_subset[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">*</span> psudo_control_subset[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>test_result_null <span class="ot">&lt;-</span> <span class="fu">convergence_testing</span>(</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> control_subset,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment1 =</span> STAT1,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment2 =</span> psudo_control_subset,</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">pca_method =</span> <span class="st">"dense_pca"</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">classifier_method =</span> <span class="st">"lasso"</span>,</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">lambda_type =</span> <span class="st">"lambda.min"</span>,</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_folds =</span> <span class="dv">5</span>,</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Processing fold 1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Processing fold 2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Processing fold 3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Processing fold 4</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Processing fold 5</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>valid_folds</code></pre>
-</div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>psudo_control_subset[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 3 4 5</code></pre>
+<pre><code>      MALAT1      FTH1      NEAT1       CAP1       FTL
+       &lt;num&gt;     &lt;num&gt;      &lt;num&gt;      &lt;num&gt;     &lt;num&gt;
+1: 0.6791236 0.3301828 0.12813582 0.07304238 0.1963259
+2: 0.8237364 0.1183621 0.07677543 0.07357646 0.1199616
+3: 0.6725658 0.3013683 0.07547122 0.11720478 0.2220433</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>test_result_null<span class="sc">$</span>p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>test_result_null <span class="ot">&lt;-</span> <span class="fu">convergence_testing</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> control_subset,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment1 =</span> STAT1,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment2 =</span> psudo_control_subset,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pca_method =</span> <span class="st">"dense_pca"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">classifier_method =</span> <span class="st">"lasso"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">lambda_type =</span> <span class="st">"lambda.min"</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_folds =</span> <span class="dv">5</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">TRUE</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Although <code>psudo_control_subset</code> differs from the control group (due to the artificial perturbation), the way it differs is not aligned with how <code>STAT1</code> differs from the control. As a result, our method detects this mismatch and returns a large p-value, suggesting that <code>STAT1</code> and the pseudo-control are <strong>not</strong> similar in their effects.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>test_result_null<span class="sc">$</span>p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]
 [1,] 0.9347269</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_active_features</span>(test_result_null)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_active_features</span>(test_result_null)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>character(0)</code></pre>
 </div>

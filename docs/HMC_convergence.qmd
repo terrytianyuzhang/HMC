@@ -16,7 +16,7 @@ To get started, install the `HMC` package from GitHub using the following comman
 devtools::install_github("terrytianyuzhang/HMC/HMC_package")
 ```
 
-Next, load the required packages and data, then extract the control and treatment groups for the convergence analysis. We will use STAT1 and STAT2. Based on their names, we expect them to induce similar effects when perturbed.
+Next, load the required packages and data, then extract the control and treatment groups for the convergence analysis. We will use `STAT1` and `STAT2`. Based on their names, we expect them to induce similar effects when perturbed.
 
 ```{r, echo = TRUE, eval=FALSE}
 library(data.table)
@@ -79,9 +79,9 @@ First 3 cells and first 5 genes from the STAT1 group:
 STAT1[1:3, 1:5]
 ```
 
-Now we perform the convergence analysis using the `convergence_testing()` function.  
+Now we perform the convergence analysis using the `convergence_testing()` function.
 
-We compare STAT1 and STAT2, using control group as the baseline.
+We compare `STAT1` and `STAT2`, using control group as the baseline.
 
 ```{r, echo = TRUE, eval = FALSE}
 set.seed(123)
@@ -111,7 +111,7 @@ The p-value from the convergence analysis is:
 test_result$p_value
 ```
 
-A small p-value suggests that STAT1 and STAT2 induce similar effects, relative to the control group. The null hypothesis is that STAT1 and STAT2 perturb different sets of genes.
+A small p-value suggests that `STAT1` and `STAT2` induce similar effects, relative to the control group. The null hypothesis is that `STAT1` and `STAT2` perturb different sets of genes.
 
 To further investigate which features contribute to the observed similarity or difference, we extract the consistently selected features:
 
@@ -119,11 +119,24 @@ To further investigate which features contribute to the observed similarity or d
 collect_active_features(test_result)
 ```
 
+To illustrate how the method behaves under a null-like scenario, we simulate an artificial example where one of the treatment groups (treatment2) is nearly identical to the control group, except for a small perturbation in a few features.
+
+Specifically, we:
+
+-   Split the control group into two parts: `control_subset` and `psudo_control_subset`
+
+-   Perturb the first 5 features of `psudo_control_subset` by multiplying them by 10
+
+-   Compare `STAT1` and this perturbed subset of control, using `control_subset` as the baseline
+
 ```{r, echo = TRUE, eval = TRUE}
 control_subset <- control[1:100, ]
 psudo_control_subset <- control[101:200,]
 psudo_control_subset[, 1:5] <- 10 * psudo_control_subset[, 1:5] 
+psudo_control_subset[1:3, 1:5]
+```
 
+```{r, echo = TRUE, eval = FALSE}
 set.seed(123)
 test_result_null <- convergence_testing(
   control = control_subset,
@@ -137,13 +150,15 @@ test_result_null <- convergence_testing(
 )
 ```
 
-```{r, echo = FALSE, eval = TRUE}
+```{r, echo = FALSE, eval = FALSE}
 saveRDS(test_result_null, file = paste0(output_dir, "data/HMC_convergence_control_STAT1_pseudonull.rds"))
 ```
 
 ```{r, echo = FALSE, eval = TRUE}
 test_result_null <- readRDS(paste0(output_dir, "data/HMC_convergence_control_STAT1_pseudonull.rds"))
 ```
+
+Although `psudo_control_subset` differs from the control group (due to the artificial perturbation), the way it differs is not aligned with how `STAT1` differs from the control. As a result, our method detects this mismatch and returns a large p-value, suggesting that `STAT1` and the pseudo-control are **not** similar in their effects.
 
 ```{r}
 test_result_null$p_value
