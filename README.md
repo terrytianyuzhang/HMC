@@ -25,4 +25,6 @@ devtools::install_github("terrytianyuzhang/HMC/HMC_package")
 
 ## References
 
+In the tutorials, we used a subset of the data in this work.
+
 [1] Yao, D., Binan, L., Bezney, J., Simonton, B., Freedman, J., Frangieh, C. J., Dey, K., Geiger-Schuller, K., Eraslan, B., Gusev, A., et al. (2024). Scalable genetic screening for regulatory circuits using compressed Perturb-seq. *Nature Biotechnology*, 42(8), 1282–1295.
