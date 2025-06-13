@@ -1,14 +1,22 @@
 ---
-title: "Performing Two-Sample Mean Comparison Using HMC"
+title: "Performing Convergence Anlysis Using HMC"
 format: html
 editor: visual
 ---
 
-This tutorial demonstrates how to use the `HMC` package to perform high-dimensional two-sample mean comparison, leveraging data-driven projection and cross-fitting for improved power and interpretability. The demonstration uses a sample dataset that can be downloaded via the following Bash script:
+This tutorial demonstrates how to perform convergence analysis using the `HMC` package. We will use a sample dataset, which can be downloaded using the following Bash command:
 
 ```{bash, eval = FALSE}
 wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds
 ```
+
+To get started, install the `HMC` package from GitHub using the following command:
+
+```{r, eval = FALSE}
+devtools::install_github("terrytianyuzhang/HMC/HMC_package")
+```
+
+Next, load the required packages and data, then extract the control and treatment groups for the convergence analysis. We will use STAT1 and STAT2. Based on their names, we expect them to induce similar effects when perturbed.
 
 ```{r, echo = TRUE, eval=FALSE}
 library(data.table)
@@ -16,37 +24,46 @@ library(HMC)
 
 # Load data
 residual_subset <- readRDS("tiny_cleary_for_HMC.rds")
+clustering <- readRDS("tiny_cleary_for_HMC.rds")
 
-# Subset to control and treatment groups, and drop guide annotations
-
+# Subset to control and treatment groups, then remove guide labels
 control <- residual_subset[
-    Guides_collapsed_by_gene == "non-targeting",
-    !"Guides_collapsed_by_gene"
+  Guides_collapsed_by_gene == "non-targeting",
+  !"Guides_collapsed_by_gene"
 ]
-perturbed <- residual_subset[
-    Guides_collapsed_by_gene == "STAT1",
-    !"Guides_collapsed_by_gene"
+STAT1 <- residual_subset[
+  Guides_collapsed_by_gene == "STAT1",
+  !"Guides_collapsed_by_gene"
 ]
 
+STAT2 <- residual_subset[
+  Guides_collapsed_by_gene == "STAT2",
+  !"Guides_collapsed_by_gene"
+]
 ```
 
-```{r, echo = FALSE, eval=TRUE}
+```{r, echo = FALSE, eval= TRUE}
 library(data.table)
 library(HMC)
 
 # Load data
-output_dir <- "/Users/tianyuzhang/Documents/HMC/docs/"
+output_dir <- "~/Documents/HMC/docs/"
 residual_subset <- readRDS(paste0(output_dir, "/data/tiny_cleary_for_HMC.rds"))
 clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds"))
 
 # Subset to control and treatment groups, then remove guide labels
 control <- residual_subset[
-    Guides_collapsed_by_gene == "non-targeting",
-    !"Guides_collapsed_by_gene"
+  Guides_collapsed_by_gene == "non-targeting",
+  !"Guides_collapsed_by_gene"
 ]
-perturbed <- residual_subset[
-    Guides_collapsed_by_gene == "STAT1",
-    !"Guides_collapsed_by_gene"
+STAT1 <- residual_subset[
+  Guides_collapsed_by_gene == "STAT1",
+  !"Guides_collapsed_by_gene"
+]
+
+STAT2 <- residual_subset[
+  Guides_collapsed_by_gene == "STAT2",
+  !"Guides_collapsed_by_gene"
 ]
 ```
 
@@ -56,61 +73,105 @@ First 3 cells and first 5 genes from the control group:
 control[1:3, 1:5]
 ```
 
-First 3 cells and first 5 genes from the treatment group:
+First 3 cells and first 5 genes from the STAT1 group:
 
 ```{r, eval = TRUE}
-perturbed[1:3, 1:5]
+STAT1[1:3, 1:5]
 ```
 
-Next, we apply the test using a subset of genes corresponding to a specific cluster. We load the gene grouping file and isolate genes from cluster 31:
+Now we perform the convergence analysis using the `convergence_testing()` function.  
 
-```{r, echo = FALSE, eval = TRUE}
-clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds"))
-gene_to_keep <- which(clustering$cluster_index == 31)
-control_subset <- control[, ..gene_to_keep]
-perturbed_subset <- perturbed[, ..gene_to_keep]
-```
-
-```{r, echo = TRUE, eval = FALSE}
-clustering <- readRDS("gene_clustering_for_HMC.rds")
-gene_to_keep <- which(clustering$cluster_index == 31)
-control_subset <- control[, ..gene_to_keep]
-perturbed_subset <- perturbed[, ..gene_to_keep]
-```
-
-We now run the comparison function using the selected genes:
+We compare STAT1 and STAT2, using control group as the baseline.
 
 ```{r, echo = TRUE, eval = FALSE}
 set.seed(123)
-test_result <- mean_comparison_anchor(
-    control = control_subset,
-    treatment = perturbed_subset,
-    pca_method = "sparse_pca",
-    classifier_method = "lasso",
-    lambda_type = "lambda.min",
-    n_folds = 5,
-    verbose = FALSE
+test_result <- convergence_testing(
+  control = control,
+  treatment1 = STAT1,
+  treatment2 = STAT2,
+  pca_method = "dense_pca",
+  classifier_method = "lasso",
+  lambda_type = "lambda.min",
+  n_folds = 5,
+  verbose = TRUE
 )
 ```
 
 ```{r, echo = FALSE, eval = FALSE}
-saveRDS(test_result, file = paste0(output_dir, "data/lasso_group31_test_result.rds"))
+saveRDS(test_result, file = paste0(output_dir, "data/HMC_convergence_control_STAT1_STAT2.rds"))
 ```
 
 ```{r, echo = FALSE, eval = TRUE}
-test_result <- readRDS(paste0(output_dir, "data/lasso_group31_test_result.rds"))
+test_result <- readRDS(paste0(output_dir, "data/HMC_convergence_control_STAT1_STAT2.rds"))
 ```
 
-The p-value from the two-sample mean comparison test is:
+The p-value from the convergence analysis is:
 
 ```{r, eval = TRUE}
 test_result$p_value
 ```
 
-This means the average expression level is significantly different.
+A small p-value suggests that STAT1 and STAT2 induce similar effects, relative to the control group. The null hypothesis is that STAT1 and STAT2 perturb different sets of genes.
 
-The function below extracts the genes frequently selected by the lasso classifier as discriminative features between the two groups. Usually they are the most improtant genes discriminating the two groups.
+To further investigate which features contribute to the observed similarity or difference, we extract the consistently selected features:
 
 ```{r, eval = TRUE}
-collect_active_features_proj(test_result)
+collect_active_features(test_result)
 ```
+
+```{r, echo = TRUE, eval = TRUE}
+control_subset <- control[1:100, ]
+psudo_control_subset <- control[101:200,]
+psudo_control_subset[, 1:5] <- 10 * psudo_control_subset[, 1:5] 
+
+set.seed(123)
+test_result_null <- convergence_testing(
+  control = control_subset,
+  treatment1 = STAT1,
+  treatment2 = psudo_control_subset,
+  pca_method = "dense_pca",
+  classifier_method = "lasso",
+  lambda_type = "lambda.min",
+  n_folds = 5,
+  verbose = TRUE
+)
+```
+
+```{r, echo = FALSE, eval = TRUE}
+saveRDS(test_result_null, file = paste0(output_dir, "data/HMC_convergence_control_STAT1_pseudonull.rds"))
+```
+
+```{r, echo = FALSE, eval = TRUE}
+test_result_null <- readRDS(paste0(output_dir, "data/HMC_convergence_control_STAT1_pseudonull.rds"))
+```
+
+```{r}
+test_result_null$p_value
+collect_active_features(test_result_null)
+```
+
+<!-- Next, we apply the test using a subset of genes corresponding to a specific cluster. We load the gene grouping file and isolate genes from cluster 31: -->
+
+<!-- ```{r, echo = FALSE, eval = TRUE} -->
+
+<!-- clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds")) -->
+
+<!-- gene_to_keep <- which(clustering$cluster_index == 31) -->
+
+<!-- control_subset <- control[, ..gene_to_keep] -->
+
+<!-- perturbed_subset <- perturbed[, ..gene_to_keep] -->
+
+<!-- ``` -->
+
+<!-- ```{r, echo = TRUE, eval = FALSE} -->
+
+<!-- clustering <- readRDS("gene_clustering_for_HMC.rds") -->
+
+<!-- gene_to_keep <- which(clustering$cluster_index == 31) -->
+
+<!-- control_subset <- control[, ..gene_to_keep] -->
+
+<!-- perturbed_subset <- perturbed[, ..gene_to_keep] -->
+
+<!-- ``` -->

@@ -29,12 +29,11 @@ STAT2 <- residual_subset[
 
 
 clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds"))
-gene_to_keep <- which(clustering$cluster_index %in% 1:40)
+gene_to_keep <- which(clustering$cluster_index %in% 1:41)
 # gene_to_keep <- which(clustering$cluster_index %in% c(5))
-control_subset <- control[1:100, ..gene_to_keep]
-STAT1_subset <- STAT1[1:30, ..gene_to_keep]
-# STAT2_subset <- STAT2[1:10, ..gene_to_keep]
-STAT2_subset <- control[31:60, ..gene_to_keep]
+control_subset <- control[, ..gene_to_keep]
+STAT1_subset <- STAT1[, ..gene_to_keep]
+STAT2_subset <- STAT2[, ..gene_to_keep]
 
 
 test_result <- convergence_testing(
@@ -47,15 +46,52 @@ test_result <- convergence_testing(
   n_folds = 5,
   verbose = TRUE
 )
+
+
+
 sapply(test_result$fold_data, function(x) x$variance)
 control_scores <- sapply(test_result$fold_data, function(x) x$control_score, simplify = FALSE)
 boxplot(control_scores, main = "Control Score Distribution per Fold",
         xlab = "Fold", ylab = "Control Score")
 
 tr2_scores <- sapply(test_result$fold_data, function(x) x$tr2_score, simplify = FALSE)
-boxplot(tr2_scores, main = "Control Score Distribution per Fold",
+boxplot(tr2_scores, main = "Tretment Score Distribution per Fold",
         xlab = "Fold", ylab = "Control Score")
 
 
 test_result$p_value
 collect_active_features(test_result)
+
+saveRDS(test_result, file = paste0(output_dir, "data/HMC_convergence_control_STAT1_STAT2.rds"))
+
+control_subset <- control[1:100, ]
+psudo_control_subset <- control[101:200,]
+
+test_result_null <- convergence_testing(
+  control = control_subset,
+  treatment1 = STAT1,
+  treatment2 = psudo_control_subset,
+  pca_method = "dense_pca",
+  classifier_method = "lasso",
+  lambda_type = "lambda.min",
+  n_folds = 5,
+  verbose = TRUE
+)
+test_result_null$p_value
+collect_active_features(test_result_null)
+
+
+control_subset <- control[1:100, ]
+psudo_control_subset <- control[101:200,]
+psudo_control_subset[, 1:10] <- 5 * psudo_control_subset[, 1:10] 
+
+test_result_null <- convergence_testing(
+  control = control_subset,
+  treatment1 =  psudo_control_subset,
+  treatment2 = STAT1,
+  pca_method = "dense_pca",
+  classifier_method = "lasso",
+  lambda_type = "lambda.min",
+  n_folds = 5,
+  verbose = TRUE
+)
