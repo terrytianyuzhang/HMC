@@ -1,9 +1,10 @@
 # devtools::install_github("terrytianyuzhang/HMC/HMC_package")
-# library(data.table)
-# library(HMC)
 rm(list = ls())
-source('~/Documents/HMC/HMC_package/R/31_pre_processing_functions.R')
+library(data.table)
+library(HMC)
+library(glmnet)
 
+source('~/Documents/HMC/HMC_package/R/31_pre_processing_functions.R')
 source('~/Documents/HMC/HMC_package/R/51_convergence.R')
 # Load data
 output_dir <- "~/Documents/HMC/docs/"
@@ -28,18 +29,19 @@ STAT2 <- residual_subset[
 
 
 clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds"))
-# gene_to_keep <- which(clustering$cluster_index %in% c(31, 34, 37))
-gene_to_keep <- which(clustering$cluster_index %in% c(5))
-control_subset <- control[, ..gene_to_keep]
-STAT1_subset <- STAT1[, ..gene_to_keep]
-STAT2_subset <- STAT2[, ..gene_to_keep]
+gene_to_keep <- which(clustering$cluster_index %in% 1:40)
+# gene_to_keep <- which(clustering$cluster_index %in% c(5))
+control_subset <- control[1:100, ..gene_to_keep]
+STAT1_subset <- STAT1[1:30, ..gene_to_keep]
+# STAT2_subset <- STAT2[1:10, ..gene_to_keep]
+STAT2_subset <- control[31:60, ..gene_to_keep]
 
-set.seed(123)
+
 test_result <- convergence_testing(
   control = control_subset,
   treatment1 = STAT1_subset,
   treatment2 = STAT2_subset,
-  # pca_method = "sparse_pca",
+  pca_method = "dense_pca",
   classifier_method = "lasso",
   lambda_type = "lambda.min",
   n_folds = 5,
@@ -50,7 +52,7 @@ control_scores <- sapply(test_result$fold_data, function(x) x$control_score, sim
 boxplot(control_scores, main = "Control Score Distribution per Fold",
         xlab = "Fold", ylab = "Control Score")
 
-sapply(test_result$fold_data, function(x) x$proj_direction, simplify = FALSE)
+tr2_scores <- sapply(test_result$fold_data, function(x) x$tr2_score, simplify = FALSE)
 boxplot(tr2_scores, main = "Control Score Distribution per Fold",
         xlab = "Fold", ylab = "Control Score")
 

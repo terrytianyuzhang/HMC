@@ -236,8 +236,7 @@ fit_lasso <- function(control_train, treat_train,
     colname <- colnames(X_train)
     df <- data.frame(y = y_train, x = X_train[, 1])
     fit <- glm(y ~ x, data = df, family = "binomial")
-    beta_val <- coef(fit)["x"]
-    beta_est <- structure(beta_val, names = colname)
+    beta_est <- setNames(coef(fit)["x"], colname)
     
   } else if (classifier_method == "group_lasso") {
     if (is.null(group)) stop("Group vector must be provided for group lasso.")
@@ -266,8 +265,9 @@ fit_lasso <- function(control_train, treat_train,
   threshold <- max_beta_element * n_effect^(-1/3)
   beta_est[abs(beta_est) < threshold] <- 0
   
-  # if(length(beta_est) == 50) beta_est[6:50] <- 0
-  
+  # message("beta_est before leaving fit_lasso")
+  # print(beta_est)
+  # print(class(beta_est))
   return(beta_est)
   
 }
@@ -303,27 +303,24 @@ estimate_leading_pc <- function(control, pca_method = c("dense_pca", "sparse_pca
   
   # Match PCA method argument
   pca_method <- match.arg(pca_method)
-  print(pca_method)
   # Handle edge case: 1-dimensional data
   if (feature_number == 1) {
     warning("There is only one dimension and PCA is requested.")
-    pc <- matrix(1, ncol = 1)
-    names(pc) <- colnames(control)
-    return(pc / sqrt(sum(pc^2)))
+    pc <- setNames(1, colnames(control))
+    # colnames(pc) <- colnames(control)
+    return(pc)
   }
   
   # Force dense PCA for low-dimensional data
-  if (feature_number <= 30) {
+  if (feature_number <= 30 & pca_method == "sparse_pca") {
     message("Dimension too small, switching method to dense PCA.")
     pca_method <- "dense_pca"
   }
   
   # Run PCA
   if (pca_method == "dense_pca") {
-    print('conducting dense PCA')
     pc <- array(irlba::irlba(sample_centered, nv = 1)$v)
   } else if (pca_method == "sparse_pca") {
-    print('conducting sparse PCA')
     cv_result <- PMA::SPC.cv(sample_centered)
     pc <- PMA::SPC(
       sample_centered,

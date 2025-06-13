@@ -122,8 +122,7 @@ process_fold <- function(i, control, treatment1, treatment2,
   
   control_train_interest <- control_train[, candidate_genes, drop = FALSE]
   tr2_train_interest <- tr2_train[, candidate_genes, drop = FALSE]
-  message('candidate_genes')
-  print(candidate_genes)
+  
   # Fit Lasso for control vs treatment2
   beta_2_con <- tryCatch({
     fit_lasso(control_train_interest, tr2_train_interest, lambda_type, classifier_method, group_subset)
@@ -140,15 +139,12 @@ process_fold <- function(i, control, treatment1, treatment2,
   # ===================================================
   n_effect2 <- 2 * min(nrow(control_train_interest), nrow(tr2_train_interest))  # Effective training size
   a_n <- n_effect2^(1/3)  # Scaling factor based on effective sample size
-  message('pc_2_con')
-  print(pc_2_con)
-  message('beta_2_con')
-  print(beta_2_con)
+  
+  
   # Adjust projection direction using Lasso coefficients and normalize
-  v_hat_tilde_diamond <- (pc_2_con + a_n * beta_2_con)  # Adjustment
-  v_hat_tilde_diamond <- v_hat_tilde_diamond / norm(v_hat_tilde_diamond, type = "2")  # Normalize
-  message('v_hat_tilde_diamond')
-  print(v_hat_tilde_diamond)
+  proj_direction <- (pc_2_con + a_n * beta_2_con)  # Adjustment
+  proj_direction <- proj_direction / norm(proj_direction, type = "2")  # Normalize
+  
   # ===================================================
   # Compute test statistic, scores, and variance
   # ===================================================
@@ -157,8 +153,8 @@ process_fold <- function(i, control, treatment1, treatment2,
   tr2_matrix <- as.matrix(tr2_test[, candidate_genes], ncol = length(candidate_genes))
   
   # Compute scores for control and treatment groups
-  control_score <- control_matrix %*% v_hat_tilde_diamond
-  tr2_score <- tr2_matrix %*% v_hat_tilde_diamond
+  control_score <- control_matrix %*% proj_direction
+  tr2_score <- tr2_matrix %*% proj_direction
   
   # Compute the test statistic as the difference of means
   T_stat <- mean(control_score) - mean(tr2_score)
@@ -176,7 +172,7 @@ process_fold <- function(i, control, treatment1, treatment2,
     variance = variance,
     control_score = control_score,
     tr2_score = tr2_score,
-    proj_direction = v_hat_tilde_diamond,
+    proj_direction = proj_direction,
     first_beta = beta_1_con,
     final_beta = beta_2_con,
     second_pc = pc_2_con
@@ -248,11 +244,7 @@ combine_folds <- function(fold_data, n_folds, verbose = FALSE) {
   # ===================================================
   
   for (i in valid_folds) {
-    # print(str(fold_data[[i]]$variance))
-    if (length(fold_data[[i]]$variance) != 1 || is.na(fold_data[[i]]$variance)) {
-      if (verbose) message("Skipping fold ", i, ": invalid variance.")
-      next
-    }
+    
     denominator_variance <- denominator_variance + fold_data[[i]]$variance
     projection_sign_match <- sign(crossprod(fold_data[[first_valid_fold]]$proj_direction, fold_data[[i]]$proj_direction))
     
