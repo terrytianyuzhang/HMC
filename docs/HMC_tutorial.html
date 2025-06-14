@@ -98,16 +98,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This tutorial demonstrates how to use the <code>HMC</code> package to perform high-dimensional two-sample mean comparison, leveraging data-driven projection and cross-fitting for improved power and interpretability. The demonstration uses a sample dataset that can be downloaded via the following Bash script:</p>
+<p>This tutorial demonstrates how to use the <code>HMC</code> package to perform high-dimensional two-sample mean comparison, leveraging data-driven projection and cross-fitting for improved power and interpretability. The demonstration uses a sample dataset that can be downloaded via the following command:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_local_path <span class="ot">&lt;-</span> <span class="st">"~/your/local/path/"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/terrytianyuzhang/HMC/main/docs/data/tiny_cleary_for_HMC.rds"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dest_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(my_local_path, <span class="st">"tiny_cleary_for_HMC.rds"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, dest_file, <span class="at">mode =</span> <span class="st">"wb"</span>) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/terrytianyuzhang/HMC/main/docs/data/gene_clustering_for_HMC.rds"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>dest_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(my_local_path, <span class="st">"gene_clustering_for_HMC.rds"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, dest_file, <span class="at">mode =</span> <span class="st">"wb"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<!-- ```{bash, eval = FALSE}
+wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds
+``` -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HMC)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>residual_subset <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"tiny_cleary_for_HMC.rds"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>residual_subset <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(my_local_path, <span class="st">"tiny_cleary_for_HMC.rds"</span>))</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to control and treatment groups, and drop guide annotations</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
@@ -144,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Next, we apply the test using a subset of genes corresponding to a specific cluster. We load the gene grouping file and isolate genes from cluster 31:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>clustering <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"gene_clustering_for_HMC.rds"</span>)</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>residual_subset <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(my_local_path, <span class="st">"gene_clustering_for_HMC.rds"</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gene_to_keep <span class="ot">&lt;-</span> <span class="fu">which</span>(clustering<span class="sc">$</span>cluster_index <span class="sc">==</span> <span class="dv">31</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>control_subset <span class="ot">&lt;-</span> control[, ..gene_to_keep]</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>perturbed_subset <span class="ot">&lt;-</span> perturbed[, ..gene_to_keep]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

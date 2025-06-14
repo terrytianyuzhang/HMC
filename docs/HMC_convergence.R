@@ -100,3 +100,8 @@ test_result_null <- convergence_testing(
 test_result_null$p_value
 collect_active_features(test_result_null)
 psudo_control_subset[1:5, 1:10]
+
+
+
+# mode="wb" ensures a binary-safe download
+data <- readRDS(destfile)

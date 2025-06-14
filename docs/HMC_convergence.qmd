@@ -4,10 +4,19 @@ format: html
 editor: visual
 ---
 
-This tutorial demonstrates how to perform convergence analysis using the `HMC` package. We will use a sample dataset, which can be downloaded using the following Bash command:
+This tutorial demonstrates how to perform convergence analysis using the `HMC` package. We will use a sample dataset, which can be downloaded using the following command. 
 
-```{bash, eval = FALSE}
+<!-- You can run it directly in your terminal and the data will, normally, be downloaded in the folder where you ran it. -->
+
+<!-- ```{bash, eval = FALSE}
 wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds
+``` -->
+
+```{r, eval = FALSE}
+my_local_path <- "~/your/local/path/"
+url <- "https://raw.githubusercontent.com/terrytianyuzhang/HMC/main/docs/data/tiny_cleary_for_HMC.rds"
+dest_file <- paste0(my_local_path, "tiny_cleary_for_HMC.rds")
+download.file(url, dest_file, mode = "wb") 
 ```
 
 To get started, install the `HMC` package from GitHub using the following command:
@@ -23,8 +32,7 @@ library(data.table)
 library(HMC)
 
 # Load data
-residual_subset <- readRDS("tiny_cleary_for_HMC.rds")
-clustering <- readRDS("tiny_cleary_for_HMC.rds")
+residual_subset <- readRDS(paste0(my_local_path, "tiny_cleary_for_HMC.rds"))
 
 # Subset to control and treatment groups, then remove guide labels
 control <- residual_subset[
@@ -49,7 +57,6 @@ library(HMC)
 # Load data
 output_dir <- "~/Documents/HMC/docs/"
 residual_subset <- readRDS(paste0(output_dir, "/data/tiny_cleary_for_HMC.rds"))
-clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds"))
 
 # Subset to control and treatment groups, then remove guide labels
 control <- residual_subset[

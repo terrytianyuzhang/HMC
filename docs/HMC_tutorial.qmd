@@ -4,18 +4,31 @@ format: html
 editor: visual
 ---
 
-This tutorial demonstrates how to use the `HMC` package to perform high-dimensional two-sample mean comparison, leveraging data-driven projection and cross-fitting for improved power and interpretability. The demonstration uses a sample dataset that can be downloaded via the following Bash script:
+This tutorial demonstrates how to use the `HMC` package to perform high-dimensional two-sample mean comparison, leveraging data-driven projection and cross-fitting for improved power and interpretability. The demonstration uses a sample dataset that can be downloaded via the following command:
 
-```{bash, eval = FALSE}
-wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds
+```{r, eval = FALSE}
+my_local_path <- "~/your/local/path/"
+url <- "https://raw.githubusercontent.com/terrytianyuzhang/HMC/main/docs/data/tiny_cleary_for_HMC.rds"
+dest_file <- paste0(my_local_path, "tiny_cleary_for_HMC.rds")
+download.file(url, dest_file, mode = "wb") 
+
+url <- "https://raw.githubusercontent.com/terrytianyuzhang/HMC/main/docs/data/gene_clustering_for_HMC.rds"
+dest_file <- paste0(my_local_path, "gene_clustering_for_HMC.rds")
+download.file(url, dest_file, mode = "wb") 
 ```
+
+````{=html}
+<!-- ```{bash, eval = FALSE}
+wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds
+``` -->
+````
 
 ```{r, echo = TRUE, eval=FALSE}
 library(data.table)
 library(HMC)
 
 # Load data
-residual_subset <- readRDS("tiny_cleary_for_HMC.rds")
+residual_subset <- readRDS(paste0(my_local_path, "tiny_cleary_for_HMC.rds"))
 
 # Subset to control and treatment groups, and drop guide annotations
 
@@ -72,7 +85,7 @@ perturbed_subset <- perturbed[, ..gene_to_keep]
 ```
 
 ```{r, echo = TRUE, eval = FALSE}
-clustering <- readRDS("gene_clustering_for_HMC.rds")
+residual_subset <- readRDS(paste0(my_local_path, "gene_clustering_for_HMC.rds"))
 gene_to_keep <- which(clustering$cluster_index == 31)
 control_subset <- control[, ..gene_to_keep]
 perturbed_subset <- perturbed[, ..gene_to_keep]
