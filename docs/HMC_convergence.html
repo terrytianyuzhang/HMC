@@ -234,6 +234,89 @@ wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for
 <pre><code>character(0)</code></pre>
 </div>
 </div>
+<section id="normality-of-the-test-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="normality-of-the-test-statistics">Normality of the Test Statistics</h2>
+<p>The test statistic returned by <code>convergence_testing()</code> is standard Gaussian under the null hypothesis of no convergence. We conduct a simple simulation study to empirically verify this behavior.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HMC)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>simulate_null_data <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n_samples=</span><span class="dv">500</span>, <span class="at">n_features=</span><span class="dv">100</span>) {</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  mu_con <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n_features)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  mu_tr1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">0</span>, n_features <span class="sc">-</span> <span class="dv">5</span>))</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  mu_tr2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>),  <span class="fu">rep</span>(<span class="dv">0</span>, n_features <span class="sc">-</span> <span class="dv">10</span>), <span class="fu">rep</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  ratio <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  control <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(n_samples<span class="sc">*</span>ratio, mu_con, <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">rep</span>(<span class="dv">1</span>, n_features <span class="sc">-</span> <span class="dv">5</span>))))</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  treatment1 <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(n_samples, mu_tr1, <span class="fu">diag</span>(n_features))</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  treatment2 <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(n_samples, mu_tr2, <span class="fu">diag</span>(n_features))</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(control) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Sample"</span>, <span class="dv">1</span><span class="sc">:</span>(n_samples<span class="sc">*</span>ratio), <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(treatment1) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Sample"</span>, <span class="dv">1</span><span class="sc">:</span>n_samples, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(treatment2) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Sample"</span>, <span class="dv">1</span><span class="sc">:</span>n_samples, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(control) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Feature"</span>, <span class="dv">1</span><span class="sc">:</span>n_features, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(treatment1) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Feature"</span>, <span class="dv">1</span><span class="sc">:</span>n_features, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(treatment2) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Feature"</span>, <span class="dv">1</span><span class="sc">:</span>n_features, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">control =</span> control, <span class="at">treatment1 =</span> treatment1, <span class="at">treatment2 =</span> treatment2))</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulation settings</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>n_simulations <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>n_samples <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>n_features <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>n_folds <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>test_statistics <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_simulations)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run simulations</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_simulations) {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(i)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">simulate_null_data</span>(<span class="at">n_samples =</span> n_samples, <span class="at">n_features =</span> n_features)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">convergence_testing</span>(data<span class="sc">$</span>control, data<span class="sc">$</span>treatment1, data<span class="sc">$</span>treatment2,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">lambda_type =</span> <span class="st">'lambda.min'</span>, <span class="at">n_folds =</span> n_folds)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  test_statistics[i] <span class="ot">&lt;-</span> result<span class="sc">$</span>test_statistic</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of test statistics</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(test_statistics), <span class="fu">aes</span>(<span class="at">x =</span> test_statistics)) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.1</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of Test Statistics under Null"</span>, <span class="at">x =</span> <span class="st">"Test Statistic"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HMC_convergence_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q-Q Plot using ggplot2</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>qq_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sample_quantiles =</span> <span class="fu">sort</span>(test_statistics),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">theoretical_quantiles =</span> <span class="fu">qnorm</span>(<span class="fu">ppoints</span>(n_simulations))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(qq_df, <span class="fu">aes</span>(<span class="at">x =</span> theoretical_quantiles, <span class="at">y =</span> sample_quantiles)) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Q-Q Plot of Test Statistics"</span>, <span class="at">x =</span> <span class="st">"Theoretical Quantiles (Normal)"</span>, <span class="at">y =</span> <span class="st">"Sample Quantiles"</span>) <span class="sc">+</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="HMC_convergence_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <!-- Next, we apply the test using a subset of genes corresponding to a specific cluster. We load the gene grouping file and isolate genes from cluster 31: -->
 <!-- ```{r, echo = FALSE, eval = TRUE} -->
 <!-- clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds")) -->
@@ -247,6 +330,7 @@ wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for
 <!-- control_subset <- control[, ..gene_to_keep] -->
 <!-- perturbed_subset <- perturbed[, ..gene_to_keep] -->
 <!-- ``` -->
+</section>
 
 </main>
 <!-- /main column -->
