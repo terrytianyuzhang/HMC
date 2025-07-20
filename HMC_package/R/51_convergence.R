@@ -415,11 +415,12 @@ collect_active_features <- function(test_result, voting_method = c("majority_vot
   # Group handling
   if (!is.null(group)) {
     if (is.null(names(group))) {
-      if (!is.null(fold_data[[1]]$final_beta)) {
-        names(group) <- names(fold_data[[1]]$final_beta)
-      } else {
-        names(group) <- names(fold_data[[1]]$classifier_coef)
-      }
+      warning("group vector does not have name, please use names() to assign.")
+      # if (!is.null(fold_data[[1]]$final_beta)) {
+      #   names(group) <- names(fold_data[[1]]$final_beta)
+      # } else {
+      #   names(group) <- names(fold_data[[1]]$classifier_coef)
+      # }
     }
     
     group_nonzero_counts <- table(group[active_features])
