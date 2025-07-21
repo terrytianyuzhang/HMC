@@ -30,20 +30,20 @@ STAT2 <- residual_subset[
 ]
 
 clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds"))
-gene_to_keep <- which(clustering$cluster_index %in% 1:41)
-# gene_to_keep <- which(clustering$cluster_index %in% c(5))
-control_subset <- control[, ..gene_to_keep]
-STAT1_subset <- STAT1[, ..gene_to_keep]
-STAT2_subset <- STAT2[, ..gene_to_keep]
+# gene_to_keep <- which(clustering$cluster_index %in% 1:41)
+# # gene_to_keep <- which(clustering$cluster_index %in% c(5))
+# control_subset <- control[, ..gene_to_keep]
+# STAT1_subset <- STAT1[, ..gene_to_keep]
+# STAT2_subset <- STAT2[, ..gene_to_keep]
 
 grouping_vector <- clustering[gene_to_keep,]$cluster_index
 names(grouping_vector) <- clustering[gene_to_keep,]$gene_name
 
 set.seed(123)
 gp_lasso_test_result <- convergence_testing(
-  control = control_subset[1:300,],
-  treatment1 = STAT1_subset,
-  treatment2 = STAT2_subset,
+  control = control[1:300,],
+  treatment1 = STAT1,
+  treatment2 = STAT2,
   pca_method = "dense_pca",
   classifier_method = "group_lasso",
   lambda_type = "lambda.min",
@@ -52,9 +52,13 @@ gp_lasso_test_result <- convergence_testing(
   verbose = TRUE
 )
 
-# collect_active_features requires the group vector to have names
-collect_active_features(gp_lasso_test_result, group = grouping_vector, group_threshold = 5)
-clustering[cluster_index == 31,]
+saveRDS(gp_lasso_test_result, file = paste0(output_dir, "/data/HMC_convergence_control_STAT1_STAT2_grLasso.rds"))
+
+collect_active_features(gp_lasso_test_result, 
+                        group = grouping_vector, group_threshold = 5)
+clustering[cluster_index == 31,]$gene_name
+
+
 clustering[gene_name %in% gp_picked_dimension$active_features,]
 gp_lasso_test_result$p_value
 dim(STAT1_subset)
