@@ -434,3 +434,73 @@ collect_active_features <- function(test_result, voting_method = c("majority_vot
   
   return(active_features)
 }
+
+#' Visualize top nonzero coefficients across folds
+#'
+#' This function extracts the top nonzero genes (by absolute value) from \code{first_beta}, \code{final_beta},
+#' \code{second_pc}, and \code{proj_direction} for each fold in a \code{convergence_testing()} result. It
+#' generates a faceted bar plot by fold and type.
+#'
+#' @param fold_data A list of per-fold results from \code{convergence_testing()}.
+#' @param top_n Integer. Maximum number of top genes to extract per fold per vector. Default is 20.
+#' @param tol Numeric. Threshold below which values are considered zero. Default is 1e-8.
+#' @param save_path Optional character. If provided, saves the PDF plot to this path.
+#'
+#' @return A data.frame of the top nonzero gene values across folds, used for plotting.
+#'
+#' @export
+visualize_convergence_top_genes <- function(fold_data, top_n = 20, tol = 1e-8, save_path = NULL) {
+  
+  extract_top_vector_df <- function(fold_data, vec_name, top_n, tol) {
+    df_list <- lapply(seq_along(fold_data), function(i) {
+      vec <- fold_data[[i]][[vec_name]]
+      if (is.null(vec) || all(is.na(vec))) return(NULL)
+      
+      vec <- vec[abs(vec) > tol]
+      if (length(vec) == 0) return(NULL)
+      
+      vec <- vec[order(-abs(vec))]
+      top_genes <- head(vec, top_n)
+      
+      data.frame(
+        gene = names(top_genes),
+        value = as.numeric(top_genes),
+        fold = paste0("Fold_", i),
+        type = vec_name,
+        stringsAsFactors = FALSE
+      )
+    })
+    do.call(rbind, df_list)
+  }
+  
+  # Extract top nonzero genes
+  top_first_beta  <- extract_top_vector_df(fold_data, "first_beta",  top_n, tol)
+  top_final_beta  <- extract_top_vector_df(fold_data, "final_beta",  top_n, tol)
+  top_second_pc   <- extract_top_vector_df(fold_data, "second_pc",   top_n, tol)
+  top_proj_dir    <- extract_top_vector_df(fold_data, "proj_direction", top_n, tol)
+  
+  # Combine all
+  combined_df <- rbind(top_first_beta, top_final_beta, top_second_pc, top_proj_dir)
+  combined_df$fold <- factor(combined_df$fold)
+  combined_df$type <- factor(combined_df$type, levels = c("first_beta", "final_beta", "second_pc", "proj_direction"))
+  
+  # Plot
+  p <- ggplot(combined_df, aes(x = reorder(gene, -abs(value)), y = value, fill = type)) +
+    geom_bar(stat = "identity", position = "dodge") +
+    facet_grid(type ~ fold, scales = "free_y") +
+    theme_minimal() +
+    labs(title = "Top Nonzero Features per Fold and Type",
+         x = "Gene",
+         y = "Coefficient or Projection Weight") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          legend.position = "none")
+  
+  print(p)
+  
+  # Optionally save plot
+  if (!is.null(save_path)) {
+    ggsave(save_path, plot = p, width = 40, height = 40, units = "in", dpi = 300)
+  }
+  
+  return(combined_df)
+}

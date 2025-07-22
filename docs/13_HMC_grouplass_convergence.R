@@ -36,8 +36,8 @@ clustering <- readRDS(paste0(output_dir, "/data/gene_clustering_for_HMC.rds"))
 # STAT1_subset <- STAT1[, ..gene_to_keep]
 # STAT2_subset <- STAT2[, ..gene_to_keep]
 
-grouping_vector <- clustering[gene_to_keep,]$cluster_index
-names(grouping_vector) <- clustering[gene_to_keep,]$gene_name
+grouping_vector <- clustering$cluster_index
+names(grouping_vector) <- clustering$gene_name
 
 set.seed(123)
 gp_lasso_test_result <- convergence_testing(

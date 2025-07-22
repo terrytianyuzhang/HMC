@@ -130,6 +130,17 @@ To further investigate which features contribute to the observed similarity or d
 collect_active_features(test_result)
 ```
 
+There is also a visualization function to examine the candidate convergence gene (`first_beta`) and selected convergence gene (`final_beta`, `second_pc` and `proj_direction`). Specifically, the `proj_direction` vector is the one used to calculate test staitstics for each fold. We expect certain consistency between the folds.
+
+```{r}
+combined_df <- visualize_convergence_top_genes(
+  fold_data = test_result$fold_data,
+  top_n = 20
+)
+```
+
+## Performance when No Convergence
+
 To illustrate how the method behaves under a null-like scenario, we simulate an artificial example where one of the treatment groups (treatment2) is nearly identical to the control group, except for a small perturbation in a few features.
 
 Specifically, we:
@@ -175,6 +186,7 @@ Although `psudo_control_subset` differs from the control group (due to the artif
 test_result_null$p_value
 collect_active_features(test_result_null)
 ```
+
 
 ## Perturbation Convergence on Gene Modules
 
