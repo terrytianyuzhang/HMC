@@ -485,14 +485,14 @@ visualize_convergence_top_genes <- function(fold_data, top_n = 20, tol = 1e-8, s
   combined_df$type <- factor(combined_df$type, levels = c("first_beta", "final_beta", "second_pc", "proj_direction"))
   
   # Plot
-  p <- ggplot2::ggplot(combined_df, aes(x = reorder(gene, -abs(value)), y = value, fill = type)) +
-    geom_bar(stat = "identity", position = "dodge") +
-    facet_grid(type ~ fold, scales = "free_y") +
-    theme_minimal() +
-    labs(title = "Top Nonzero Features per Fold and Type",
+  p <- ggplot2::ggplot(combined_df, ggplot2::aes(x = reorder(gene, -abs(value)), y = value, fill = type)) +
+    ggplot2::geom_bar(stat = "identity", position = "dodge") +
+    ggplot2::facet_grid(type ~ fold, scales = "free_y") +
+    ggplot2::theme_minimal() +
+    ggplot2::labs(title = "Top Nonzero Features per Fold and Type",
          x = "Gene",
          y = "Coefficient or Projection Weight") +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+    ggplot2::theme(axis.text.x = element_text(angle = 90, hjust = 1),
           legend.position = "none")
   
   print(p)
