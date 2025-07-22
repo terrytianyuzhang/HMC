@@ -492,7 +492,7 @@ visualize_convergence_top_genes <- function(fold_data, top_n = 20, tol = 1e-8, s
     ggplot2::labs(title = "Top Nonzero Features per Fold and Type",
          x = "Gene",
          y = "Coefficient or Projection Weight") +
-    ggplot2::theme(axis.text.x = element_text(angle = 90, hjust = 1),
+    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1),
           legend.position = "none")
   
   print(p)
