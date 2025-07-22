@@ -191,7 +191,7 @@ wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for
 <pre><code>[1] "IFI6"  "IFIT3" "OAS3"  "XAF1" </code></pre>
 </div>
 </div>
-<p>There is also a visualization function to examine the candidate convergence gene (<code>first_beta</code>) and selected convergence gene (<code>final_beta</code>, <code>second_pc</code> and <code>proj_direction</code>). Specifically, the <code>proj_direction</code> vector is the one used to calculate test staitstics for each fold. We expect certain consistency between the folds.</p>
+<p>There is also a visualization function to examine the candidate convergence gene (<code>first_beta</code>) and selected convergence gene (<code>final_beta</code>, <code>second_pc</code> and <code>proj_direction</code>). Among these, the <code>proj_direction vector</code> is used to compute the test statistic within each fold. By visualizing and comparing these vectors across folds, we can assess the consistency of gene selection and projection direction.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>combined_df <span class="ot">&lt;-</span> <span class="fu">visualize_convergence_top_genes</span>(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fold_data =</span> test_result<span class="sc">$</span>fold_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>],</span>

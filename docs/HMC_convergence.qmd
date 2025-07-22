@@ -130,7 +130,7 @@ To further investigate which features contribute to the observed similarity or d
 collect_active_features(test_result)
 ```
 
-There is also a visualization function to examine the candidate convergence gene (`first_beta`) and selected convergence gene (`final_beta`, `second_pc` and `proj_direction`). Specifically, the `proj_direction` vector is the one used to calculate test staitstics for each fold. We expect certain consistency between the folds.
+There is also a visualization function to examine the candidate convergence gene (`first_beta`) and selected convergence gene (`final_beta`, `second_pc` and `proj_direction`). Among these, the `proj_direction vector` is used to compute the test statistic within each fold. By visualizing and comparing these vectors across folds, we can assess the consistency of gene selection and projection direction.
 
 ```{r}
 combined_df <- visualize_convergence_top_genes(
