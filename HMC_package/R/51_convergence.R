@@ -485,7 +485,7 @@ visualize_convergence_top_genes <- function(fold_data, top_n = 20, tol = 1e-8, s
   combined_df$type <- factor(combined_df$type, levels = c("first_beta", "final_beta", "second_pc", "proj_direction"))
   
   # Plot
-  p <- ggplot(combined_df, aes(x = reorder(gene, -abs(value)), y = value, fill = type)) +
+  p <- ggplot2::ggplot(combined_df, aes(x = reorder(gene, -abs(value)), y = value, fill = type)) +
     geom_bar(stat = "identity", position = "dodge") +
     facet_grid(type ~ fold, scales = "free_y") +
     theme_minimal() +
@@ -499,7 +499,7 @@ visualize_convergence_top_genes <- function(fold_data, top_n = 20, tol = 1e-8, s
   
   # Optionally save plot
   if (!is.null(save_path)) {
-    ggsave(save_path, plot = p, width = 40, height = 40, units = "in", dpi = 300)
+    ggplot2::ggsave(save_path, plot = p, width = 40, height = 40, units = "in", dpi = 300)
   }
   
   return(combined_df)
