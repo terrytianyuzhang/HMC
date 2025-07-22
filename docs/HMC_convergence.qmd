@@ -134,7 +134,7 @@ There is also a visualization function to examine the candidate convergence gene
 
 ```{r}
 combined_df <- visualize_convergence_top_genes(
-  fold_data = test_result$fold_data,
+  fold_data = test_result$fold_data[1:2],
   top_n = 20
 )
 ```
