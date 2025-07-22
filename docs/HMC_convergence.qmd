@@ -92,7 +92,7 @@ First 3 cells and first 5 genes from the STAT1 group:
 STAT1[1:3, 1:5]
 ```
 
-## Gene-Level Perturbation Convergence Analysis
+## 1. Gene-Level Perturbation Convergence Analysis
 
 Now we perform the convergence analysis using the `convergence_testing()` function.
 
@@ -143,7 +143,7 @@ combined_df <- visualize_convergence_top_genes(
 )
 ```
 
-## Performance when No Convergence
+## 2. Performance when No Convergence
 
 To illustrate how the method behaves under a null-like scenario, we simulate an artificial example where one of the treatment groups (treatment2) is nearly identical to the control group, except for a small perturbation in a few features.
 
@@ -192,7 +192,7 @@ collect_active_features(test_result_null)
 ```
 
 
-## Perturbation Convergence on Gene Modules
+## 3. Perturbation Convergence on Gene Modules
 
 So far, we have demonstrated how to assess perturbation convergence by evaluating each measured gene individually. This gene-level strategy often identifies multiple genes with the strongest signals. As an alternative, one can first group all measured genes into modules and then assess convergence at the module level.
 
@@ -260,7 +260,7 @@ clustering[cluster_index == 31,]$gene_name
 How to establish the modules effectively is a whole different question, which still attracts a lot of research interests. Fortunately,  `convergence_testing()` is flexible and can take any method's clustering result as its input---simply replace `grouping_vector` with your own, as long as it follows the correct named format. The module list provided in this tutorial partially followed the pipeline proposed by [CS_CORE](https://changsubiostats.github.io/CS-CORE/articles/CSCORE.html)
 
 
-## Normality of the Test Statistics
+## 4. Normality of the Test Statistics
 
 The test statistic returned by `convergence_testing()` is standard Gaussian under the null hypothesis of no convergence. We conduct a simple simulation study to empirically verify this behavior.
 

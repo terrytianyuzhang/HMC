@@ -81,13 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of Contents</h2>
    
   <ul>
-  <li><a href="#gene-level-perturbation-convergence-analysis" id="toc-gene-level-perturbation-convergence-analysis" class="nav-link active" data-scroll-target="#gene-level-perturbation-convergence-analysis">Gene-Level Perturbation Convergence Analysis</a></li>
-  <li><a href="#performance-when-no-convergence" id="toc-performance-when-no-convergence" class="nav-link" data-scroll-target="#performance-when-no-convergence">Performance when No Convergence</a></li>
-  <li><a href="#perturbation-convergence-on-gene-modules" id="toc-perturbation-convergence-on-gene-modules" class="nav-link" data-scroll-target="#perturbation-convergence-on-gene-modules">Perturbation Convergence on Gene Modules</a>
+  <li><a href="#gene-level-perturbation-convergence-analysis" id="toc-gene-level-perturbation-convergence-analysis" class="nav-link active" data-scroll-target="#gene-level-perturbation-convergence-analysis">1. Gene-Level Perturbation Convergence Analysis</a></li>
+  <li><a href="#performance-when-no-convergence" id="toc-performance-when-no-convergence" class="nav-link" data-scroll-target="#performance-when-no-convergence">2. Performance when No Convergence</a></li>
+  <li><a href="#perturbation-convergence-on-gene-modules" id="toc-perturbation-convergence-on-gene-modules" class="nav-link" data-scroll-target="#perturbation-convergence-on-gene-modules">3. Perturbation Convergence on Gene Modules</a>
   <ul class="collapse">
   <li><a href="#remark." id="toc-remark." class="nav-link" data-scroll-target="#remark.">Remark.</a></li>
   </ul></li>
-  <li><a href="#normality-of-the-test-statistics" id="toc-normality-of-the-test-statistics" class="nav-link" data-scroll-target="#normality-of-the-test-statistics">Normality of the Test Statistics</a></li>
+  <li><a href="#normality-of-the-test-statistics" id="toc-normality-of-the-test-statistics" class="nav-link" data-scroll-target="#normality-of-the-test-statistics">4. Normality of the Test Statistics</a></li>
   </ul>
 </nav>
 </div>
@@ -173,7 +173,7 @@ wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for
 </div>
 </div>
 <section id="gene-level-perturbation-convergence-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="gene-level-perturbation-convergence-analysis">Gene-Level Perturbation Convergence Analysis</h2>
+<h2 class="anchored" data-anchor-id="gene-level-perturbation-convergence-analysis">1. Gene-Level Perturbation Convergence Analysis</h2>
 <p>Now we perform the convergence analysis using the <code>convergence_testing()</code> function.</p>
 <p>We compare <code>STAT1</code> and <code>STAT2</code>, using control group as the baseline.</p>
 <div class="cell">
@@ -221,7 +221,7 @@ wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for
 </div>
 </section>
 <section id="performance-when-no-convergence" class="level2">
-<h2 class="anchored" data-anchor-id="performance-when-no-convergence">Performance when No Convergence</h2>
+<h2 class="anchored" data-anchor-id="performance-when-no-convergence">2. Performance when No Convergence</h2>
 <p>To illustrate how the method behaves under a null-like scenario, we simulate an artificial example where one of the treatment groups (treatment2) is nearly identical to the control group, except for a small perturbation in a few features.</p>
 <p>Specifically, we:</p>
 <ul>
@@ -269,7 +269,7 @@ wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for
 </div>
 </section>
 <section id="perturbation-convergence-on-gene-modules" class="level2">
-<h2 class="anchored" data-anchor-id="perturbation-convergence-on-gene-modules">Perturbation Convergence on Gene Modules</h2>
+<h2 class="anchored" data-anchor-id="perturbation-convergence-on-gene-modules">3. Perturbation Convergence on Gene Modules</h2>
 <p>So far, we have demonstrated how to assess perturbation convergence by evaluating each measured gene individually. This gene-level strategy often identifies multiple genes with the strongest signals. As an alternative, one can first group all measured genes into modules and then assess convergence at the module level.</p>
 <p>For this tutorial, we provide a pre-calculated gene module vector, which you can download from our GitHub repository:</p>
 <div class="cell">
@@ -354,7 +354,7 @@ $active_groups
 </section>
 </section>
 <section id="normality-of-the-test-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="normality-of-the-test-statistics">Normality of the Test Statistics</h2>
+<h2 class="anchored" data-anchor-id="normality-of-the-test-statistics">4. Normality of the Test Statistics</h2>
 <p>The test statistic returned by <code>convergence_testing()</code> is standard Gaussian under the null hypothesis of no convergence. We conduct a simple simulation study to empirically verify this behavior.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HMC)</span>
