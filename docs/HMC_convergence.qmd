@@ -1,5 +1,5 @@
 ---
-title: "Performing Convergence Analysis Using HMC"
+title: "Performing Convergence Analysis with XConTest"
 format:
   html:
     toc: true
@@ -8,15 +8,9 @@ format:
 editor: visual
 ---
 
-This tutorial demonstrates how to perform convergence analysis using the `HMC` package. We will use a sample dataset, which can be downloaded using the following command.
+This tutorial demonstrates how to perform convergence analysis using `XConTest`. 
 
-<!-- You can run it directly in your terminal and the data will, normally, be downloaded in the folder where you ran it. -->
-
-````{=html}
-<!-- ```{bash, eval = FALSE}
-wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds
-``` -->
-````
+We will use a sample dataset, which can be downloaded using the following command.
 
 ```{r, eval = FALSE}
 my_local_path <- "~/your/local/path/"
@@ -191,7 +185,6 @@ test_result_null$p_value
 collect_active_features(test_result_null)
 ```
 
-
 ## 3. Perturbation Convergence on Gene Modules
 
 So far, we have demonstrated how to assess perturbation convergence by evaluating each measured gene individually. This gene-level strategy often identifies multiple genes with the strongest signals. As an alternative, one can first group all measured genes into modules and then assess convergence at the module level.
@@ -213,6 +206,7 @@ clustering <- readRDS(paste0(output_dir, "data/gene_clustering_for_HMC.rds"))
 ```
 
 Format the grouping vector (in total, we have 41 modules).
+
 ```{r}
 grouping_vector <- clustering$cluster_index
 names(grouping_vector) <- clustering$gene_name
@@ -257,8 +251,7 @@ clustering[cluster_index == 31,]$gene_name
 
 ### Remark.
 
-How to establish the modules effectively is a whole different question, which still attracts a lot of research interests. Fortunately,  `convergence_testing()` is flexible and can take any method's clustering result as its input---simply replace `grouping_vector` with your own, as long as it follows the correct named format. The module list provided in this tutorial partially followed the pipeline proposed by [CS_CORE](https://changsubiostats.github.io/CS-CORE/articles/CSCORE.html)
-
+How to establish the modules effectively is a whole different question, which still attracts a lot of research interests. Fortunately, `convergence_testing()` is flexible and can take any method's clustering result as its input---simply replace `grouping_vector` with your own, as long as it follows the correct named format. The module list provided in this tutorial partially followed the pipeline proposed by [CS_CORE](https://changsubiostats.github.io/CS-CORE/articles/CSCORE.html)
 
 ## 4. Normality of the Test Statistics
 

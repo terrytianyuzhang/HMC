@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Performing Convergence Analysis Using HMC</title>
+<title>Performing Convergence Analysis with XConTest</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,7 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Performing Convergence Analysis Using HMC</h1>
+<h1 class="title">Performing Convergence Analysis with XConTest</h1>
 </div>
 
 
@@ -112,11 +112,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This tutorial demonstrates how to perform convergence analysis using the <code>HMC</code> package. We will use a sample dataset, which can be downloaded using the following command.</p>
-<!-- You can run it directly in your terminal and the data will, normally, be downloaded in the folder where you ran it. -->
-<!-- ```{bash, eval = FALSE}
-wget https://github.com/terrytianyuzhang/HMC/blob/main/docs/data/tiny_cleary_for_HMC.rds
-``` -->
+<p>This tutorial demonstrates how to perform convergence analysis using <code>XConTest</code>.</p>
+<p>We will use a sample dataset, which can be downloaded using the following command.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_local_path <span class="ot">&lt;-</span> <span class="st">"~/your/local/path/"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/terrytianyuzhang/HMC/main/docs/data/tiny_cleary_for_HMC.rds"</span></span>
