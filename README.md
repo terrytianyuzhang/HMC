@@ -2,7 +2,7 @@
 
 **HMC** is an R package for High-dimensional two-sample Mean Comparison using data-driven projections and cross-fitting.
 
-## 🔧 Installation
+## Installation
 
 You can install from CRAN using:
 
@@ -17,7 +17,7 @@ devtools::install_github("terrytianyuzhang/HMC/HMC_package")
 ```
 
 
-## 📖 Tutorial
+## Tutorial
 
 - [Performing Two-Sample Mean Comparison Using HMC](https://terrytianyuzhang.github.io/HMC/HMC_tutorial.html)
 
